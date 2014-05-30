@@ -1,0 +1,4 @@
+LIBRARY SwirlyLeap.mxe
+
+EXPORTS
+	main

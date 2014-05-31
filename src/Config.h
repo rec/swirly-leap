@@ -1,8 +1,9 @@
 #include "Base.h"
 
 namespace swirly {
+namespace leap {
 
-struct LeapConfig {
+struct Config {
     typedef vector<string> Address;
     typedef vector<Address> Addresses;
 
@@ -42,4 +43,5 @@ struct LeapConfig {
     }
 };
 
+}  // namespace leap
 }  // namespace swirly

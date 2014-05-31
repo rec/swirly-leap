@@ -1,28 +1,24 @@
 #pragma include once
 
-#include <memory>
-#include <string>
-#include <vector>
-
-extern "C" {
-#include "ext.h"
-#include "ext_obex.h"
-}
-
-using namespace std;
+#include "Base.h"
 
 namespace swirly {
+namespace leap {
 
-struct LeapConfig;
+struct Config;
 
-class LeapMotion {
+class MaxObject {
   public:
     static void maxRegister();
 
+  private:
     struct Max {
         t_object object_;
-        LeapMotion *leapMotion_;
+        MaxObject *maxObject_;
     };
+
+    MaxObject(Max* max, t_symbol *s, long argc, t_atom *argv);
+    ~MaxObject();
 
     static void maxFree(Max*);
     static void* maxNew(t_symbol *s, long argc, t_atom *argv);
@@ -30,17 +26,14 @@ class LeapMotion {
     static void maxBang(Max*);
     static void maxAssist(Max *max, void *b, long m, long a, char *s);
 
-  private:
-    static t_class* CLASS_POINTER;
-
-    LeapMotion(Max* max, t_symbol *s, long argc, t_atom *argv);
-    ~LeapMotion();
-
     void bang();
     void assist(void *b, long m, long a, char *s);
 
     Max *const max_;
-    unique_ptr<LeapConfig> config_;
+    unique_ptr<Config> config_;
+
+    static t_class* CLASS_POINTER;
 };
 
+}  // namespace leap
 }  // namespace swirly

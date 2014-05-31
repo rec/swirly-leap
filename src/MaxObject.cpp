@@ -1,17 +1,16 @@
 #include <sstream>
 
-#include "LeapMotion.h"
-#include "LeapConfig.h"
+#include "MaxObject.h"
+#include "Config.h"
 
 #include "leap/Leap.h"
 
 namespace swirly {
+namespace leap {
 
-struct Test {};
+t_class* MaxObject::CLASS_POINTER;
 
-t_class* LeapMotion::CLASS_POINTER;
-
-void LeapMotion::maxRegister() {
+void MaxObject::maxRegister() {
     CLASS_POINTER = class_new(
         "SwirlyLeap",
         (method) maxNew,
@@ -19,35 +18,35 @@ void LeapMotion::maxRegister() {
         sizeof(Max),
         nullptr, A_GIMME, 0);
     class_addmethod(CLASS_POINTER,
-                    (method) LeapMotion::maxAssist, "assist", A_CANT, 0);
+                    (method) MaxObject::maxAssist, "assist", A_CANT, 0);
     class_addmethod(CLASS_POINTER,
-                    (method) LeapMotion::maxBang, "bang", 0);
+                    (method) MaxObject::maxBang, "bang", 0);
     class_register(CLASS_BOX, CLASS_POINTER);
 }
 
-void LeapMotion::maxFree(Max* max) {
-    delete max->leapMotion_;
+void MaxObject::maxFree(Max* max) {
+    delete max->maxObject_;
 }
 
-void* LeapMotion::maxNew(t_symbol *s, long argc, t_atom *argv) {
+void* MaxObject::maxNew(t_symbol *s, long argc, t_atom *argv) {
     Max* max = static_cast<Max*>(object_alloc(CLASS_POINTER));
     if (max)
-        max->leapMotion_ = new LeapMotion(max, s, argc, argv);
+        max->maxObject_ = new MaxObject(max, s, argc, argv);
     return max;
 }
 
-void LeapMotion::maxBang(Max* max) {
-    max->leapMotion_->bang();
+void MaxObject::maxBang(Max* max) {
+    max->maxObject_->bang();
 }
 
-void LeapMotion::maxAssist(Max *max, void *b, long m, long a, char *s) {
-    max->leapMotion_->assist(b, m, a, s);
+void MaxObject::maxAssist(Max *max, void *b, long m, long a, char *s) {
+    max->maxObject_->assist(b, m, a, s);
 }
 
-LeapMotion::~LeapMotion() {}
+MaxObject::~MaxObject() {}
 
-LeapMotion::LeapMotion(Max* max, t_symbol *s, long argc, t_atom *argv)
-        : max_(max), config_(new LeapConfig) {
+MaxObject::MaxObject(Max* max, t_symbol *s, long argc, t_atom *argv)
+        : max_(max), config_(new Config) {
     t_object* object = &max_->object_;
     object_post(object, "%s", s->s_name);
     object_post(object, "Built: %s, %s", __DATE__, __TIME__);
@@ -73,12 +72,13 @@ LeapMotion::LeapMotion(Max* max, t_symbol *s, long argc, t_atom *argv)
     }
 }
 
-void LeapMotion::bang() {
+void MaxObject::bang() {
     post("bang!\n");
 }
 
-void LeapMotion::assist(void *b, long m, long a, char *s) {
+void MaxObject::assist(void *b, long m, long a, char *s) {
     sprintf(s, "%s %ld", m == ASSIST_INLET ? "inlet" : "outlet", a);
 }
 
+}  // namespace leap
 }  // namespace swirly

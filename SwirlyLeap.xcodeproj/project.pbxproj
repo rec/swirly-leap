@@ -16,6 +16,8 @@
 		E2BD5FD8193A5DC300880150 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FD1193A5DC300880150 /* Main.cpp */; };
 		E2BD5FD9193A5DC300880150 /* MaxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FD2193A5DC300880150 /* MaxObject.cpp */; };
 		E2BD5FDA193A5DC300880150 /* MaxObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD5FD3193A5DC300880150 /* MaxObject.h */; };
+		E2BD5FDD193A6A7100880150 /* Listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FDB193A6A7100880150 /* Listener.cpp */; };
+		E2BD5FDE193A6A7100880150 /* Listener.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD5FDC193A6A7100880150 /* Listener.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +44,8 @@
 		E2BD5FD1193A5DC300880150 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
 		E2BD5FD2193A5DC300880150 /* MaxObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaxObject.cpp; sourceTree = "<group>"; };
 		E2BD5FD3193A5DC300880150 /* MaxObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxObject.h; sourceTree = "<group>"; };
+		E2BD5FDB193A6A7100880150 /* Listener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Listener.cpp; path = src/Listener.cpp; sourceTree = SOURCE_ROOT; };
+		E2BD5FDC193A6A7100880150 /* Listener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Listener.h; path = src/Listener.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,8 @@
 		E2BD5FCE193A5DC300880150 /* leap */ = {
 			isa = PBXGroup;
 			children = (
+				E2BD5FDB193A6A7100880150 /* Listener.cpp */,
+				E2BD5FDC193A6A7100880150 /* Listener.h */,
 				E2BD5FCF193A5DC300880150 /* Leap.h */,
 				E2BD5FD0193A5DC300880150 /* LeapMath.h */,
 			);
@@ -104,6 +110,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2BD5FDE193A6A7100880150 /* Listener.h in Headers */,
 				E2BD5FD7193A5DC300880150 /* LeapMath.h in Headers */,
 				E2BD5FD5193A5DC300880150 /* Config.h in Headers */,
 				E2BD5FD6193A5DC300880150 /* Leap.h in Headers */,
@@ -185,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2BD5FD8193A5DC300880150 /* Main.cpp in Sources */,
+				E2BD5FDD193A6A7100880150 /* Listener.cpp in Sources */,
 				E2BD5FD9193A5DC300880150 /* MaxObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

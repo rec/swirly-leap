@@ -2,6 +2,7 @@
 
 #include "MaxObject.h"
 #include "Config.h"
+#include "Listener.h"
 
 namespace swirly {
 namespace leap {
@@ -22,29 +23,33 @@ struct MaxStruct {
 class MaxObject {
   public:
     MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
-            : maxStruct_(maxStruct) {
-        t_object* object = &maxStruct_->object_;
-        object_post(object, "%s", s->s_name);
-        object_post(object, "Built: %s, %s", __DATE__, __TIME__);
-        object_post(object, "%ld arguments", argc);
+            : maxStruct_(maxStruct),
+              object_(&maxStruct_->object_),
+              listener_(object_) {
+        object_post(object_, "%s", s->s_name);
+        object_post(object_, "Built: %s, %s", __DATE__, __TIME__);
+        object_post(object_, "%ld arguments", argc);
 
         for (auto i = 0; i < argc; ++i) {
             if ((argv + i)->a_type == A_SYM) {
                 const char* s = atom_getsym(argv + i)->s_name;
-                object_post(object,
+                object_post(object_,
                             "arg %ld: symbol (%s)",
                             i, s);
-                config_.addArgument(s, object);
+                config_.addArgument(s, object_);
             } else {
-                object_error(object, "forbidden argument");
+                object_error(object_, "forbidden argument");
             }
         }
-        config_.dump(object);
+        config_.dump(object_);
+        listener_.startListening();
     }
 
   private:
     MaxStruct *const maxStruct_;
+    t_object* object_;
     Config config_;
+    Listener listener_;
 };
 
 void maxDelete(MaxStruct *max) {

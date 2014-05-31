@@ -1,6 +1,6 @@
 #pragma include once
 
-#include <sstream>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -12,6 +12,8 @@ extern "C" {
 using namespace std;
 
 namespace swirly {
+
+struct LeapConfig;
 
 class LeapMotion {
   public:
@@ -32,23 +34,13 @@ class LeapMotion {
     static t_class* CLASS_POINTER;
 
     LeapMotion(Max* max, t_symbol *s, long argc, t_atom *argv);
+    ~LeapMotion();
 
     void bang();
     void assist(void *b, long m, long a, char *s);
 
-    typedef vector<string> Address;
-    typedef vector<Address> Addresses;
-
     Max *const max_;
-    bool debug_ = false;
-    bool json_ = false;
-    bool all_ = false;
-    Addresses addresses_;
-
-    static auto const ADDRESS_SEPARATOR = '.';
-    static auto const FLAG_PREFIX = '-';
-
-    void addArgument(const string &s);
+    unique_ptr<LeapConfig> config_;
 };
 
 }  // namespace swirly

@@ -1,6 +1,13 @@
+#include <sstream>
+
 #include "LeapMotion.h"
+#include "LeapConfig.h"
+
+#include "leap/Leap.h"
 
 namespace swirly {
+
+struct Test {};
 
 t_class* LeapMotion::CLASS_POINTER;
 
@@ -37,8 +44,10 @@ void LeapMotion::maxAssist(Max *max, void *b, long m, long a, char *s) {
     max->leapMotion_->assist(b, m, a, s);
 }
 
+LeapMotion::~LeapMotion() {}
+
 LeapMotion::LeapMotion(Max* max, t_symbol *s, long argc, t_atom *argv)
-        : max_(max) {
+        : max_(max), config_(new LeapConfig) {
     t_object* object = &max_->object_;
     object_post(object, "%s", s->s_name);
     object_post(object, "Built: %s, %s", __DATE__, __TIME__);
@@ -50,14 +59,14 @@ LeapMotion::LeapMotion(Max* max, t_symbol *s, long argc, t_atom *argv)
             object_post(object,
                         "arg %ld: symbol (%s)",
                         i, s);
-            addArgument(s);
+            config_->addArgument(s, object);
         } else {
             object_error(object, "forbidden argument");
         }
     }
 
-    object_post(object, "debug=%s", debug_ ? "true" : "false");
-    for (auto const& addresses: addresses_) {
+    object_post(object, "debug=%s", config_->debug_ ? "true" : "false");
+    for (auto const& addresses: config_->addresses_) {
         object_post(object, "");
         for (auto const& a: addresses)
             object_post(object, a.c_str());
@@ -70,28 +79,6 @@ void LeapMotion::bang() {
 
 void LeapMotion::assist(void *b, long m, long a, char *s) {
     sprintf(s, "%s %ld", m == ASSIST_INLET ? "inlet" : "outlet", a);
-}
-
-
-void LeapMotion::addArgument(const string &s) {
-    if (s[0] == FLAG_PREFIX) {
-        if (s == "-debug")
-            debug_ = true;
-        else if (s == "-json")
-            json_ = true;
-        else if (s == "-all")
-            all_ = true;
-        else
-            object_post(&max_->object_, "ERROR: Didn't understand flag %s.",
-                        s.c_str());
-    } else {
-        Address address;
-        stringstream ss(s);
-        string item;
-        while (getline(ss, item, ADDRESS_SEPARATOR))
-            address.push_back(item);
-        addresses_.push_back(address);
-    }
 }
 
 }  // namespace swirly

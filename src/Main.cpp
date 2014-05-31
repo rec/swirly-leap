@@ -1,6 +1,6 @@
 #include "MaxObject.h"
 
 int C74_EXPORT main() {
-    swirly::leap::MaxObject::maxRegister();
+    swirly::leap::registerMaxObject();
     return 0;
 }

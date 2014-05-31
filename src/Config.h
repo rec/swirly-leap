@@ -41,6 +41,15 @@ struct Config {
             addresses_.push_back(address);
         }
     }
+
+    void dump(t_object* object) {
+        object_post(object, "debug=%s", debug_ ? "true" : "false");
+        for (auto const& addresses: addresses_) {
+            object_post(object, "");
+            for (auto const& a: addresses)
+                object_post(object, a.c_str());
+        }
+    }
 };
 
 }  // namespace leap

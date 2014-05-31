@@ -1,6 +1,8 @@
+#include <functional>
 #include <sstream>
 
 #include "MaxObject.h"
+#include "Callback.h"
 #include "Config.h"
 #include "Listener.h"
 
@@ -20,12 +22,12 @@ struct MaxStruct {
 };
 
 // This is the C++ class contained in this structure.
-class MaxObject {
+class MaxObject : public FrameCallback {
   public:
     MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
             : maxStruct_(maxStruct),
               object_(&maxStruct_->object_),
-              listener_(object_) {
+              listener_(object_, config_, *this) {
         object_post(object_, "%s", s->s_name);
         object_post(object_, "Built: %s, %s", __DATE__, __TIME__);
         object_post(object_, "%ld arguments", argc);
@@ -42,7 +44,11 @@ class MaxObject {
             }
         }
         config_.dump(object_);
-        listener_.startListening();
+        listener_.initialize();
+    }
+
+    void callback(Leap::Frame const&) override {
+        object_post(object_, "frame callback");
     }
 
   private:

@@ -1,0 +1,74 @@
+Pointable
+  Vector tipPosition
+  Vector tipVelocity
+  Vector direction
+  float width
+  float length
+  bool isExtended
+  Zone touchZone
+  float touchDistance
+  Vector stabilizedTipPosition
+  float timeVisible
+
+Bone
+  Vector center
+  Vector direction
+  float length
+  float width
+  Type type
+  Matrix basis
+
+Hand
+  Vector palmPosition
+  Vector stabilizedPalmPosition
+  Vector palmVelocity
+  Vector palmNormal
+  float palmWidth
+  Vector direction
+  Matrix basis
+  Vector sphereCenter
+  float sphereRadius
+  float pinchStrength
+  float grabStrength
+  float timeVisible
+  float confidence
+
+  # These next items in Hand are interpreted with respect to a previous
+  # specified frame number.
+  Vector translation  # Frame relative.
+  float translationProbability  # Frame relative.
+  Vector rotationAxis  # Frame relative.
+  float rotationAngle  # Frame relative.
+  Matrix rotationMatrix  # Frame relative.
+  float rotationProbability  # Frame relative.
+  float scaleFactor  # Frame relative.
+  float scaleProbability  # Frame relative.
+
+Gesture
+  Type type
+  State state
+  int32_t id
+  int64_t duration
+  float durationSeconds
+
+SwipeGesture
+  Vector startPosition
+  Vector position
+  Vector direction
+  float speed
+
+CircleGesture
+  Vector center
+  Vector normal
+  float progress
+  float radius
+
+ScreenTapGesture
+  Vector position
+  Vector direction
+  float progress
+
+KeyTapGesture
+  Vector position
+  Vector direction
+  float progress

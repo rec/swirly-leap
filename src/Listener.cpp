@@ -1,60 +1,74 @@
 #include "Listener.h"
+#include "Callback.h"
+#include "Config.h"
 
 namespace swirly {
 namespace leap {
 
-Listener::Listener(t_object* o) : object_(o) {}
+Listener::Listener(t_object* o, Config& config, FrameCallback& callback)
+        : object_(o), config_(config), callback_(callback) {
+}
 
-void Listener::startListening() {
-    controller_.addListener(*this);
+void Listener::initialize() {
+    if (not initialized_) {
+        initialized_ = true;
+        controller_.addListener(*this);
+    }
 }
 
 Listener::~Listener() {
-   controller_.removeListener(*this);
+    if (initialized_)
+        controller_.removeListener(*this);
 }
 
-void Listener::onInit(Controller const& controller) {
-    log("onInit");
+void Listener::onInit(Controller const&) {
+    verbose("onInit");
 }
 
-void Listener::onExit(Controller const& controller) {
-    log("onExit");
+void Listener::onExit(Controller const&) {
+    verbose("onExit");
 }
 
-void Listener::onConnect(Controller const& controller) {
+void Listener::onConnect(Controller const&) {
     log("onConnect");
 }
 
-void Listener::onDisconnect(const Controller& Controller) {
+void Listener::onDisconnect(Controller const&) {
     log("onDisconnect");
 }
 
 void Listener::onFrame(Controller const& controller) {
-    log("onFrame");
+    verbose("onFrame");
+    callback_.callback(controller.frame());
 }
 
-void Listener::onFocusGained(Controller const& controller) {
-    log("onFocusGained");
+void Listener::onFocusGained(Controller const&) {
+    verbose("onFocusGained");
 }
 
-void Listener::onFocusLost(Controller const& controller) {
-    log("onFocusLost");
+void Listener::onFocusLost(Controller const&) {
+    verbose("onFocusLost");
 }
 
-void Listener::onDeviceChange(Controller const& controller) {
-    log("onDeviceChange");
+void Listener::onDeviceChange(Controller const&) {
+    verbose("onDeviceChange");
 }
 
-void Listener::onServiceConnect(Controller const& controller) {
-    log("onServiceConnect");
+void Listener::onServiceConnect(Controller const&) {
+    verbose("onServiceConnect");
 }
 
-void Listener::onServiceDisconnect(Controller const& controller) {
+void Listener::onServiceDisconnect(Controller const&) {
     log("onServiceDisconnect");
 }
 
 void Listener::log(const char* message) {
     object_post(object_, message);
+}
+
+void Listener::verbose(const char* message) {
+    if (config_.verbose_)
+        log(message);
 }
 
 }  // namespace leap

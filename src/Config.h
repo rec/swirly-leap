@@ -9,7 +9,7 @@ struct Config {
 
     Addresses addresses_;
 
-    bool debug_ = false;
+    bool verbose_ = false;
     bool json_ = false;
     bool all_ = false;
     bool poll_ = false;
@@ -21,8 +21,8 @@ struct Config {
     void addArgument(const string &str, t_object* object) {
         string s = (str[0] == OPTION_PREFIX) ? str.substr(1) : str;
         if (s[0] == FLAG_PREFIX) {
-            if (s == "-debug")
-                debug_ = true;
+            if (s == "-verbose")
+                verbose_ = true;
             else if (s == "-json")
                 json_ = true;
             else if (s == "-all")
@@ -43,7 +43,7 @@ struct Config {
     }
 
     void dump(t_object* object) {
-        object_post(object, "debug=%s", debug_ ? "true" : "false");
+        object_post(object, "verbose=%s", verbose_ ? "true" : "false");
         for (auto const& addresses: addresses_) {
             object_post(object, "");
             for (auto const& a: addresses)

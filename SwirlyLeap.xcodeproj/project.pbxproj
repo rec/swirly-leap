@@ -8,12 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		E2BD5FBA193937EF00880150 /* SwirlyLeap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FB9193937EF00880150 /* SwirlyLeap.cpp */; };
+		E2BD5FBC193A3BB500880150 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BD5FBB193A3BB500880150 /* libLeap.dylib */; };
+		E2BD5FBE193A3C8500880150 /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2BD5FBB193A3BB500880150 /* libLeap.dylib */; };
+		E2BD5FC0193A49D300880150 /* LeapMotion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FBF193A49D300880150 /* LeapMotion.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E2BD5FBD193A3C6A00880150 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/MacOS;
+			dstSubfolderSpec = 1;
+			files = (
+				E2BD5FBE193A3C8500880150 /* libLeap.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		22CF10220EE984600054F513 /* maxmspsdk.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = maxmspsdk.xcconfig; sourceTree = SOURCE_ROOT; };
 		2FBBEAE508F335360078DB84 /* SwirlyLeap.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwirlyLeap.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2BD5FB9193937EF00880150 /* SwirlyLeap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwirlyLeap.cpp; sourceTree = "<group>"; };
+		E2BD5FBB193A3BB500880150 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = leap/libLeap.dylib; sourceTree = "<group>"; };
+		E2BD5FBF193A49D300880150 /* LeapMotion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeapMotion.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2BD5FBC193A3BB500880150 /* libLeap.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -31,8 +50,10 @@
 			isa = PBXGroup;
 			children = (
 				E2BD5FB9193937EF00880150 /* SwirlyLeap.cpp */,
+				E2BD5FBF193A49D300880150 /* LeapMotion.cpp */,
 				22CF10220EE984600054F513 /* maxmspsdk.xcconfig */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
+				E2BD5FBB193A3BB500880150 /* libLeap.dylib */,
 			);
 			name = iterator;
 			sourceTree = "<group>";
@@ -67,6 +88,7 @@
 				2FBBEADA08F335360078DB84 /* Sources */,
 				2FBBEADC08F335360078DB84 /* Frameworks */,
 				2FBBEADF08F335360078DB84 /* Rez */,
+				E2BD5FBD193A3C6A00880150 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -127,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2BD5FBA193937EF00880150 /* SwirlyLeap.cpp in Sources */,
+				E2BD5FC0193A49D300880150 /* LeapMotion.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +177,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/leap",
+				);
 				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
 			};
 			name = Development;
@@ -166,6 +193,10 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/leap",
+				);
 				OTHER_LDFLAGS = "$(C74_SYM_LINKER_FLAGS)";
 			};
 			name = Deployment;

@@ -46,8 +46,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 269.0, 191.0, 69.0, 20.0 ],
-					"text" : "SwirlyLeap"
+					"patching_rect" : [ 269.0, 191.0, 248.0, 20.0 ],
+					"text" : "SwirlyLeap a.c D XXX.YYY.ZZZ -debug -frog"
 				}
 
 			}

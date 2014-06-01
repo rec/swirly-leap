@@ -23,6 +23,8 @@
 		E2BD5FE8193AD83E00880150 /* Represent.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD5FE6193AD83E00880150 /* Represent.h */; };
 		E2BD5FEB193BB0BE00880150 /* Properties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FE9193BB0BE00880150 /* Properties.cpp */; };
 		E2BD5FEC193BB0BE00880150 /* Properties.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD5FEA193BB0BE00880150 /* Properties.h */; };
+		E2BD5FEF193BD21400880150 /* FrameHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FED193BD21400880150 /* FrameHandler.cpp */; };
+		E2BD5FF0193BD21400880150 /* FrameHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD5FEE193BD21400880150 /* FrameHandler.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,6 +58,8 @@
 		E2BD5FE6193AD83E00880150 /* Represent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Represent.h; sourceTree = "<group>"; };
 		E2BD5FE9193BB0BE00880150 /* Properties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Properties.cpp; sourceTree = "<group>"; };
 		E2BD5FEA193BB0BE00880150 /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Properties.h; sourceTree = "<group>"; };
+		E2BD5FED193BD21400880150 /* FrameHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameHandler.cpp; sourceTree = "<group>"; };
+		E2BD5FEE193BD21400880150 /* FrameHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameHandler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 				E2BD5FCC193A5DC300880150 /* Base.h */,
 				E2BD5FDF193AD7CC00880150 /* Callback.h */,
 				E2BD5FCD193A5DC300880150 /* Config.h */,
+				E2BD5FED193BD21400880150 /* FrameHandler.cpp */,
+				E2BD5FEE193BD21400880150 /* FrameHandler.h */,
 				E2BD5FCE193A5DC300880150 /* leap */,
 				E2BD5FD1193A5DC300880150 /* Main.cpp */,
 				E2BD5FD2193A5DC300880150 /* MaxObject.cpp */,
@@ -130,6 +136,7 @@
 				E2BD5FDE193A6A7100880150 /* Listener.h in Headers */,
 				E2BD5FD7193A5DC300880150 /* LeapMath.h in Headers */,
 				E2BD5FEC193BB0BE00880150 /* Properties.h in Headers */,
+				E2BD5FF0193BD21400880150 /* FrameHandler.h in Headers */,
 				E2BD5FD5193A5DC300880150 /* Config.h in Headers */,
 				E2BD5FD6193A5DC300880150 /* Leap.h in Headers */,
 				E2BD5FDA193A5DC300880150 /* MaxObject.h in Headers */,
@@ -213,6 +220,7 @@
 				E2BD5FD8193A5DC300880150 /* Main.cpp in Sources */,
 				E2BD5FDD193A6A7100880150 /* Listener.cpp in Sources */,
 				E2BD5FE7193AD83E00880150 /* Represent.cpp in Sources */,
+				E2BD5FEF193BD21400880150 /* FrameHandler.cpp in Sources */,
 				E2BD5FD9193A5DC300880150 /* MaxObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

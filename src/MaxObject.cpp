@@ -4,6 +4,7 @@
 #include "MaxObject.h"
 #include "Callback.h"
 #include "Config.h"
+#include "FrameHandler.h"
 #include "Listener.h"
 
 namespace swirly {
@@ -22,12 +23,13 @@ struct MaxStruct {
 };
 
 // This is the C++ class contained in this structure.
-class MaxObject : public Listener::Callback {
+class MaxObject {
   public:
     MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
             : maxStruct_(maxStruct),
               object_(&maxStruct_->object_),
-              listener_(object_, config_, *this) {
+              frameHandler_(config_),
+              listener_(object_, config_, frameHandler_) {
         object_post(object_, "%s", s->s_name);
         object_post(object_, "Built: %s, %s", __DATE__, __TIME__);
         object_post(object_, "%ld arguments", argc);
@@ -47,14 +49,11 @@ class MaxObject : public Listener::Callback {
         listener_.initialize();
     }
 
-    void callback(Leap::Frame const&) override {
-        object_post(object_, "frame callback");
-    }
-
   private:
     MaxStruct *const maxStruct_;
     t_object* object_;
     Config config_;
+    FrameHandler frameHandler_;
     Listener listener_;
 };
 

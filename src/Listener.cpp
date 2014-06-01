@@ -1,12 +1,12 @@
 #include "Listener.h"
-#include "Callback.h"
 #include "Config.h"
+#include "FrameHandler.h"
 
 namespace swirly {
 namespace leap {
 
-Listener::Listener(t_object* o, Config& config, Callback& callback)
-        : object_(o), config_(config), callback_(callback) {
+Listener::Listener(t_object* o, Config& config, FrameHandler& frameHandler)
+        : object_(o), config_(config), frameHandler_(frameHandler) {
 }
 
 void Listener::initialize() {
@@ -39,7 +39,7 @@ void Listener::onDisconnect(Controller const&) {
 
 void Listener::onFrame(Controller const& controller) {
     verbose("onFrame");
-    callback_.callback(controller.frame());
+    frameHandler_.onFrame(controller.frame());
 }
 
 void Listener::onFocusGained(Controller const&) {

@@ -1,16 +1,33 @@
-#pragma include once
-
 #include "Represent.h"
-#include "leap/Leap.h"
+
+using namespace Leap;
 
 namespace swirly {
 namespace leap {
 
-template <> JsonData representJson(bool f) {
+JsonData representJson(bool f) {
     return f ? "true" : "false";
 }
 
-template <> JsonData representJson(Leap::Vector v) {
+JsonData representJson(Pointable::Zone z) {
+    switch (z) {
+      case Pointable::ZONE_HOVERING: return "\"hovering\"";
+      case Pointable::ZONE_TOUCHING: return "\"touching\"";
+      default: return "\"none\"";
+    }
+}
+
+JsonData representJson(Bone::Type t) {
+    switch (t) {
+      case Bone::TYPE_METACARPAL: return "\"metacarpal\"";
+      case Bone::TYPE_PROXIMAL: return "\"proximal\"";
+      case Bone::TYPE_INTERMEDIATE: return "\"intermediate\"";
+      case Bone::TYPE_DISTAL: return "\"distal\"";
+      default: return "\"BAD\"";
+    }
+}
+
+JsonData representJson(Vector v) {
     return
         "[" +
         to_string(v.x) + ", " +
@@ -19,7 +36,7 @@ template <> JsonData representJson(Leap::Vector v) {
         "]";
 }
 
-template <> MaxData representMax(Leap::Vector v) {
+MaxData representMax(Vector v) {
     return MaxData{
         to_string(v.x),
         to_string(v.y),
@@ -27,7 +44,7 @@ template <> MaxData representMax(Leap::Vector v) {
     };
 }
 
-template <> JsonData representJson(Leap::Matrix m) {
+JsonData representJson(Matrix m) {
     return
         "[" +
         to_string(m.xBasis.x) + ", " +
@@ -45,7 +62,7 @@ template <> JsonData representJson(Leap::Matrix m) {
         "]";
 }
 
-template <> MaxData representMax(Leap::Matrix m) {
+MaxData representMax(Matrix m) {
     return MaxData{
         to_string(m.xBasis.x),
         to_string(m.xBasis.y),

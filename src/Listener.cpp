@@ -5,7 +5,7 @@
 namespace swirly {
 namespace leap {
 
-Listener::Listener(t_object* o, Config& config, FrameCallback& callback)
+Listener::Listener(t_object* o, Config& config, Callback& callback)
         : object_(o), config_(config), callback_(callback) {
 }
 

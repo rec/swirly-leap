@@ -22,7 +22,7 @@ struct MaxStruct {
 };
 
 // This is the C++ class contained in this structure.
-class MaxObject : public FrameCallback {
+class MaxObject : public Listener::Callback {
   public:
     MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
             : maxStruct_(maxStruct),

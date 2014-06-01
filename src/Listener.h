@@ -3,16 +3,18 @@
 #include "leap/Leap.h"
 
 #include "Base.h"
+#include "Callback.h"
 
 namespace swirly {
 namespace leap {
 
 struct Config;
-class FrameCallback;
 
 class Listener : public Leap::Listener {
   public:
-    explicit Listener(t_object*, Config&, FrameCallback&);
+    typedef Callback<Leap::Frame const&> Callback;
+
+    explicit Listener(t_object*, Config&, Callback&);
     ~Listener();
 
     void initialize();
@@ -34,7 +36,7 @@ class Listener : public Leap::Listener {
     Controller controller_;
     t_object *const object_;
     Config& config_;
-    FrameCallback& callback_;
+    Callback& callback_;
     bool initialized_ = false;
 
     void log(const char*);

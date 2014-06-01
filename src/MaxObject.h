@@ -1,4 +1,4 @@
-#pragma include once
+#pragma once
 
 #include "Base.h"
 

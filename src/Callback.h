@@ -1,18 +1,14 @@
-#pragma include once
+#pragma once
 
 #include "Base.h"
-
-namespace Leap {
-class Frame;
-}
 
 namespace swirly {
 namespace leap {
 
-class FrameCallback {
-  public:
-    virtual void callback(Leap::Frame const&) = 0;
-    virtual ~FrameCallback() {}
+template <typename Output>
+struct Callback {
+    virtual void callback(Output) = 0;
+    virtual ~Callback() {}
 };
 
 }  // namespace leap

@@ -1,14 +1,3 @@
-fingers=all, none, * or left or right or 1+2+4 or thumb+index+middle+ring+little or numeric
-hands=all, none or left or right
-tools=all/none
-swipe , circle , screentap , keytap
-
-outputs:
-
-finger, name, value
-hand, name, value
-swipe , circle , screentap , keytap: lists of values.
-
 Pointable
   Vector tipPosition
   Vector tipVelocity
@@ -44,17 +33,6 @@ Hand
   float timeVisible
   float confidence
 
-  # These next items in Hand are interpreted with respect to a previous
-  # specified frame number.
-  Vector translation  # Frame relative.
-  float translationProbability  # Frame relative.
-  Vector rotationAxis  # Frame relative.
-  float rotationAngle  # Frame relative.
-  Matrix rotationMatrix  # Frame relative.
-  float rotationProbability  # Frame relative.
-  float scaleFactor  # Frame relative.
-  float scaleProbability  # Frame relative.
-
 Gesture
   int32_t id
   float durationSeconds
@@ -80,3 +58,30 @@ KeyTapGesture
   Vector position
   Vector direction
   float progress
+
+Additional
+
+Hand:
+  # These next items in Hand are interpreted with respect to a previous
+  # specified frame number.
+  Vector translation  # Frame relative.
+  float translationProbability  # Frame relative.
+  Vector rotationAxis  # Frame relative.
+  float rotationAngle  # Frame relative.
+  Matrix rotationMatrix  # Frame relative.
+  float rotationProbability  # Frame relative.
+  float scaleFactor  # Frame relative.
+  float scaleProbability  # Frame relative.
+
+
+
+fingers=all, none, * or left or right or 1+2+4 or thumb+index+middle+ring+little or numeric
+hands=all, none or left or right
+tools=all/none
+swipe , circle , screentap , keytap
+
+outputs:
+
+finger, name, value
+hand, name, value
+swipe , circle , screentap , keytap: lists of values.

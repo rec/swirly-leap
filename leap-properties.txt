@@ -1,3 +1,14 @@
+fingers=all, none, * or left or right or 1+2+4 or thumb+index+middle+ring+little or numeric
+hands=all, none or left or right
+tools=all/none
+swipe , circle , screentap , keytap
+
+outputs:
+
+finger, name, value
+hand, name, value
+swipe , circle , screentap , keytap: lists of values.
+
 Pointable
   Vector tipPosition
   Vector tipVelocity
@@ -45,10 +56,7 @@ Hand
   float scaleProbability  # Frame relative.
 
 Gesture
-  Type type
-  State state
   int32_t id
-  int64_t duration
   float durationSeconds
 
 SwipeGesture

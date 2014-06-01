@@ -6,11 +6,6 @@ namespace swirly {
 namespace leap {
 
 struct Config {
-    typedef vector<string> Address;
-    typedef vector<Address> Addresses;
-
-    Addresses addresses_;
-
     bool verbose_ = false;
     bool json_ = false;
     bool all_ = false;
@@ -23,6 +18,15 @@ struct Config {
 
     void addArgument(const string &str, t_object* object);
     void dump(t_object* object);
+
+  private:
+    void finger(string const&);
+    void hand(string const&);
+    void tool(string const&);
+    void swipe(string const&);
+    void circle(string const&);
+    void screentap(string const&);
+    void keytap(string const&);
 };
 
 }  // namespace leap

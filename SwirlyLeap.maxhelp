@@ -47,7 +47,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 284.0, 206.0, 248.0, 20.0 ],
-					"text" : "SwirlyLeap a.c D XXX.YYY.ZZZ -debug -frog"
+					"text" : "SwirlyLeap finger=a+b+c hand=frog frog=hand -debug -frog"
 				}
 
 			}

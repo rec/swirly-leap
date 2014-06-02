@@ -10,47 +10,66 @@ namespace leap {
 
 enum Switch { UNSET_SWITCH, OFF_SWITCH, ON_SWITCH };
 
+inline const char* name(Switch s) {
+    return s == UNSET_SWITCH ? "(unset)" :
+           s == OFF_SWITCH ? "off" : "on";
+}
+
 template <int SIZE>
 class SwitchArray {
   public:
-    SwitchArray() {
-        items_.fill(UNSET_SWITCH);
+    SwitchArray(const char** names) {
+        enabled_.fill(UNSET_SWITCH);
+        for (auto i = 0; i < SIZE; ++i)
+            names_[i] = names[i];
     }
 
     void finish() {
         auto setting = wasSet_ ? OFF_SWITCH : ON_SWITCH;
-        for (auto& s: items_) {
+        for (auto& s: enabled_) {
             if (s == UNSET_SWITCH)
                 s = setting;
         }
     }
 
     bool isEnabled(uint i) const {
-        return i < SIZE and items_[i] == ON_SWITCH;
+        return i < SIZE and enabled_[i] == ON_SWITCH;
     }
 
     bool set(string const& name) {
         bool success = true;
         if (name == "all") {
-            items_.fill(ON_SWITCH);
+            enabled_.fill(ON_SWITCH);
         } else if (name == "none") {
-            items_.fill(OFF_SWITCH);
+            enabled_.fill(OFF_SWITCH);
         } else if (isdigit(name[0])) {
-            auto i = atoi(name.c_str());
-            success = (i < 0 || i >= SIZE);
+            auto i = atoi(name.c_str()) - 1;
+            success = i >= 0 and i < SIZE;
             if (success)
-                items_[i] = ON_SWITCH;
+                enabled_[i] = ON_SWITCH;
         } else {
             success = false;
+            for (auto i = 0; !success and i < SIZE; ++i) {
+                if (names_[i] == name) {
+                    enabled_[i] = ON_SWITCH;
+                    success = true;
+                }
+            }
         }
 
         wasSet_ = wasSet_ or success;
         return success;
     }
 
+    void dump() {
+        for (auto i = 0; i < SIZE; ++i)
+            post((string(names_[i]) + "=" + name(enabled_[i])).c_str());
+    }
+
   private:
     bool wasSet_ = false;
-    array<Switch, SIZE> items_;
+    array<Switch, SIZE> enabled_;
+    array<const char*, SIZE> names_;
 };
 
 }  // namespace leap

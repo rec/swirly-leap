@@ -21,7 +21,16 @@ StringValues splitEquals(string const& s) {
     return result;
 }
 
+const char* HANDS[] = {"left", "right"};
+const char* FINGERS[] = {"thumb", "index", "middle", "ring", "little"};
+
 }  // namespace
+
+Config::Config()
+        : hands_{HANDS},
+          fingers_{FINGERS, FINGERS}
+{
+}
 
 void Config::addArgument(const string &str, t_object* object) {
     string s = (str[0] == OPTION_PREFIX) ? str.substr(1) : str;
@@ -71,7 +80,11 @@ void Config::addArgument(const string &str, t_object* object) {
 }
 
 void Config::finishArguments() {
+    fingers_[0].finish();
+    fingers_[1].finish();
     hands_.finish();
+    fingers_[0].dump();
+    hands_.dump();
 }
 
 void Config::dump(t_object* object) {
@@ -81,10 +94,14 @@ void Config::circle(string const& s) {
 }
 
 void Config::finger(string const& s) {
+    if (!fingers_[0].set(s))
+        post(("Couldn't set finger " + s).c_str());
+    fingers_[1].set(s);
 }
 
 void Config::hand(string const& s) {
-    hands_.set(s);
+    if (!hands_.set(s))
+        post(("Couldn't set hand " + s).c_str());
 }
 
 void Config::keytap(string const& s) {

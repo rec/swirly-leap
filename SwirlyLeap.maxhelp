@@ -46,8 +46,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 284.0, 206.0, 248.0, 20.0 ],
-					"text" : "SwirlyLeap finger=a+b+c hand=frog frog=hand -debug -frog"
+					"patching_rect" : [ 284.0, 206.0, 145.0, 20.0 ],
+					"text" : "SwirlyLeap finger=middle"
 				}
 
 			}

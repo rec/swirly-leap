@@ -3,12 +3,16 @@
 namespace swirly {
 namespace leap {
 
-struct Config {
+class Config {
+  public:
+    Config();
+
     bool verbose_ = false;
     bool json_ = false;
     bool all_ = false;
 
     SwitchArray<2> hands_;
+    SwitchArray<5> fingers_[2];
 
     static auto const VALUE_SEPARATOR = '+';
     static auto const FLAG_PREFIX = '-';

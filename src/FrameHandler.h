@@ -6,7 +6,7 @@
 namespace swirly {
 namespace leap {
 
-struct Config;
+class Config;
 
 class FrameHandler {
   public:

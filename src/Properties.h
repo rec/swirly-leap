@@ -6,8 +6,8 @@ namespace swirly {
 namespace leap {
 
 template <typename Data>
-struct Property {
-    void fillDefault();
+class Property {
+  public:
     class Representer {
       public:
         virtual MaxData max(Data const&) const = 0;
@@ -38,8 +38,33 @@ struct Property {
     }
 
     typedef map<string, RepPtr> PropertyMap;
-
     PropertyMap properties_;
+
+    bool addProperty(string const& name) {
+        auto i = getDefault().properties_.find(name);
+        auto success = (i != getDefault().properties_.end());
+        if (success)
+            properties_[name] = i->second;
+        return success;
+    }
+
+    void addAllProperties() {
+        properties_ = getDefault().properties_;
+    }
+
+  private:
+    void fillDefault();
+
+    static Property<Data> makeDefault() {
+        Property<Data> property;
+        property.fillDefault();
+        return property;
+    }
+
+    static const Property<Data>& getDefault() {
+        static Property<Data> PROPERTY = makeDefault();
+        return PROPERTY;
+    }
 
     template <typename Method>
     void property(string const &name, Method m) {

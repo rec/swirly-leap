@@ -45,6 +45,7 @@ class MaxObject {
                 object_error(object_, "forbidden argument");
             }
         }
+        config_.finishArguments();
         config_.dump(object_);
         listener_.initialize();
     }

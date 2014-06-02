@@ -10,13 +10,11 @@ namespace leap {
 
 namespace {
 
-enum HandType { LEFT, RIGHT, NO_HAND };
-
 HandType whichHand(Hand const& hand) {
     if (hand.isLeft())
-        return LEFT;
+        return LEFT_HAND;
     if (hand.isRight())
-        return RIGHT;
+        return RIGHT_HAND;
     return NO_HAND;
 }
 
@@ -26,7 +24,7 @@ void FrameHandler::onFrame(Frame const& frame) {
     auto const& hands = frame.hands();
     for (auto const& hand: hands) {
         auto handType = whichHand(hand);
-        if (handType != NO_HAND and config_.hands_[handType]) {
+        if (handType != NO_HAND and config_.hands_.isEnabled(handType)) {
             // Process hand.
         }
     }

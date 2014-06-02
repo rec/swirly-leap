@@ -15,7 +15,7 @@ StringValues splitEquals(string const& s) {
 
         stringstream ss(s.substr(pos + 1));
         string item;
-        while (getline(ss, item, '+'))
+        while (getline(ss, item, Config::VALUE_SEPARATOR))
             result.second.push_back(item);
     }
     return result;
@@ -47,21 +47,21 @@ void Config::addArgument(const string &str, t_object* object) {
 
     typedef void (Config::*Method)(string const&);
     Method method;
-    if (name == "finger")
+    if (name == "circle")
+        method = &Config::circle;
+    else if (name == "finger")
         method = &Config::finger;
     else if (name == "hand")
         method = &Config::hand;
-    else if (name == "tool")
-        method = &Config::tool;
-    else if (name == "swipe")
-        method = &Config::swipe;
-    else if (name == "circle")
-        method = &Config::circle;
-    else if (name == "screentap")
-        method = &Config::screentap;
     else if (name == "keytap")
         method = &Config::keytap;
-    else if (name != "finger") {
+    else if (name == "tool")
+        method = &Config::tool;
+    else if (name == "screentap")
+        method = &Config::screentap;
+    else if (name == "swipe")
+        method = &Config::swipe;
+    else {
         object_error(object, "ERROR: Don't understand argument %s.", s.c_str());
         return;
     }
@@ -70,42 +70,33 @@ void Config::addArgument(const string &str, t_object* object) {
         (this->*method)(v);
 }
 
+void Config::finishArguments() {
+    hands_.finish();
+}
+
 void Config::dump(t_object* object) {
 }
 
+void Config::circle(string const& s) {
+}
+
 void Config::finger(string const& s) {
-    auto t = "finger=" + s;
-    post(t.c_str());
 }
 
 void Config::hand(string const& s) {
-    auto t = "hand=" + s;
-    post(t.c_str());
-}
-
-void Config::tool(string const& s) {
-    auto t = "tool=" + s;
-    post(t.c_str());
-}
-
-void Config::swipe(string const& s) {
-    auto t = "swipe=" + s;
-    post(t.c_str());
-}
-
-void Config::circle(string const& s) {
-    auto t = "circle=" + s;
-    post(t.c_str());
-}
-
-void Config::screentap(string const& s) {
-    auto t = "screentap=" + s;
-    post(t.c_str());
+    hands_.set(s);
 }
 
 void Config::keytap(string const& s) {
-    auto t = "keytap=" + s;
-    post(t.c_str());
+}
+
+void Config::tool(string const& s) {
+}
+
+void Config::screentap(string const& s) {
+}
+
+void Config::swipe(string const& s) {
 }
 
 }  // namespace leap

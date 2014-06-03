@@ -26,13 +26,13 @@ const char* FINGERS[] = {"thumb", "index", "middle", "ring", "little"};
 
 }  // namespace
 
-Config::Config()
+Config::Config(Logger logger)
         : hands_{HANDS},
-          fingers_{FINGERS, FINGERS}
-{
+          fingers_{FINGERS, FINGERS},
+          logger_(logger) {
 }
 
-void Config::addArgument(const string &str, t_object* object) {
+void Config::addArgument(const string &str) {
     string s = (str[0] == OPTION_PREFIX) ? str.substr(1) : str;
     if (s[0] == FLAG_PREFIX) {
         if (s == "-verbose")
@@ -42,7 +42,7 @@ void Config::addArgument(const string &str, t_object* object) {
         else if (s == "-all")
             all_ = true;
         else
-            object_error(object, "ERROR: Don't understand flag %s.", s.c_str());
+            logger_(true, "ERROR: Don't understand flag %s.", s.c_str());
         return;
     }
 
@@ -50,7 +50,7 @@ void Config::addArgument(const string &str, t_object* object) {
     auto const& name = value.first;
     auto const& values = value.second;
     if (name.empty() or values.empty()) {
-        object_error(object, "ERROR: Don't understand argument %s.", s.c_str());
+        logger_(true, "ERROR: Don't understand argument %s.", s.c_str());
         return;
     }
 
@@ -71,7 +71,7 @@ void Config::addArgument(const string &str, t_object* object) {
     else if (name == "swipe")
         method = &Config::swipe;
     else {
-        object_error(object, "ERROR: Don't understand argument %s.", s.c_str());
+        logger_(true, "ERROR: Don't understand argument %s.", s.c_str());
         return;
     }
 
@@ -87,7 +87,7 @@ void Config::finishArguments() {
     hands_.dump();
 }
 
-void Config::dump(t_object* object) {
+void Config::dump() {
 }
 
 void Config::circle(string const& s) {

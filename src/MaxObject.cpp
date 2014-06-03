@@ -28,6 +28,10 @@ class MaxObject {
     MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
             : maxStruct_(maxStruct),
               object_(&maxStruct_->object_),
+              logger_(bind(
+                  &MaxObject::log, this,
+                  placeholders::_1, placeholders::_2, placeholders::_3)),
+              config_(logger_),
               frameHandler_(config_),
               listener_(object_, config_, frameHandler_) {
         object_post(object_, "%s", s->s_name);
@@ -40,19 +44,28 @@ class MaxObject {
                 object_post(object_,
                             "arg %ld: symbol (%s)",
                             i, s);
-                config_.addArgument(s, object_);
+                config_.addArgument(s);
             } else {
                 object_error(object_, "forbidden argument");
             }
         }
         config_.finishArguments();
-        config_.dump(object_);
+        config_.dump();
         listener_.initialize();
     }
 
   private:
+    void log(bool error, const char* format, const char* value) {
+        if (error)
+            object_error(object_, format, value);
+        else
+            object_post(object_, format, value);
+    }
+
     MaxStruct *const maxStruct_;
     t_object* object_;
+
+    Config::Logger logger_;
     Config config_;
     FrameHandler frameHandler_;
     Listener listener_;

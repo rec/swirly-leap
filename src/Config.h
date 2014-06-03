@@ -1,3 +1,5 @@
+#include <functional>
+
 #include "Switch.h"
 
 namespace swirly {
@@ -5,7 +7,9 @@ namespace leap {
 
 class Config {
   public:
-    Config();
+    typedef std::function<void(bool, const char*, const char*)> Logger;
+
+    Config(Logger);
 
     bool verbose_ = false;
     bool json_ = false;
@@ -18,9 +22,10 @@ class Config {
     static auto const FLAG_PREFIX = '-';
     static auto const OPTION_PREFIX = '@';
 
-    void addArgument(const string &str, t_object* object);
+    // void addArgument(const string &str, t_object* object);
+    void addArgument(string const&);
     void finishArguments();
-    void dump(t_object* object);
+    void dump();
 
   private:
     void circle(string const&);
@@ -30,6 +35,8 @@ class Config {
     void screentap(string const&);
     void swipe(string const&);
     void tool(string const&);
+
+    Logger const logger_;
 };
 
 }  // namespace leap

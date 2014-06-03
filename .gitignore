@@ -44,3 +44,4 @@ DerivedData
 .DS_Store
 
 externals/
+build/

@@ -1,5 +1,7 @@
 #include <array>
 
+#include "leap/Leap.h"
+
 #include "FrameHandler.h"
 #include "Config.h"
 

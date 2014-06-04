@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "Config.h"
 
 namespace swirly {

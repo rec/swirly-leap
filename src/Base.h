@@ -4,10 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "leap/Leap.h"
-
 using namespace std;
-using namespace Leap;
 
 namespace swirly {
 

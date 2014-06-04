@@ -2,6 +2,9 @@
 
 #include "Base.h"
 
+#include "leap/Leap.h"
+using namespace Leap;
+
 namespace swirly {
 namespace leap {
 

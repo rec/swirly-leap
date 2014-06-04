@@ -11,7 +11,7 @@ class FrameHandler;
 
 class Listener : public Leap::Listener {
   public:
-    Listener(t_object*, Config&, FrameHandler&);
+    Listener(Config&, FrameHandler&);
     ~Listener();
 
     void initialize();
@@ -31,7 +31,6 @@ class Listener : public Leap::Listener {
 
   private:
     Controller controller_;
-    t_object *const object_;
     Config& config_;
     FrameHandler& frameHandler_;
     bool initialized_ = false;

@@ -1,5 +1,5 @@
 #include <unordered_map>
-#include "Base.h"
+#include "Gensym.h"
 
 namespace swirly {
 namespace leap {

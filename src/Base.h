@@ -4,11 +4,6 @@
 #include <string>
 #include <vector>
 
-extern "C" {
-#include "ext.h"
-#include "ext_obex.h"
-}
-
 #include "leap/Leap.h"
 
 using namespace std;

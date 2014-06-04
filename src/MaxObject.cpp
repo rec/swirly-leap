@@ -1,11 +1,17 @@
 #include <functional>
 #include <sstream>
 
+extern "C" {
+#include "ext.h"
+#include "ext_obex.h"
+}
+
 #include "MaxObject.h"
 #include "Callback.h"
 #include "Config.h"
 #include "FrameHandler.h"
 #include "Listener.h"
+#include "PropertiesToMax.h"
 
 namespace swirly {
 namespace leap {
@@ -33,7 +39,7 @@ class MaxObject {
                   placeholders::_1, placeholders::_2, placeholders::_3)),
               config_(logger_),
               frameHandler_(config_),
-              listener_(object_, config_, frameHandler_) {
+              listener_(config_, frameHandler_) {
         object_post(object_, "%s", s->s_name);
         object_post(object_, "Built: %s, %s", __DATE__, __TIME__);
         object_post(object_, "%ld arguments", argc);

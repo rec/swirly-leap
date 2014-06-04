@@ -27,6 +27,8 @@ class Config {
     void finishArguments();
     void dump();
 
+    Logger const logger_;
+
   private:
     void circle(string const&);
     void finger(string const&);
@@ -35,8 +37,6 @@ class Config {
     void screentap(string const&);
     void swipe(string const&);
     void tool(string const&);
-
-    Logger const logger_;
 };
 
 }  // namespace leap

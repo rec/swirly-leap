@@ -83,8 +83,8 @@ void Config::finishArguments() {
     fingers_[0].finish();
     fingers_[1].finish();
     hands_.finish();
-    fingers_[0].dump();
-    hands_.dump();
+    fingers_[0].dump(logger_);
+    hands_.dump(logger_);
 }
 
 void Config::dump() {
@@ -95,13 +95,13 @@ void Config::circle(string const& s) {
 
 void Config::finger(string const& s) {
     if (!fingers_[0].set(s))
-        post(("Couldn't set finger " + s).c_str());
+        logger_(true, "ERROR: Couldn't set finger %s", s.c_str());
     fingers_[1].set(s);
 }
 
 void Config::hand(string const& s) {
     if (!hands_.set(s))
-        post(("Couldn't set hand " + s).c_str());
+        logger_(true, "ERROR: Couldn't set hand %s", s.c_str());
 }
 
 void Config::keytap(string const& s) {

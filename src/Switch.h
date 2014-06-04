@@ -61,9 +61,12 @@ class SwitchArray {
         return success;
     }
 
-    void dump() {
-        for (auto i = 0; i < SIZE; ++i)
-            post((string(names_[i]) + "=" + name(enabled_[i])).c_str());
+    template <typename Logger>
+    void dump(Logger logger) {
+        for (auto i = 0; i < SIZE; ++i) {
+            auto s = string(names_[i]) + "=" + name(enabled_[i]);
+            logger(false, "%s", s.c_str());
+        }
     }
 
   private:

@@ -5,8 +5,8 @@
 namespace swirly {
 namespace leap {
 
-Listener::Listener(t_object* o, Config& config, FrameHandler& frameHandler)
-        : object_(o), config_(config), frameHandler_(frameHandler) {
+Listener::Listener(Config& config, FrameHandler& frameHandler)
+        : config_(config), frameHandler_(frameHandler) {
 }
 
 void Listener::initialize() {
@@ -63,7 +63,7 @@ void Listener::onServiceDisconnect(Controller const&) {
 }
 
 void Listener::log(const char* message) {
-    object_post(object_, message);
+    config_.logger_(true, "%s", message);
 }
 
 void Listener::verbose(const char* message) {

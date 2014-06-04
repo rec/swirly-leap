@@ -8,7 +8,7 @@ namespace swirly {
 namespace leap {
 
 template <>
-void Property<Pointable>::fillDefault() {
+void Properties<Pointable>::fillDefault() {
     property("direction", &Pointable::direction);
     property("isExtended", &Pointable::isExtended);
     property("length", &Pointable::length);
@@ -23,7 +23,7 @@ void Property<Pointable>::fillDefault() {
 }
 
 template <>
-void Property<Bone>::fillDefault() {
+void Properties<Bone>::fillDefault() {
     property("basis", &Bone::basis);
     property("center", &Bone::center);
     property("direction", &Bone::direction);
@@ -33,7 +33,7 @@ void Property<Bone>::fillDefault() {
 }
 
 template <>
-void Property<Hand>::fillDefault() {
+void Properties<Hand>::fillDefault() {
     property("basis", &Hand::basis);
     property("confidence", &Hand::confidence);
     property("direction", &Hand::direction);
@@ -50,7 +50,7 @@ void Property<Hand>::fillDefault() {
 }
 
 template <>
-void Property<SwipeGesture>::fillDefault() {
+void Properties<SwipeGesture>::fillDefault() {
     property("direction", &SwipeGesture::direction);
     property("durationSeconds", &SwipeGesture::durationSeconds);
     property("id", &SwipeGesture::id);
@@ -60,7 +60,7 @@ void Property<SwipeGesture>::fillDefault() {
 }
 
 template <>
-void Property<CircleGesture>::fillDefault() {
+void Properties<CircleGesture>::fillDefault() {
     property("center", &CircleGesture::center);
     property("durationSeconds", &CircleGesture::durationSeconds);
     property("id", &CircleGesture::id);
@@ -70,7 +70,7 @@ void Property<CircleGesture>::fillDefault() {
 }
 
 template <>
-void Property<ScreenTapGesture>::fillDefault() {
+void Properties<ScreenTapGesture>::fillDefault() {
     property("direction", &ScreenTapGesture::direction);
     property("durationSeconds", &ScreenTapGesture::durationSeconds);
     property("id", &ScreenTapGesture::id);
@@ -79,7 +79,7 @@ void Property<ScreenTapGesture>::fillDefault() {
 }
 
 template <>
-void Property<KeyTapGesture>::fillDefault() {
+void Properties<KeyTapGesture>::fillDefault() {
     property("direction", &KeyTapGesture::direction);
     property("durationSeconds", &KeyTapGesture::durationSeconds);
     property("id", &KeyTapGesture::id);

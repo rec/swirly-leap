@@ -7,7 +7,7 @@ extern "C" {
 
 #include "BoolHandling.h"
 #include "Gensym.h"
-#include "Properties.h"
+#include "TypedProperties.h"
 
 namespace swirly {
 namespace leap {
@@ -16,7 +16,7 @@ template <typename Data, int MAX_ATOMS = 20>
 void propertiesToMax(
         void* outlet,
         Data const& data,
-        const Properties<Data>& properties,
+        const TypedProperties<Data>& properties,
         Representation const& prefix,
         BoolHandling boolHandling) {
     t_atom atoms[MAX_ATOMS];

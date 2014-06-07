@@ -4,47 +4,62 @@ namespace swirly {
 namespace leap {
 
 SwitchArray::SwitchArray(const char** names, int size) {
-    enabled_.resize(size);
-    names_.reserve(size);
+    switches_.reserve(size);
     for (auto i = 0; i < size; ++i)
-        names_.push_back(names[i]);
+        switches_.emplace_back(names[i], Switch());
 }
 
 void SwitchArray::finish() {
-    for (auto& s: enabled_)
-        s.finish(unset_);
-}
-
-bool SwitchArray::isEnabled(uint i) const {
-    return i < enabled_.size() and enabled_[i].isEnabled();;
-}
-
-bool SwitchArray::set(string const& name) {
-    bool success = true;
-    if (name == "all") {
-        for (auto& e: enabled_)
-            e.set(true);
-    } else if (name == "none") {
-        for (auto& e: enabled_)
-            e.set(false);
-    } else if (isdigit(name[0])) {
-        auto i = atoi(name.c_str()) - 1;
-        success = i >= 0 and i < enabled_.size();
-        if (success)
-            enabled_[i].set(true);
-    } else {
-        success = false;
-        for (auto i = 0; i < enabled_.size(); ++i) {
-            if (names_[i] == name) {
-                enabled_[i].set(true);
-                success = true;
-                break;
-            }
+    bool switchSet = false;
+    for (auto& s: switches_) {
+        if (s.second) {
+            switchSet = true;
+            break;
         }
     }
 
-    unset_ = unset_ and !success;
-    return success;
+    // If something was set, we set everything else to false.
+    // But if nothing was set, we set everything to true.
+    for (auto& s: switches_)
+        s.second.finish(not switchSet);
+}
+
+bool SwitchArray::set(string const& name) {
+    if (name == "all") {
+        for (auto& s: switches_)
+            s.second = true;
+        return true;
+    }
+
+    if (name == "none") {
+        for (auto& s: switches_)
+            s.second = true;
+        return true;
+    }
+
+    if (isdigit(name[0])) {
+        auto i = atoi(name.c_str()) - 1;
+        if (i < 0 or i >= switches_.size())
+            return false;
+
+        switches_[i].second = true;
+        return true;
+    }
+
+    for (auto& s: switches_) {
+        if (name == s.first) {
+            s.second = true;
+            return true;
+        }
+    }
+    return properties_ and properties_->addProperty(name);
+}
+
+void SwitchArray::dump(Logger logger) {
+    for (auto const& s: switches_) {
+        auto t = s.first + "=" + s.second.name();
+        logger(false, "%s", t.c_str());
+    }
 }
 
 }  // namespace leap

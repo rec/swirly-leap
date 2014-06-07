@@ -1,6 +1,7 @@
-#pragma include once
+#pragma once
 
 #include "Switch.h"
+#include "Properties.h"
 
 namespace swirly {
 namespace leap {
@@ -11,23 +12,15 @@ class SwitchArray {
     SwitchArray(const char** names, int size);
 
     void finish();
-    bool isEnabled(uint i) const;
     bool set(string const& name);
+    void dump(Logger);
 
-    template <typename Logger>
-    void dump(Logger logger) {
-        for (auto i = 0; i < enabled_.size(); ++i) {
-            auto s = string(names_[i]) + "=" + enabled_[i].name();
-            logger(false, "%s", s.c_str());
-        }
-    }
-
-    vector<string> const& names() const { return names_; }
+    Switch const& operator[](int i) const { return switches_[i].second; }
+    Switch& operator[](int i) { return switches_[i].second; }
 
   private:
-    bool unset_ = true;
-    vector<Switch> enabled_;
-    vector<string> names_;
+    vector<pair<string, Switch>> switches_;
+    unique_ptr<Properties> properties_;
 };
 
 }  // namespace leap

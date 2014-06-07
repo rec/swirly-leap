@@ -1,4 +1,4 @@
-#pragma include once
+#pragma once
 
 #include "Base.h"
 
@@ -9,17 +9,17 @@ class Switch {
   public:
     Switch() : switch_(UNSET_SWITCH) {}
 
-    void set(bool on) {
+    Switch& operator=(bool on) {
         switch_ = on ? ON_SWITCH : OFF_SWITCH;
+        return *this;
     }
 
-    bool isEnabled() const {
-        return switch_ == ON_SWITCH;
-    }
+    operator bool() const { return switch_ == ON_SWITCH; }
+    bool isSet() const { return switch_ != UNSET_SWITCH; }
 
     void finish(bool on = true) {
         if (switch_ == UNSET_SWITCH)
-            set(on);
+            *this = on;
     }
 
     const char* name() const {
@@ -30,7 +30,6 @@ class Switch {
 
   private:
     enum Value { UNSET_SWITCH, OFF_SWITCH, ON_SWITCH };
-
     Value switch_;
 };
 

@@ -1,6 +1,7 @@
 #include <sstream>
 
 #include "Config.h"
+#include "ArraySize.h"
 
 namespace swirly {
 namespace leap {
@@ -29,8 +30,9 @@ const char* FINGERS[] = {"thumb", "index", "middle", "ring", "little"};
 }  // namespace
 
 Config::Config(Logger logger)
-        : hands_{HANDS},
-          fingers_{FINGERS, FINGERS},
+        : hands_{HANDS, arraysize(HANDS)},
+          fingers_{{FINGERS, arraysize(FINGERS)},
+                   {FINGERS, arraysize(FINGERS)}},
           logger_(logger) {
 }
 

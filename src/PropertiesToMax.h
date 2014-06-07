@@ -1,4 +1,3 @@
-#include <map>
 #include <string.h>
 
 extern "C" {
@@ -6,26 +5,33 @@ extern "C" {
 #include "ext_obex.h"
 }
 
+#include "BoolHandling.h"
 #include "Gensym.h"
 #include "Properties.h"
 
 namespace swirly {
 namespace leap {
 
-template <typename Data>
-void sendToMax(const Properties<Data>& properties,
-               Data const& data, void* outlet, const vector<string>& parts) {
-    t_atom atoms[20];
+template <typename Data, int MAX_ATOMS = 20>
+void propertiesToMax(
+        void* outlet,
+        Data const& data,
+        const Properties<Data>& properties,
+        Representation const& prefix,
+        BoolHandling boolHandling) {
+    t_atom atoms[MAX_ATOMS];
     auto size = 0;
     for (auto i = 0; i < size; ++i)
-        atom_setsym(&atoms[size++], cachedGensym(parts[i]));
+        atom_setsym(&atoms[size++], cachedGensym(prefix[i]));
 
-    t_symbol* symbol = cachedGensym(parts[0]);
-    for (auto p: properties.properties_) {
+    t_symbol* symbol = cachedGensym(prefix[0]);
+    for (auto p: properties.properties()) {
         auto const& name = p.first;
         auto const& representer = p.second;
         atom_setsym(&atoms[size++], cachedGensym(name));
-        auto rep = representer.max(data);
+
+        Representation rep;
+        representer.represent(rep, data);
         if (rep.size() > 1) {  // must be Vector or Matrix.
             for (auto i = 0; i < rep.size(); ++i)
                 atom_setfloat(&atoms[size++], atof(rep[i].c_str()));
@@ -36,15 +42,18 @@ void sendToMax(const Properties<Data>& properties,
                 else
                     atom_setlong(&atoms[size++], atol(name.c_str()));
             } else {
-                if (name == "true") {
-                    atom_setlong(&atoms[size++], 1);
-                } else if (name == "false") {
-                    atom_setlong(&atoms[size++], 0);
-                } else {
-                    if (name[0] == "" and name[name.size() - 1] == "")
-                        name = name.substr(name.size() - 2);
-                    atom_setsym(&atoms[size++], cachedGensym(name));
+                if (boolHandling == BoolHandling::AS_NUMBER) {
+                    if (name == "true") {
+                        atom_setlong(&atoms[size++], 1);
+                        continue;
+                    } else if (name == "false") {
+                        atom_setlong(&atoms[size++], 0);
+                        continue;
+                    }
                 }
+                if (name[0] == "" and name[name.size() - 1] == "")
+                    name = name.substr(name.size() - 2);
+                atom_setsym(&atoms[size++], cachedGensym(name));
             }
         }
 

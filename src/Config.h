@@ -14,15 +14,15 @@ class Config {
     bool verbose_ = false;
     bool json_ = false;
     bool all_ = false;
+    bool running_ = false;
 
-    SwitchArray<2> hands_;
-    SwitchArray<5> fingers_[2];
+    SwitchArray hands_;
+    SwitchArray fingers_[2];
 
     static auto const VALUE_SEPARATOR = '+';
     static auto const FLAG_PREFIX = '-';
     static auto const OPTION_PREFIX = '@';
 
-    // void addArgument(const string &str, t_object* object);
     void addArgument(string const&);
     void finishArguments();
     void dump();

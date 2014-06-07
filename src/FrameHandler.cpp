@@ -27,7 +27,6 @@ void FrameHandler::onFrame(Frame const& frame) {
     for (auto const& hand: hands) {
         auto handType = whichHand(hand);
         if (handType != NO_HAND and config_.hands_.isEnabled(handType)) {
-            // Process hand.
         }
     }
 

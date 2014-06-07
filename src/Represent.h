@@ -8,27 +8,19 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
-typedef vector<string> MaxData;
-typedef string JsonData;
+string to_string(Bone::Type);
+string to_string(Pointable::Zone);
+string to_string(bool);
+
+typedef vector<string> Representation;
 
 template <typename Data>
-JsonData representJson(Data d) {
-    return to_string(d);
+void represent(Representation& rep, Data d) {
+    rep.push_back(to_string(d));
 }
 
-template <typename Data>
-MaxData representMax(Data d) {
-    return MaxData{representJson(d)};
-}
-
-JsonData representJson(Bone::Type);
-JsonData representJson(Matrix);
-JsonData representJson(Pointable::Zone);
-JsonData representJson(Vector);
-JsonData representJson(bool);
-
-MaxData representMax(Matrix);
-MaxData representMax(Vector);
+void represent(Representation&, Matrix);
+void represent(Representation&, Vector);
 
 }  // namespace leap
 }  // namespace swirly

@@ -11,8 +11,7 @@ class Properties {
   public:
     class Representer {
       public:
-        virtual MaxData max(Data const&) const = 0;
-        virtual JsonData json(Data const&) const = 0;
+        virtual void represent(Representation&, Data const&) const = 0;
         virtual ~Representer() {}
     };
 
@@ -22,11 +21,8 @@ class Properties {
     class GetterRepresenter : public Representer {
       public:
         GetterRepresenter(Getter getter) : getter_(getter) {}
-        MaxData max(Data const& data) const override {
-            return representMax(getter_(data));
-        }
-        JsonData json(Data const& data) const override {
-            return representJson(getter_(data));
+        void represent(Representation& rep, Data const& data) const override {
+            leap::represent(rep, getter_(data));
         }
 
       private:
@@ -38,8 +34,9 @@ class Properties {
         return RepPtr(new GetterRepresenter<Getter>(getter));
     }
 
-    typedef map<string, RepPtr> PropertyMap;
-    PropertyMap properties_;
+    typedef map<string, RepPtr> Map;
+
+    Map& properties() { return properties_; }
 
     bool addProperty(string const& name) {
         auto i = getDefault().properties_.find(name);
@@ -69,9 +66,11 @@ class Properties {
     }
 
     template <typename Method>
-    void property(string const &name, Method m) {
+    void addProperty(string const &name, Method m) {
         properties_[name] = makeRepresenter(std::bind(m, placeholders::_1));
     }
+
+    Map properties_;
 };
 
 }  // namespace leap

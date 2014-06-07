@@ -22,8 +22,8 @@ class Switch {
     }
 
     const char* name() const {
-        return switch_ == UNSET_SWITCH ? "(unset)" :
-                switch_ == OFF_SWITCH ? "off" : "on";
+        return switch_ == UNSET_SWITCH ? "(unset)"
+                : switch_ == OFF_SWITCH ? "off" : "on";
     }
 
   private:
@@ -34,6 +34,7 @@ class Switch {
 
 class SwitchArray {
   public:
+    SwitchArray() {}
     SwitchArray(const char** names, int size);
 
     void finish();
@@ -47,6 +48,8 @@ class SwitchArray {
             logger(false, "%s", s.c_str());
         }
     }
+
+    vector<string> const& names() const { return names_; }
 
   private:
     bool unset_ = true;

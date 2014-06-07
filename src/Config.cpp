@@ -26,17 +26,24 @@ StringValues splitEquals(string const& s) {
 
 const char* HANDS[] = {"left", "right"};
 const char* FINGERS[] = {"thumb", "index", "middle", "ring", "little"};
-const char* TOOLS[] = {"tools"};
-const char* GESTURES[] = {"circle", "keytap", "screentap", "swipe"};
+const char* TOOLS[] = {"tool"};
+const char* CIRCLE[] = {"circle"};
+const char* KEYTAP[] = {"keytap"};
+const char* SCREENTAP[] = {"screentap"};
+const char* SWIPE[] = {"swipe"};
 
 }  // namespace
 
 Config::Config(Logger logger)
-    : hands_{HANDS, arraysize(HANDS)},
-      fingers_{FINGERS, arraysize(FINGERS)},
-      tools_{TOOLS, arraysize(TOOLS)},
-      gestures_{GESTURES, arraysize(GESTURES)},
-      logger_(logger) {
+        : logger_(logger) {
+    switches_["hand"] = SwitchArray(HANDS, arraysize(HANDS));
+    switches_["finger"] = SwitchArray(FINGERS, arraysize(FINGERS));
+    switches_["tool"] = SwitchArray(TOOLS, arraysize(TOOLS));
+
+    switches_["circle"] = SwitchArray(CIRCLE, arraysize(CIRCLE));
+    switches_["keytap"] = SwitchArray(KEYTAP, arraysize(KEYTAP));
+    switches_["screentap"] = SwitchArray(SCREENTAP, arraysize(SCREENTAP));
+    switches_["swipe"] = SwitchArray(SWIPE, arraysize(SWIPE));
 }
 
 void Config::addArgument(const string &str) {
@@ -61,69 +68,24 @@ void Config::addArgument(const string &str) {
         return;
     }
 
-    typedef void (Config::*Method)(string const&);
-    Method method;
-    if (name == "circle")
-        method = &Config::circle;
-    else if (name == "finger")
-        method = &Config::finger;
-    else if (name == "hand")
-        method = &Config::hand;
-    else if (name == "keytap")
-        method = &Config::keytap;
-    else if (name == "tool")
-        method = &Config::tool;
-    else if (name == "screentap")
-        method = &Config::screentap;
-    else if (name == "swipe")
-        method = &Config::swipe;
-    else {
+    auto i = switches_.find(name);
+    if (i != switches_.end()) {
+        for (auto const& v: values)
+            i->second.set(v);
+    } else {
         logger_(true, "ERROR: Don't understand argument %s.", s.c_str());
-        return;
     }
-
-    for (auto const& v: values)
-        (this->*method)(v);
 }
 
 void Config::finishArguments() {
-    fingers_.finish();
-    hands_.finish();
-    tools_.finish();
-    gestures_.finish();
+    for (auto& s: switches_)
+        s.second.finish();
     dump();
 }
 
 void Config::dump() {
-    fingers_.dump(logger_);
-    hands_.dump(logger_);
-    tools_.dump(logger_);
-    gestures_.dump(logger_);
-}
-
-void Config::circle(string const& s) {
-}
-
-void Config::finger(string const& s) {
-    if (!fingers_.set(s))
-        logger_(true, "ERROR: Couldn't set finger %s", s.c_str());
-}
-
-void Config::hand(string const& s) {
-    if (!hands_.set(s))
-        logger_(true, "ERROR: Couldn't set hand %s", s.c_str());
-}
-
-void Config::keytap(string const& s) {
-}
-
-void Config::tool(string const& s) {
-}
-
-void Config::screentap(string const& s) {
-}
-
-void Config::swipe(string const& s) {
+    for (auto& s: switches_)
+        s.second.dump(logger_);
 }
 
 }  // namespace leap

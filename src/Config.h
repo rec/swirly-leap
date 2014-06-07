@@ -1,4 +1,5 @@
 #include <functional>
+#include <map>
 
 #include "Switch.h"
 
@@ -16,11 +17,6 @@ class Config {
     bool all_ = false;
     bool running_ = false;
 
-    SwitchArray hands_;
-    SwitchArray fingers_;
-    SwitchArray tools_;
-    SwitchArray gestures_;
-
     static auto const VALUE_SEPARATOR = '+';
     static auto const FLAG_PREFIX = '-';
     static auto const OPTION_PREFIX = '@';
@@ -32,13 +28,7 @@ class Config {
     Logger const logger_;
 
   private:
-    void circle(string const&);
-    void finger(string const&);
-    void hand(string const&);
-    void keytap(string const&);
-    void screentap(string const&);
-    void swipe(string const&);
-    void tool(string const&);
+    map<string, SwitchArray> switches_;
 };
 
 }  // namespace leap

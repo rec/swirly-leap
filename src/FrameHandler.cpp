@@ -23,6 +23,7 @@ HandType whichHand(Hand const& hand) {
 }  // namespace
 
 void FrameHandler::onFrame(Frame const& frame) {
+#if 0
     auto const& hands = frame.hands();
     for (auto const& hand: hands) {
         auto handType = whichHand(hand);
@@ -41,6 +42,7 @@ void FrameHandler::onFrame(Frame const& frame) {
     auto const& gestures = frame.gestures();
     for (auto const& gesture: gestures) {
     }
+#endif
 #if 0
 fingers=all, none, * or left or right or 1+2+4 or thumb+index+middle+ring+little or numeric
 hands=all, none or left or right

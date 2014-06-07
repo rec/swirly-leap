@@ -26,14 +26,17 @@ StringValues splitEquals(string const& s) {
 
 const char* HANDS[] = {"left", "right"};
 const char* FINGERS[] = {"thumb", "index", "middle", "ring", "little"};
+const char* TOOLS[] = {"tools"};
+const char* GESTURES[] = {"circle", "keytap", "screentap", "swipe"};
 
 }  // namespace
 
 Config::Config(Logger logger)
-        : hands_{HANDS, arraysize(HANDS)},
-          fingers_{{FINGERS, arraysize(FINGERS)},
-                   {FINGERS, arraysize(FINGERS)}},
-          logger_(logger) {
+    : hands_{HANDS, arraysize(HANDS)},
+      fingers_{FINGERS, arraysize(FINGERS)},
+      tools_{TOOLS, arraysize(TOOLS)},
+      gestures_{GESTURES, arraysize(GESTURES)},
+      logger_(logger) {
 }
 
 void Config::addArgument(const string &str) {
@@ -84,23 +87,26 @@ void Config::addArgument(const string &str) {
 }
 
 void Config::finishArguments() {
-    fingers_[0].finish();
-    fingers_[1].finish();
+    fingers_.finish();
     hands_.finish();
-    fingers_[0].dump(logger_);
-    hands_.dump(logger_);
+    tools_.finish();
+    gestures_.finish();
+    dump();
 }
 
 void Config::dump() {
+    fingers_.dump(logger_);
+    hands_.dump(logger_);
+    tools_.dump(logger_);
+    gestures_.dump(logger_);
 }
 
 void Config::circle(string const& s) {
 }
 
 void Config::finger(string const& s) {
-    if (!fingers_[0].set(s))
+    if (!fingers_.set(s))
         logger_(true, "ERROR: Couldn't set finger %s", s.c_str());
-    fingers_[1].set(s);
 }
 
 void Config::hand(string const& s) {

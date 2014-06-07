@@ -17,7 +17,9 @@ class Config {
     bool running_ = false;
 
     SwitchArray hands_;
-    SwitchArray fingers_[2];
+    SwitchArray fingers_;
+    SwitchArray tools_;
+    SwitchArray gestures_;
 
     static auto const VALUE_SEPARATOR = '+';
     static auto const FLAG_PREFIX = '-';

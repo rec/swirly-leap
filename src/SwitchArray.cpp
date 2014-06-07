@@ -1,4 +1,4 @@
-#include "Switch.h"
+#include "SwitchArray.h"
 
 namespace swirly {
 namespace leap {

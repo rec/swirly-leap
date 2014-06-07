@@ -1,4 +1,3 @@
-#include <map>
 #include <string.h>
 
 #include "Represent.h"
@@ -6,8 +5,14 @@
 namespace swirly {
 namespace leap {
 
+class PropertiesBase {
+  public:
+    virtual bool addProperty(string const& name) = 0;
+    virtual ~PropertiesBase() {}
+};
+
 template <typename Data>
-class Properties {
+class Properties : public PropertiesBase {
   public:
     class Representer {
       public:
@@ -38,7 +43,7 @@ class Properties {
 
     Map& properties() { return properties_; }
 
-    bool addProperty(string const& name) {
+    bool addProperty(string const& name) override {
         auto i = getDefault().properties_.find(name);
         if (i != getDefault().properties_.end()) {
             properties_[name] = i->second;

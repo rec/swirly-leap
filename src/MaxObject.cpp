@@ -1,4 +1,3 @@
-#include <functional>
 #include <sstream>
 
 extern "C" {
@@ -71,7 +70,7 @@ class MaxObject {
     MaxStruct *const maxStruct_;
     t_object* object_;
 
-    Config::Logger logger_;
+    Logger logger_;
     Config config_;
     FrameHandler frameHandler_;
     Listener listener_;

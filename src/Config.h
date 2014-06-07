@@ -1,15 +1,10 @@
-#include <functional>
-#include <map>
-
-#include "Switch.h"
+#include "SwitchArray.h"
 
 namespace swirly {
 namespace leap {
 
 class Config {
   public:
-    typedef std::function<void(bool, const char*, const char*)> Logger;
-
     Config(Logger);
 
     bool verbose_ = false;

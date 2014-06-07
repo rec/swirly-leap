@@ -28,8 +28,8 @@
 		E2BD5FF2193BD9DA00880150 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FF1193BD9DA00880150 /* Config.cpp */; };
 		E2BD5FF5193C0D6D00880150 /* Gensym.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FF3193C0D6D00880150 /* Gensym.cpp */; };
 		E2BD5FF6193C0D6D00880150 /* Gensym.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD5FF4193C0D6D00880150 /* Gensym.h */; };
-		E2C0240019439E6000F784EE /* Switch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C023FE19439E6000F784EE /* Switch.cpp */; };
 		E2C0240119439E6000F784EE /* Switch.h in Headers */ = {isa = PBXBuildFile; fileRef = E2C023FF19439E6000F784EE /* Switch.h */; };
+		E2C024031943C78700F784EE /* SwitchArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C024021943C78700F784EE /* SwitchArray.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,8 +68,8 @@
 		E2BD5FF1193BD9DA00880150 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
 		E2BD5FF3193C0D6D00880150 /* Gensym.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gensym.cpp; sourceTree = "<group>"; };
 		E2BD5FF4193C0D6D00880150 /* Gensym.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gensym.h; sourceTree = "<group>"; };
-		E2C023FE19439E6000F784EE /* Switch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Switch.cpp; sourceTree = "<group>"; };
 		E2C023FF19439E6000F784EE /* Switch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Switch.h; sourceTree = "<group>"; };
+		E2C024021943C78700F784EE /* SwitchArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchArray.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +122,8 @@
 				E2BD5FEA193BB0BE00880150 /* Properties.h */,
 				E2BD5FE5193AD83E00880150 /* Represent.cpp */,
 				E2BD5FE6193AD83E00880150 /* Represent.h */,
-				E2C023FE19439E6000F784EE /* Switch.cpp */,
 				E2C023FF19439E6000F784EE /* Switch.h */,
+				E2C024021943C78700F784EE /* SwitchArray.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -236,10 +236,10 @@
 				E2BD5FEB193BB0BE00880150 /* Properties.cpp in Sources */,
 				E2BD5FD8193A5DC300880150 /* Main.cpp in Sources */,
 				E2BD5FDD193A6A7100880150 /* Listener.cpp in Sources */,
+				E2C024031943C78700F784EE /* SwitchArray.cpp in Sources */,
 				E2BD5FE7193AD83E00880150 /* Represent.cpp in Sources */,
 				E2BD5FEF193BD21400880150 /* FrameHandler.cpp in Sources */,
 				E2BD5FD9193A5DC300880150 /* MaxObject.cpp in Sources */,
-				E2C0240019439E6000F784EE /* Switch.cpp in Sources */,
 				E2BD5FF5193C0D6D00880150 /* Gensym.cpp in Sources */,
 				E2BD5FF2193BD9DA00880150 /* Config.cpp in Sources */,
 			);

@@ -145,6 +145,12 @@ namespace Leap {
        * @since 1.0
        */
       ZONE_TOUCHING   = 2,
+#ifdef SWIGCSHARP
+      // deprecated
+      ZONENONE        = ZONE_NONE,
+      ZONEHOVERING    = ZONE_HOVERING,
+      ZONETOUCHING    = ZONE_TOUCHING,
+#endif
     };
 
     // For internal use only.
@@ -1626,7 +1632,15 @@ namespace Leap {
        * A downward tapping movement by a finger.
        * @since 1.0
        */
-      TYPE_KEY_TAP    = 6
+      TYPE_KEY_TAP    = 6,
+#ifdef SWIGCSHARP
+      // deprecated
+      TYPEINVALID     = TYPE_INVALID,
+      TYPESWIPE       = TYPE_SWIPE,
+      TYPECIRCLE      = TYPE_CIRCLE,
+      TYPESCREENTAP   = TYPE_SCREEN_TAP,
+      TYPEKEYTAP      = TYPE_KEY_TAP,
+#endif
     };
 
     /**
@@ -1654,6 +1668,13 @@ namespace Leap {
        * @since 1.0
        */
       STATE_STOP    = 3,
+#ifdef SWIGCSHARP
+      // deprecated
+      STATEINVALID  = STATE_INVALID,
+      STATESTART    = STATE_START,
+      STATEUPDATE   = STATE_UPDATE,
+      STATESTOP     = STATE_STOP,
+#endif
     };
 
     /**
@@ -4139,7 +4160,15 @@ namespace Leap {
        * A string of characters.
        * @since 1.0
        */
-      TYPE_STRING  = 8
+      TYPE_STRING  = 8,
+#ifdef SWIGCSHARP
+      // deprecated
+      TYPEUNKNOWN  = TYPE_UNKNOWN,
+      TYPEBOOLEAN  = TYPE_BOOLEAN,
+      TYPEINT32    = TYPE_INT32,
+      TYPEFLOAT    = TYPE_FLOAT,
+      TYPESTRING   = TYPE_STRING,
+#endif
     };
 
     /**
@@ -4411,7 +4440,12 @@ namespace Leap {
        * Receive background frames.
        * @since 1.0
        */
-      POLICY_BACKGROUND_FRAMES = (1 << 0)
+      POLICY_BACKGROUND_FRAMES = (1 << 0),
+#ifdef SWIGCSHARP
+      // deprecated
+      POLICYDEFAULT = POLICY_DEFAULT,
+      POLICYBACKGROUNDFRAMES = POLICY_BACKGROUND_FRAMES,
+#endif
     };
 
     /**

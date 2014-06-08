@@ -54,7 +54,7 @@ void Config::addArgument(const string &str) {
         else if (s == "-all")
             all_ = true;
         else
-            logger_(true, "ERROR: Don't understand flag %s.", s.c_str());
+            logger_(true, "ERROR: Don't understand flag " + s);
         return;
     }
 
@@ -62,7 +62,7 @@ void Config::addArgument(const string &str) {
     auto const& name = value.first;
     auto const& values = value.second;
     if (name.empty() or values.empty()) {
-        logger_(true, "ERROR: Don't understand argument %s.", s.c_str());
+        logger_(true, "ERROR: Don't understand argument " + s);
         return;
     }
 
@@ -71,7 +71,7 @@ void Config::addArgument(const string &str) {
         for (auto const& v: values)
             i->second->set(v);
     } else {
-        logger_(true, "ERROR: Don't understand argument %s.", s.c_str());
+        logger_(true, "ERROR: Don't understand argument " + s);
     }
 }
 

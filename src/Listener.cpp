@@ -76,11 +76,11 @@ void Listener::onServiceDisconnect(Controller const&) {
     log("onServiceDisconnect");
 }
 
-void Listener::log(const char* message) {
-    config_.logger_(false, "%s", message);
+void Listener::log(string const& message) {
+    config_.logger_(false, message);
 }
 
-void Listener::verbose(const char* message) {
+void Listener::verbose(string const& message) {
     if (config_.isVerbose())
         log(message);
 }

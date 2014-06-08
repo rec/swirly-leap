@@ -39,8 +39,8 @@ class Listener : public Leap::Listener {
     FrameHandler& frameHandler_;
     bool running_ = false;
 
-    void log(const char*);
-    void verbose(const char*);
+    void log(string const&);
+    void verbose(string const&);
 
     void configCallback();
 };

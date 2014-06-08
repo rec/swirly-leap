@@ -57,10 +57,8 @@ bool SwitchArray::set(string const& name) {
 }
 
 void SwitchArray::dump(Logger logger) {
-    for (auto const& s: switches_) {
-        auto t = s.first + "=" + s.second.name();
-        logger(false, "%s", t.c_str());
-    }
+    for (auto const& s: switches_)
+        logger(false, s.first + "=" + s.second.name());
 }
 
 }  // namespace leap

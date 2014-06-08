@@ -19,12 +19,12 @@ t_class* CLASS_POINTER;
 
 } // namespace
 
+using namespace std::placeholders;
+
 MaxObject::MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
         : maxStruct_(maxStruct),
           object_(&maxStruct_->object_),
-          logger_(bind(
-              &MaxObject::log, this,
-              placeholders::_1, placeholders::_2, placeholders::_3)),
+          logger_(bind(&MaxObject::log, this, _1, _2)),
           leap_(new LeapMotion(logger_)) {
     object_post(object_, "%s", s->s_name);
     object_post(object_, "Built: %s, %s", __DATE__, __TIME__);
@@ -49,16 +49,16 @@ MaxObject::MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
 
 MaxObject::~MaxObject() {}
 
-void MaxObject::log(bool error, const char* format, const char* value) {
+void MaxObject::log(bool error, string const& message) {
     if (error)
-        object_error(object_, format, value);
+        object_error(object_, "%s", message.c_str());
     else
-        object_post(object_, format, value);
+        object_post(object_, "%s", message.c_str());
 }
 
 void MaxObject::bang() {
     if (!leap_->listener_.sendFrame())
-        log(true, "%s", "bang: Can't send frame while running.");
+        log(true, "bang: Can't send frame while running.");
 }
 
 void MaxObject::run() {

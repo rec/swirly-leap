@@ -12,11 +12,13 @@ class Config;
 
 class FrameHandler {
   public:
-    FrameHandler(Config& config) : config_(config) {}
+    FrameHandler(Config& config) : config_(config), outlet_(nullptr) {}
+    void setOutlet(void* outlet) { outlet_ = outlet; }
     void onFrame(Leap::Frame const&);
 
   private:
     Config& config_;
+    void* outlet_;
 };
 
 }  // namespace leap

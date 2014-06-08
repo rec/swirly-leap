@@ -57,6 +57,8 @@ class MaxObject {
         config_.finishArguments();
         config_.dump();
         listener_.initialize();
+        outlet_ = outlet_new(maxStruct_, nullptr);
+        frameHandler_.setOutlet(outlet_);
     }
 
   private:
@@ -74,6 +76,7 @@ class MaxObject {
     Config config_;
     FrameHandler frameHandler_;
     Listener listener_;
+    void* outlet_;
 };
 
 void maxDelete(MaxStruct *max) {

@@ -3,10 +3,10 @@
 namespace swirly {
 namespace leap {
 
-SwitchArray::SwitchArray(const char** names, int size) {
-    switches_.reserve(size);
-    for (auto i = 0; i < size; ++i)
-        switches_.emplace_back(names[i], Switch());
+SwitchArray::SwitchArray(Representation const& rep) {
+    switches_.reserve(rep.size());
+    for (auto const& r: rep)
+        switches_.emplace_back(r, Switch());
 }
 
 void SwitchArray::finish() {
@@ -52,7 +52,8 @@ bool SwitchArray::set(string const& name) {
             return true;
         }
     }
-    return properties_ and properties_->addProperty(name);
+
+    return false;
 }
 
 void SwitchArray::dump(Logger logger) {

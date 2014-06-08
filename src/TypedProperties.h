@@ -9,6 +9,9 @@ namespace swirly {
 namespace leap {
 
 template <typename Data>
+const char* humanName();
+
+template <typename Data>
 class TypedProperties : public Properties {
   public:
     class Representer {
@@ -53,9 +56,12 @@ class TypedProperties : public Properties {
         properties_ = getDefault().properties_;
     }
 
-  private:
-    void fillDefault();
+    template <typename Method>
+    void defaultProperty(string const& name, Method m) {
+        properties_[name] = makeRepresenter(std::bind(m, placeholders::_1));
+    }
 
+  private:
     static TypedProperties<Data> makeDefault() {
         TypedProperties<Data> property;
         property.fillDefault();
@@ -67,10 +73,7 @@ class TypedProperties : public Properties {
         return PROPERTY;
     }
 
-    template <typename Method>
-    void defaultProperty(string const &name, Method m) {
-        properties_[name] = makeRepresenter(std::bind(m, placeholders::_1));
-    }
+    void fillDefault();
 
     Map properties_;
 };

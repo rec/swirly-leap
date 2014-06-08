@@ -3,9 +3,12 @@
 namespace swirly {
 namespace leap {
 
+struct PropertySwitchArrayMap;
+
 class Config {
   public:
     Config(Logger);
+    ~Config();
 
     bool verbose_ = false;
     bool json_ = false;
@@ -22,8 +25,10 @@ class Config {
 
     Logger const logger_;
 
+    PropertySwitchArrayMap const& switches() const { return *switches_; }
+
   private:
-    map<string, SwitchArray> switches_;
+    unique_ptr<PropertySwitchArrayMap> switches_;
 };
 
 }  // namespace leap

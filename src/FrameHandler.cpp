@@ -4,6 +4,8 @@
 
 #include "FrameHandler.h"
 #include "Config.h"
+#include "PropertiesToMax.h"
+#include "PropertySwitchArray.h"
 
 using namespace Leap;
 
@@ -23,13 +25,16 @@ HandType whichHand(Hand const& hand) {
 }  // namespace
 
 void FrameHandler::onFrame(Frame const& frame) {
-#if 0
-    auto const& hands = frame.hands();
-    for (auto const& hand: hands) {
-        auto handType = whichHand(hand);
-        if (handType != NO_HAND and config_.hands_.isEnabled(handType)) {
+    if (auto hProp = config_.switches().get<Hand>()) {
+        auto& h = *hProp;
+        auto const& hands = frame.hands();
+        for (auto const& hand: hands) {
+            auto handType = whichHand(hand);
+            if (handType != NO_HAND and h[handType]) {
+            }
         }
     }
+#if 0
 
     auto const& fingers = frame.fingers();
     for (auto const& finger: fingers) {

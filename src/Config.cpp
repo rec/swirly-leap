@@ -1,7 +1,12 @@
 #include <sstream>
 
+#include "leap/Leap.h"
+
 #include "Config.h"
 #include "ArraySize.h"
+#include "PropertySwitchArray.h"
+
+using namespace Leap;
 
 namespace swirly {
 namespace leap {
@@ -24,27 +29,20 @@ StringValues splitEquals(string const& s) {
     return result;
 }
 
-const char* HANDS[] = {"left", "right"};
-const char* FINGERS[] = {"thumb", "index", "middle", "ring", "little"};
-const char* TOOLS[] = {"tool"};
-const char* CIRCLE[] = {"circle"};
-const char* KEYTAP[] = {"keytap"};
-const char* SCREENTAP[] = {"screentap"};
-const char* SWIPE[] = {"swipe"};
-
 }  // namespace
 
 Config::Config(Logger logger)
-        : logger_(logger) {
-    switches_["hand"] = SwitchArray(HANDS, arraysize(HANDS));
-    switches_["finger"] = SwitchArray(FINGERS, arraysize(FINGERS));
-    switches_["tool"] = SwitchArray(TOOLS, arraysize(TOOLS));
-
-    switches_["circle"] = SwitchArray(CIRCLE, arraysize(CIRCLE));
-    switches_["keytap"] = SwitchArray(KEYTAP, arraysize(KEYTAP));
-    switches_["screentap"] = SwitchArray(SCREENTAP, arraysize(SCREENTAP));
-    switches_["swipe"] = SwitchArray(SWIPE, arraysize(SWIPE));
+        : logger_(logger), switches_(new PropertySwitchArrayMap) {
+    switches_->add<Hand>({{"left", "right"}});
+    switches_->add<Finger>({{"thumb", "index", "middle", "ring", "little"}});
+    switches_->add<Tool>({{"tool"}});
+    switches_->add<CircleGesture>({{"circle"}});
+    switches_->add<KeyTapGesture>({{"keytap"}});
+    switches_->add<ScreenTapGesture>({{"screentap"}});
+    switches_->add<SwipeGesture>({{"swipe"}});
 }
+
+Config::~Config() {}
 
 void Config::addArgument(const string &str) {
     string s = (str[0] == OPTION_PREFIX) ? str.substr(1) : str;
@@ -68,24 +66,24 @@ void Config::addArgument(const string &str) {
         return;
     }
 
-    auto i = switches_.find(name);
-    if (i != switches_.end()) {
+    auto i = switches_->find(name);
+    if (i != switches_->end()) {
         for (auto const& v: values)
-            i->second.set(v);
+            i->second->set(v);
     } else {
         logger_(true, "ERROR: Don't understand argument %s.", s.c_str());
     }
 }
 
 void Config::finishArguments() {
-    for (auto& s: switches_)
-        s.second.finish();
+    for (auto& s: *switches_)
+        s.second->finish();
     dump();
 }
 
 void Config::dump() {
-    for (auto& s: switches_)
-        s.second.dump(logger_);
+    for (auto& s: *switches_)
+        s.second->dump(logger_);
 }
 
 }  // namespace leap

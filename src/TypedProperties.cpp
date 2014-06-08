@@ -8,7 +8,63 @@ namespace swirly {
 namespace leap {
 
 template <>
-void TypedProperties<Pointable>::fillDefault() {
+const char* humanName<Finger>() {
+    return "finger";
+}
+
+template <>
+const char* humanName<Hand>() {
+    return "hand";
+}
+
+template <>
+const char* humanName<Tool>() {
+    return "tool";
+}
+
+template <>
+const char* humanName<Bone>() {
+    return "bone";
+}
+
+template <>
+const char* humanName<SwipeGesture>() {
+    return "swipe";
+}
+
+template <>
+const char* humanName<CircleGesture>() {
+    return "circle";
+}
+
+template <>
+const char* humanName<KeyTapGesture>()
+{
+    return "keytap";
+}
+
+template <>
+const char* humanName<ScreenTapGesture>()
+{
+    return "screentap";
+}
+
+template <>
+void TypedProperties<Finger>::fillDefault() {
+    defaultProperty("direction", &Pointable::direction);
+    defaultProperty("isExtended", &Pointable::isExtended);
+    defaultProperty("length", &Pointable::length);
+    defaultProperty("stabilizedTipPosition", &Pointable::stabilizedTipPosition);
+    defaultProperty("timeVisible", &Pointable::timeVisible);
+    defaultProperty("tipPosition", &Pointable::tipPosition);
+    defaultProperty("tipVelocity", &Pointable::tipVelocity);
+    defaultProperty("touchDistance", &Pointable::touchDistance);
+    defaultProperty("touchZone", &Pointable::touchZone);
+    defaultProperty("width", &Pointable::width);
+}
+
+template <>
+void TypedProperties<Tool>::fillDefault() {
     defaultProperty("direction", &Pointable::direction);
     defaultProperty("isExtended", &Pointable::isExtended);
     defaultProperty("length", &Pointable::length);

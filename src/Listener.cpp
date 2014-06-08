@@ -63,7 +63,7 @@ void Listener::onServiceDisconnect(Controller const&) {
 }
 
 void Listener::log(const char* message) {
-    config_.logger_(true, "%s", message);
+    config_.logger_(false, "%s", message);
 }
 
 void Listener::verbose(const char* message) {

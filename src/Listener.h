@@ -14,7 +14,11 @@ class Listener : public Leap::Listener {
     Listener(Config&, FrameHandler&);
     ~Listener();
 
-    void setListening(bool);
+    void setRunning(bool);
+
+    // Request to send out a single frame, return true on success.
+    // You can't send out a single frame while running...
+    bool sendFrame();
 
     typedef Leap::Controller Controller;
 
@@ -33,7 +37,7 @@ class Listener : public Leap::Listener {
     Controller controller_;
     Config& config_;
     FrameHandler& frameHandler_;
-    bool listening_ = false;
+    bool running_ = false;
 
     void log(const char*);
     void verbose(const char*);

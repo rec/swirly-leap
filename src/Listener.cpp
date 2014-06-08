@@ -11,13 +11,20 @@ Listener::Listener(Config& config, FrameHandler& frameHandler)
 }
 
 void Listener::configCallback() {
-    setListening(config_.isRunning());
+    setRunning(config_.isRunning());
 }
 
-void Listener::setListening(bool listening) {
-    if (listening != listening_) {
-        listening_ = listening;
-        if (listening_)
+bool Listener::sendFrame() {
+    if (!running_)
+        onFrame(controller_);
+
+    return !running_;
+}
+
+void Listener::setRunning(bool running) {
+    if (running != running_) {
+        running_ = running;
+        if (running_)
             controller_.addListener(*this);
         else
             controller_.removeListener(*this);
@@ -25,7 +32,7 @@ void Listener::setListening(bool listening) {
 }
 
 Listener::~Listener() {
-    setListening(false);
+    setRunning(false);
 }
 
 void Listener::onInit(Controller const&) {

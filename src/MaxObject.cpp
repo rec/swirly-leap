@@ -19,7 +19,6 @@ t_class* CLASS_POINTER;
 
 } // namespace
 
-
 MaxObject::MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
         : maxStruct_(maxStruct),
           object_(&maxStruct_->object_),
@@ -58,7 +57,8 @@ void MaxObject::log(bool error, const char* format, const char* value) {
 }
 
 void MaxObject::bang() {
-    log1(false, "bang");
+    if (!leap_->listener_.sendFrame())
+        log(true, "%s", "bang: Can't send frame while running.");
 }
 
 void MaxObject::run() {

@@ -78,6 +78,7 @@ void Config::addArgument(const string &str) {
 void Config::finishArguments() {
     for (auto& s: *switches_)
         s.second->finish();
+    updateCallbacks();
     dump();
 }
 

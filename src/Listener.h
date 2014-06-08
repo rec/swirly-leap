@@ -14,7 +14,7 @@ class Listener : public Leap::Listener {
     Listener(Config&, FrameHandler&);
     ~Listener();
 
-    void initialize();
+    void setListening(bool);
 
     typedef Leap::Controller Controller;
 
@@ -33,10 +33,12 @@ class Listener : public Leap::Listener {
     Controller controller_;
     Config& config_;
     FrameHandler& frameHandler_;
-    bool initialized_ = false;
+    bool listening_ = false;
 
     void log(const char*);
     void verbose(const char*);
+
+    void configCallback();
 };
 
 }  // namespace leap

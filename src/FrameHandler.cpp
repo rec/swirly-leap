@@ -25,6 +25,7 @@ HandType whichHand(Hand const& hand) {
 }  // namespace
 
 void FrameHandler::onFrame(Frame const& frame) {
+    config_.logger_(false, "%s", "FrameHandler");
     if (auto hProp = config_.switches().get<Hand>()) {
         auto& h = *hProp;
         auto const& hands = frame.hands();

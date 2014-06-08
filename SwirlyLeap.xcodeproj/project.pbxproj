@@ -13,7 +13,6 @@
 		E2BD5FD5193A5DC300880150 /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD5FCD193A5DC300880150 /* Config.h */; };
 		E2BD5FD6193A5DC300880150 /* Leap.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD5FCF193A5DC300880150 /* Leap.h */; };
 		E2BD5FD7193A5DC300880150 /* LeapMath.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD5FD0193A5DC300880150 /* LeapMath.h */; };
-		E2BD5FD8193A5DC300880150 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FD1193A5DC300880150 /* Main.cpp */; };
 		E2BD5FD9193A5DC300880150 /* MaxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FD2193A5DC300880150 /* MaxObject.cpp */; };
 		E2BD5FDA193A5DC300880150 /* MaxObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BD5FD3193A5DC300880150 /* MaxObject.h */; };
 		E2BD5FDD193A6A7100880150 /* Listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BD5FDB193A6A7100880150 /* Listener.cpp */; };
@@ -30,6 +29,7 @@
 		E2C0240119439E6000F784EE /* Switch.h in Headers */ = {isa = PBXBuildFile; fileRef = E2C023FF19439E6000F784EE /* Switch.h */; };
 		E2C024031943C78700F784EE /* SwitchArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C024021943C78700F784EE /* SwitchArray.cpp */; };
 		E2C024051943CF8800F784EE /* TypedProperties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C024041943CF8800F784EE /* TypedProperties.cpp */; };
+		E2C024071944D7EB00F784EE /* MaxMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C024061944D7EB00F784EE /* MaxMain.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,7 +53,6 @@
 		E2BD5FCD193A5DC300880150 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		E2BD5FCF193A5DC300880150 /* Leap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Leap.h; sourceTree = "<group>"; };
 		E2BD5FD0193A5DC300880150 /* LeapMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeapMath.h; sourceTree = "<group>"; };
-		E2BD5FD1193A5DC300880150 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
 		E2BD5FD2193A5DC300880150 /* MaxObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaxObject.cpp; sourceTree = "<group>"; };
 		E2BD5FD3193A5DC300880150 /* MaxObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxObject.h; sourceTree = "<group>"; };
 		E2BD5FDB193A6A7100880150 /* Listener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Listener.cpp; path = src/Listener.cpp; sourceTree = SOURCE_ROOT; };
@@ -70,6 +69,7 @@
 		E2C023FF19439E6000F784EE /* Switch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Switch.h; sourceTree = "<group>"; };
 		E2C024021943C78700F784EE /* SwitchArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchArray.cpp; sourceTree = "<group>"; };
 		E2C024041943CF8800F784EE /* TypedProperties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TypedProperties.cpp; sourceTree = "<group>"; };
+		E2C024061944D7EB00F784EE /* MaxMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaxMain.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +115,8 @@
 				E2BD5FF3193C0D6D00880150 /* Gensym.cpp */,
 				E2BD5FF4193C0D6D00880150 /* Gensym.h */,
 				E2BD5FCE193A5DC300880150 /* leap */,
-				E2BD5FD1193A5DC300880150 /* Main.cpp */,
 				E2BD5FD2193A5DC300880150 /* MaxObject.cpp */,
+				E2C024061944D7EB00F784EE /* MaxMain.cpp */,
 				E2BD5FD3193A5DC300880150 /* MaxObject.h */,
 				E2BD5FEA193BB0BE00880150 /* Properties.h */,
 				E2BD5FE5193AD83E00880150 /* Represent.cpp */,
@@ -233,11 +233,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2BD5FD8193A5DC300880150 /* Main.cpp in Sources */,
 				E2BD5FDD193A6A7100880150 /* Listener.cpp in Sources */,
 				E2C024051943CF8800F784EE /* TypedProperties.cpp in Sources */,
 				E2C024031943C78700F784EE /* SwitchArray.cpp in Sources */,
 				E2BD5FE7193AD83E00880150 /* Represent.cpp in Sources */,
+				E2C024071944D7EB00F784EE /* MaxMain.cpp in Sources */,
 				E2BD5FEF193BD21400880150 /* FrameHandler.cpp in Sources */,
 				E2BD5FD9193A5DC300880150 /* MaxObject.cpp in Sources */,
 				E2BD5FF5193C0D6D00880150 /* Gensym.cpp in Sources */,

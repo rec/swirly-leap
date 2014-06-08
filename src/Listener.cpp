@@ -7,18 +7,25 @@ namespace leap {
 
 Listener::Listener(Config& config, FrameHandler& frameHandler)
         : config_(config), frameHandler_(frameHandler) {
+    config_.addCallback(bind(&Listener::configCallback, this));
 }
 
-void Listener::initialize() {
-    if (not initialized_) {
-        initialized_ = true;
-        controller_.addListener(*this);
+void Listener::configCallback() {
+    setListening(config_.isRunning());
+}
+
+void Listener::setListening(bool listening) {
+    if (listening != listening_) {
+        listening_ = listening;
+        if (listening_)
+            controller_.addListener(*this);
+        else
+            controller_.removeListener(*this);
     }
 }
 
 Listener::~Listener() {
-    if (initialized_)
-        controller_.removeListener(*this);
+    setListening(false);
 }
 
 void Listener::onInit(Controller const&) {
@@ -67,7 +74,7 @@ void Listener::log(const char* message) {
 }
 
 void Listener::verbose(const char* message) {
-    if (config_.verbose_)
+    if (config_.isVerbose())
         log(message);
 }
 

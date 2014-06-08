@@ -58,7 +58,7 @@ class TypedProperties : public Properties {
 
     template <typename Method>
     void defaultProperty(string const& name, Method m) {
-        properties_[name] = makeRepresenter(std::bind(m, placeholders::_1));
+        properties_[name] = makeRepresenter(bind(m, placeholders::_1));
     }
 
   private:

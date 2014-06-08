@@ -8,7 +8,6 @@ extern "C" {
 #include "MaxObject.h"
 #include "Callback.h"
 #include "LeapMotion.h"
-#include "PropertiesToMax.h"
 
 namespace swirly {
 namespace leap {
@@ -26,30 +25,24 @@ MaxObject::MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
           object_(&maxStruct_->object_),
           logger_(bind(&MaxObject::log, this, _1, _2)),
           leap_(new LeapMotion(logger_)) {
-    object_post(object_, "%s", s->s_name);
-    object_post(object_, "Built: %s, %s", __DATE__, __TIME__);
-    object_post(object_, "%ld arguments", argc);
+    log(s->s_name);
+    log("Built: " __DATE__ ", " __TIME__);
 
-    for (auto i = 0; i < argc; ++i) {
-        if ((argv + i)->a_type == A_SYM) {
-            const char* s = atom_getsym(argv + i)->s_name;
-            object_post(object_,
-                        "arg %ld: symbol (%s)",
-                        i, s);
-            leap_->config_.addArgument(s);
-        } else {
-            object_error(object_, "forbidden argument");
-        }
-    }
-    leap_->config_.finishArguments();
-    leap_->config_.dump();
     outlet_ = outlet_new(maxStruct_, nullptr);
     leap_->frameHandler_.setOutlet(outlet_);
+
+    for (auto i = 0; i < argc; ++i) {
+        if ((argv + i)->a_type == A_SYM)
+            leap_->config_.addArgument(atom_getsym(argv + i)->s_name);
+        else
+            log("forbidden argument", false);
+    }
+    leap_->config_.finishArguments();
 }
 
 MaxObject::~MaxObject() {}
 
-void MaxObject::log(bool error, string const& message) {
+void MaxObject::log(string const& message, bool error) {
     if (error)
         object_error(object_, "%s", message.c_str());
     else
@@ -58,7 +51,7 @@ void MaxObject::log(bool error, string const& message) {
 
 void MaxObject::bang() {
     if (!leap_->listener_.sendFrame())
-        log(true, "bang: Can't send frame while running.");
+        log("bang: Can't send frame while running.");
 }
 
 void MaxObject::run() {

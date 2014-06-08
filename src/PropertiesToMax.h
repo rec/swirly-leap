@@ -12,13 +12,18 @@ extern "C" {
 namespace swirly {
 namespace leap {
 
+inline void removeQuotes(string& s) {
+    if (s.size() > 1 and s.front() == '"' and s.back() == '"')
+        s = s.substr(s.size() - 2);
+}
+
 template <typename Data, int MAX_ATOMS = 20>
 void propertiesToMax(
         void* outlet,
         Data const& data,
         const TypedProperties<Data>& properties,
         Representation const& prefix,
-        BoolHandling boolHandling) {
+        BoolHandling boolHandling = BoolHandling::AS_STRING) {
     t_atom atoms[MAX_ATOMS];
     auto size = 0;
     for (auto i = 0; i < size; ++i)
@@ -26,12 +31,12 @@ void propertiesToMax(
 
     t_symbol* symbol = cachedGensym(prefix[0]);
     for (auto p: properties.properties()) {
-        auto const& name = p.first;
+        auto name = p.first;
         auto const& representer = p.second;
         atom_setsym(&atoms[size++], cachedGensym(name));
 
         Representation rep;
-        representer.represent(rep, data);
+        representer->represent(rep, data);
         if (rep.size() > 1) {  // must be Vector or Matrix.
             for (auto i = 0; i < rep.size(); ++i)
                 atom_setfloat(&atoms[size++], atof(rep[i].c_str()));
@@ -51,8 +56,7 @@ void propertiesToMax(
                         continue;
                     }
                 }
-                if (name[0] == "" and name[name.size() - 1] == "")
-                    name = name.substr(name.size() - 2);
+                removeQuotes(name);
                 atom_setsym(&atoms[size++], cachedGensym(name));
             }
         }

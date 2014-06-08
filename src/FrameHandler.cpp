@@ -25,13 +25,19 @@ HandType whichHand(Hand const& hand) {
 }  // namespace
 
 void FrameHandler::onFrame(Frame const& frame) {
-    config_.logger_(false, "FrameHandler");
+    if (!outlet_) {
+        config_.logger_("No outlet!", true);
+        return;
+    }
+    config_.logger_("FrameHandler", false);
     if (auto hProp = config_.switches().get<Hand>()) {
-        auto& h = *hProp;
+        Representation rep{"hand", ""};
         auto const& hands = frame.hands();
         for (auto const& hand: hands) {
             auto handType = whichHand(hand);
-            if (handType != NO_HAND and h[handType]) {
+            if (handType != NO_HAND and (*hProp)[handType]) {
+                rep[1] = handType == LEFT_HAND ? "left" : "right";
+                propertiesToMax(outlet_, hand, hProp->properties_, rep);
             }
         }
     }

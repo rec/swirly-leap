@@ -42,6 +42,7 @@ class TypedProperties : public Properties {
     typedef map<string, RepPtr> Map;
 
     Map& properties() { return properties_; }
+    const Map& properties() const { return properties_; }
 
     bool addProperty(string const& name) override {
         auto i = getDefault().properties_.find(name);

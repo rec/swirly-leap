@@ -26,7 +26,7 @@ class MaxObject {
     void stop();
 
   private:
-    void log(bool error, string const& message);
+    void log(string const& message, bool error = false);
 
     MaxStruct *const maxStruct_;
     t_object* object_;

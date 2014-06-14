@@ -22,6 +22,7 @@
 		E2C024051943CF8800F784EE /* TypedProperties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C024041943CF8800F784EE /* TypedProperties.cpp */; };
 		E2C024071944D7EB00F784EE /* MaxMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C024061944D7EB00F784EE /* MaxMain.cpp */; };
 		E2C024091945202A00F784EE /* Split.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C024081945202A00F784EE /* Split.cpp */; };
+		E2C0240B194BDE7300F784EE /* PropertiesToMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C0240A194BDE7300F784EE /* PropertiesToMax.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +55,7 @@
 		E2C024041943CF8800F784EE /* TypedProperties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TypedProperties.cpp; sourceTree = "<group>"; };
 		E2C024061944D7EB00F784EE /* MaxMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaxMain.cpp; sourceTree = "<group>"; };
 		E2C024081945202A00F784EE /* Split.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Split.cpp; sourceTree = "<group>"; };
+		E2C0240A194BDE7300F784EE /* PropertiesToMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PropertiesToMax.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				E2BD5FCE193A5DC300880150 /* leap */,
 				E2BD5FD2193A5DC300880150 /* MaxObject.cpp */,
 				E2C024061944D7EB00F784EE /* MaxMain.cpp */,
+				E2C0240A194BDE7300F784EE /* PropertiesToMax.cpp */,
 				E2BD5FE5193AD83E00880150 /* Represent.cpp */,
 				E2C024081945202A00F784EE /* Split.cpp */,
 				E2C024021943C78700F784EE /* SwitchArray.cpp */,
@@ -201,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2BD5FDD193A6A7100880150 /* Listener.cpp in Sources */,
+				E2C0240B194BDE7300F784EE /* PropertiesToMax.cpp in Sources */,
 				E2C024051943CF8800F784EE /* TypedProperties.cpp in Sources */,
 				E2C024091945202A00F784EE /* Split.cpp in Sources */,
 				E2C024031943C78700F784EE /* SwitchArray.cpp in Sources */,

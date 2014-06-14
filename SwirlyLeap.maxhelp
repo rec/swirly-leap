@@ -8,7 +8,7 @@
 			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 45.0, 78.0, 878.0, 396.0 ],
+		"rect" : [ 45.0, 78.0, 878.0, 530.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -28,6 +28,24 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fadetime" : 4000.0,
+					"fadeunselect" : 1,
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-32",
+					"maxclass" : "tab",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 31.0, 10.0, 80.0, 20.0 ],
+					"segmented" : 1,
+					"tabs" : [ "stop", "run" ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"bgcolor" : [ 1.0, 0.987817, 0.990276, 1.0 ],
 					"fontname" : "Arial",
@@ -110,7 +128,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 642.0, 244.0, 77.0, 18.0 ],
-					"text" : "none"
+					"text" : "hovering"
 				}
 
 			}
@@ -376,7 +394,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 95.0, 13.0, 203.0, 33.0 ],
+					"patching_rect" : [ 154.0, 10.0, 203.0, 33.0 ],
 					"text" : "If not running, bang will request exactly one frame from the device."
 				}
 
@@ -439,21 +457,6 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"id" : "obj-4",
-					"items" : [ "stop", ",", "run" ],
-					"maxclass" : "umenu",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "int", "", "" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 15.0, 13.0, 51.0, 20.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
 					"numinlets" : 3,
@@ -471,7 +474,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 75.0, 13.0, 20.0, 20.0 ]
+					"patching_rect" : [ 134.0, 10.0, 20.0, 20.0 ]
 				}
 
 			}
@@ -645,7 +648,7 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-4", 1 ]
+					"source" : [ "obj-32", 1 ]
 				}
 
 			}

@@ -67,7 +67,6 @@ void FrameHandler::onFrame(Frame const& frame) {
         auto properties = toolProperties->properties_;
         auto toolCount = 0;
         for (auto const& tool: tools) {
-            post(("tool!! " + to_string(toolCount)).c_str());
             auto handType = whichHand(tool.hand());
             if (handType != NO_HAND) {
                 rep[1] = HAND_NAME[handType];

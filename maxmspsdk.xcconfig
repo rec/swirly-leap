@@ -21,7 +21,7 @@ C74SUPPORT = $(DEVELOPMENT_ROOT)/c74support
 HEADER_SEARCH_PATHS = "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes"
 FRAMEWORK_SEARCH_PATHS = "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes"
 // DSTROOT = $(DEVELOPMENT_ROOT)/sdk-build/externals
-DSTROOT = $(SRCROOT)/externals
+DSTROOT = $(SRCROOT)
 // (This next path is relative to DSTROOT)
 INSTALL_PATH = /
 

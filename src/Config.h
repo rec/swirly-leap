@@ -7,7 +7,7 @@ struct PropertySwitchArrayMap;
 
 class Config {
   public:
-    Config(Logger);
+    Config(Logger const&);
     ~Config();
 
     static auto const VALUE_SEPARATOR = '+';
@@ -18,7 +18,7 @@ class Config {
     void finishArguments();
     void dump();
 
-    Logger const logger_;
+    Logger const& logger_;
 
     PropertySwitchArrayMap const& switches() const { return *switches_; }
 

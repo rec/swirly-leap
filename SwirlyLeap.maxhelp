@@ -75,8 +75,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 284.0, 206.0, 189.0, 20.0 ],
-					"text" : "SwirlyLeap finger=middle hand=+"
+					"patching_rect" : [ 285.0, 206.0, 187.0, 20.0 ],
+					"text" : "SwirlyLeap finger=middle hand=*"
 				}
 
 			}

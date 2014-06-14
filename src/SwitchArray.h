@@ -5,6 +5,8 @@
 namespace swirly {
 namespace leap {
 
+struct Logger;
+
 class SwitchArray {
   public:
     SwitchArray() {}
@@ -13,7 +15,9 @@ class SwitchArray {
 
     void finish();
     virtual bool set(string const& name);
-    void dump(Logger);
+    virtual void dump(string const& name, Logger const&) const;
+
+    bool any(bool isSet = true) const;
 
     Switch const& operator[](int i) const { return switches_[i].second; }
     Switch& operator[](int i) { return switches_[i].second; }

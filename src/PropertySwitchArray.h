@@ -10,8 +10,15 @@ template <typename Data>
 struct PropertySwitchArray : SwitchArray {
     using SwitchArray::SwitchArray;
 
-    virtual bool set(string const& name) {
+    bool set(string const& name) override {
         return SwitchArray::set(name) or properties_.addProperty(name);
+    }
+
+    void dump(string const& name, Logger const& logger) const override {
+        if (not properties_.empty()) {
+            SwitchArray::dump(name, logger);
+            properties_.dump(name, logger);
+        }
     }
 
     TypedProperties<Data> properties_;

@@ -1,4 +1,7 @@
+#include <strings.h>
+
 #include "SwitchArray.h"
+#include "Logger.h"
 
 namespace swirly {
 namespace leap {
@@ -56,9 +59,19 @@ bool SwitchArray::set(string const& name) {
     return false;
 }
 
-void SwitchArray::dump(Logger logger) {
-    for (auto const& s: switches_)
-        logger(s.first + "=" + s.second.name(), false);
+void SwitchArray::dump(string const& name, Logger const& logger) const {
+    for (auto const& s: switches_) {
+        if (s.second)
+            auto t = name + "." + string(s.first) + " = on";
+    }
+}
+
+bool SwitchArray::any(bool isSet) const {
+    for (auto const &s: switches_) {
+        if (bool(s.second) == isSet)
+            return true;
+    }
+    return false;
 }
 
 }  // namespace leap

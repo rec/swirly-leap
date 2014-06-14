@@ -8,7 +8,7 @@ namespace swirly {
 namespace leap {
 
 struct LeapMotion {
-    LeapMotion(Logger& logger)
+    LeapMotion(Logger const& logger)
             : config_(logger),
               frameHandler_(config_),
               listener_(config_, frameHandler_) {

@@ -12,6 +12,10 @@ string to_string(Bone::Type);
 string to_string(Pointable::Zone);
 string to_string(bool);
 
+template <typename T> string to_string(T t) {
+    return std::to_string(t);
+}
+
 template <typename Data>
 void represent(Representation& rep, Data d) {
     rep.push_back(to_string(d));

@@ -1,6 +1,7 @@
 #include "Listener.h"
 #include "Config.h"
 #include "FrameHandler.h"
+#include "Logger.h"
 
 namespace swirly {
 namespace leap {
@@ -77,7 +78,7 @@ void Listener::onServiceDisconnect(Controller const&) {
 }
 
 void Listener::log(string const& message) {
-    config_.logger_(message, false);
+    config_.logger_.log(message);
 }
 
 void Listener::verbose(string const& message) {

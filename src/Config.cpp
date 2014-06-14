@@ -1,45 +1,24 @@
-#include <sstream>
-
 #include "leap/Leap.h"
 
 #include "Config.h"
 #include "ArraySize.h"
 #include "PropertySwitchArray.h"
+#include "Split.h"
 
 using namespace Leap;
 
 namespace swirly {
 namespace leap {
 
-namespace {
-
-typedef pair<string, vector<string>> StringValues;
-
-StringValues splitEquals(string const& s) {
-    StringValues result;
-    auto pos = s.find('=');
-    if (pos && pos != string::npos && pos != s.size() - 1) {
-        result.first = s.substr(0, pos);
-
-        stringstream ss(s.substr(pos + 1));
-        string item;
-        while (getline(ss, item, Config::VALUE_SEPARATOR))
-            result.second.push_back(item);
-    }
-    return result;
-}
-
-}  // namespace
-
-Config::Config(Logger logger)
+Config::Config(Logger const& logger)
         : logger_(logger), switches_(new PropertySwitchArrayMap) {
-    switches_->add<Hand>({{"left", "right"}});
-    switches_->add<Finger>({{"thumb", "index", "middle", "ring", "little"}});
-    switches_->add<Tool>({{"tool"}});
-    switches_->add<CircleGesture>({{"circle"}});
-    switches_->add<KeyTapGesture>({{"keytap"}});
-    switches_->add<ScreenTapGesture>({{"screentap"}});
-    switches_->add<SwipeGesture>({{"swipe"}});
+    switches_->add<Hand>({"left", "right"});
+    switches_->add<Finger>({"thumb", "index", "middle", "ring", "little"});
+    switches_->add<Tool>({"tool"});
+    switches_->add<CircleGesture>({"circle"});
+    switches_->add<KeyTapGesture>({"keytap"});
+    switches_->add<ScreenTapGesture>({"screentap"});
+    switches_->add<SwipeGesture>({"swipe"});
 }
 
 Config::~Config() {}
@@ -54,24 +33,26 @@ void Config::addArgument(const string &str) {
         else if (s == "-all")
             all_ = true;
         else
-            logger_("ERROR: Don't understand flag " + s, true);
+            logger_.err("Don't understand flag " + s);
         return;
     }
 
-    auto const value = splitEquals(s);
+    auto const value = splitEquals(s, Config::VALUE_SEPARATOR);
     auto const& name = value.first;
     auto const& values = value.second;
     if (name.empty() or values.empty()) {
-        logger_("ERROR: Don't understand argument " + s, true);
+        logger_.err("Don't understand argument " + s);
         return;
     }
 
     auto i = switches_->find(name);
     if (i != switches_->end()) {
-        for (auto const& v: values)
-            i->second->set(v);
+        for (auto const& v: values) {
+            if (!i->second->set(v))
+                logger_.err("Don't understand switch value " + s);
+        }
     } else {
-        logger_("ERROR: Don't understand argument " + s, true);
+        logger_.err("Don't understand argument " + s);
     }
 }
 
@@ -84,7 +65,7 @@ void Config::finishArguments() {
 
 void Config::dump() {
     for (auto& s: *switches_)
-        s.second->dump(logger_);
+        s.second->dump(s.first, logger_);
 }
 
 }  // namespace leap

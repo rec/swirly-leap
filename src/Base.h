@@ -11,7 +11,6 @@ using namespace std;
 namespace swirly {
 
 enum HandType { LEFT_HAND, RIGHT_HAND, NO_HAND = -1 };
-typedef function<void(string const&, bool)> Logger;
 typedef vector<string> Representation;
 
 template <class T>

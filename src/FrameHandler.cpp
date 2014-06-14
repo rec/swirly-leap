@@ -26,10 +26,9 @@ HandType whichHand(Hand const& hand) {
 
 void FrameHandler::onFrame(Frame const& frame) {
     if (!outlet_) {
-        config_.logger_("No outlet!", true);
+        config_.logger_.err("No outlet!");
         return;
     }
-    config_.logger_("FrameHandler", false);
     if (auto hProp = config_.switches().get<Hand>()) {
         Representation rep{"hand", ""};
         auto const& hands = frame.hands();

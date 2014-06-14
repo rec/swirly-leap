@@ -2,6 +2,7 @@
 
 #include <string.h>
 
+#include "Logger.h"
 #include "Properties.h"
 #include "Represent.h"
 
@@ -45,22 +46,38 @@ class TypedProperties : public Properties {
     const Map& properties() const { return properties_; }
 
     bool addProperty(string const& name) override {
-        auto i = getDefault().properties_.find(name);
-        if (i != getDefault().properties_.end()) {
+        if (name == "*") {
+            properties_ = getDefault().properties_;
+        } else if (name == "-") {
+            properties_.clear();
+        } else {
+            auto i = getDefault().properties_.find(name);
+            if (i == getDefault().properties_.end())
+                return false;
             properties_[name] = i->second;
-            return true;
         }
-        return false;
-    }
 
-    void addAllProperties() {
-        properties_ = getDefault().properties_;
+        return true;
     }
 
     template <typename Method>
     void defaultProperty(string const& name, Method m) {
         properties_[name] = makeRepresenter(bind(m, placeholders::_1));
     }
+
+    void dump(string const& name, Logger const& logger) const {
+        if (not empty()) {
+            string result;
+            for (auto& p: properties_) {
+                if (not result.empty())
+                    result += "+";
+                result += p.first;
+            }
+            logger.log(name + "=" + result);
+        }
+    }
+
+    bool empty() const { return properties_.empty(); }
 
   private:
     static TypedProperties<Data> makeDefault() {

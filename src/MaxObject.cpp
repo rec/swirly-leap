@@ -1,5 +1,3 @@
-#include <sstream>
-
 extern "C" {
 #include "ext.h"
 #include "ext_obex.h"
@@ -8,6 +6,7 @@ extern "C" {
 #include "MaxObject.h"
 #include "Callback.h"
 #include "LeapMotion.h"
+#include "Split.h"
 
 namespace swirly {
 namespace leap {
@@ -23,10 +22,8 @@ using namespace std::placeholders;
 MaxObject::MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
         : maxStruct_(maxStruct),
           object_(&maxStruct_->object_),
-          logger_(bind(&MaxObject::log, this, _1, _2)),
-          leap_(new LeapMotion(logger_)) {
-    log(s->s_name);
-    log("Built: " __DATE__ ", " __TIME__);
+          leap_(new LeapMotion(*this)) {
+    log(string(s->s_name) + ", built " __DATE__ ", " __TIME__);
 
     outlet_ = outlet_new(maxStruct_, nullptr);
     leap_->frameHandler_.setOutlet(outlet_);
@@ -35,23 +32,28 @@ MaxObject::MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
         if ((argv + i)->a_type == A_SYM)
             leap_->config_.addArgument(atom_getsym(argv + i)->s_name);
         else
-            log("forbidden argument", false);
+            err("forbidden argument");
     }
     leap_->config_.finishArguments();
 }
 
 MaxObject::~MaxObject() {}
 
-void MaxObject::log(string const& message, bool error) {
-    if (error)
-        object_error(object_, "%s", message.c_str());
-    else
-        object_post(object_, "%s", message.c_str());
+void MaxObject::log(string const& message) const {
+    auto parts = split(message, '\r');
+    for (auto& p: parts)
+        object_post(object_, "%s", p.c_str());
+}
+
+void MaxObject::err(string const& message) const {
+    auto parts = split(message, '\r');
+    for (auto& p: parts)
+        object_error(object_, "ERROR: %s", p.c_str());
 }
 
 void MaxObject::bang() {
     if (!leap_->listener_.sendFrame())
-        log("bang: Can't send frame while running.");
+        err("bang: Can't send frame while running.");
 }
 
 void MaxObject::run() {
@@ -87,7 +89,7 @@ void stop(MaxStruct *max) {
 
 void assist(MaxStruct *max, void *b, long m, long a, char *s) {
     auto message = (m == ASSIST_INLET) ?
-            "bang, run, stop, set parameters" : "leap data messages";
+            "bang, run, stop" : "leap data messages";
     sprintf(s, "%s %ld", message, a);
 }
 

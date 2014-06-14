@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Base.h"
+#include "Logger.h"
 
 namespace swirly {
 namespace leap {
@@ -16,7 +16,7 @@ struct MaxStruct {
 };
 
 // This is the C++ class contained in this structure.
-class MaxObject {
+class MaxObject : public Logger{
   public:
     MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv);
     ~MaxObject();
@@ -26,12 +26,12 @@ class MaxObject {
     void stop();
 
   private:
-    void log(string const& message, bool error = false);
+    void log(string const& message) const override;
+    void err(string const& message) const override;
 
     MaxStruct *const maxStruct_;
     t_object* object_;
 
-    Logger logger_;
     unique_ptr<LeapMotion> leap_;
     void* outlet_;
 };

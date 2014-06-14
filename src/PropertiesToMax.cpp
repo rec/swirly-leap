@@ -5,49 +5,41 @@
 namespace swirly {
 namespace leap {
 
-static void removeQuotes(string& s) {
-    if (s.size() > 1 and s.front() == '"' and s.back() == '"')
-        s = s.substr(s.size() - 2);
+void set_atom(t_atom* atom, string const& name, BoolHandling handling) {
+    auto ch = name[0];
+    if (ch == '-' or isdigit(ch)) {
+        // It's a number.
+        if (name.find('.') != string::npos)
+            atom_setfloat(atom, atof(name.c_str()));
+        else
+            atom_setlong(atom, atol(name.c_str()));
+        return;
+    }
+
+    if (handling == BoolHandling::AS_NUMBER) {
+        // Perhaps it's a bool?
+        if (name == "true") {
+            atom_setlong(atom, 1);
+            return;
+        }
+        if (name == "false") {
+            atom_setlong(atom, 0);
+            return;
+        }
+    }
+
+    // Definitely a symbol.
+    atom_setsym(atom, cachedGensym(name));
 }
 
 int PropertyRepresenter::represent(
         string name, Representation const& rep) const {
     auto size = size_;
     atom_setsym(&atoms_[size++], cachedGensym(name));
-
-    if (rep.size() > 1) {
-        // It's either Vector or Matrix.
-        for (auto i = 0; i < rep.size(); ++i)
-            atom_setfloat(&atoms_[size++], atof(rep[i].c_str()));
-        return size;
-    }
-
-    auto& first = rep[0];
-    if (isdigit(first[0])) {
-        // It's a number.
-        if (first.find('.') != string::npos)
-            atom_setfloat(&atoms_[size++], atof(first.c_str()));
-        else
-            atom_setlong(&atoms_[size++], atol(first.c_str()));
-        return size;
-    }
-
-    if (handling_ == BoolHandling::AS_NUMBER) {
-        if (name == "true") {
-            atom_setlong(&atoms_[size++], 1);
-            return size;
-        }
-        if (name == "false") {
-            atom_setlong(&atoms_[size++], 0);
-            return size;
-        }
-    }
-
-    removeQuotes(name);
-    atom_setsym(&atoms_[size++], cachedGensym(name));
+    for (auto& r: rep)
+        set_atom(&atoms_[size++], r, handling_);
     return size;
 }
-
 
 }  // namespace leap
 }  // namespace swirly

@@ -1,5 +1,7 @@
 #include <strings.h>
 
+#include <algorithm>
+
 #include "SwitchArray.h"
 #include "Logger.h"
 

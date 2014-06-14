@@ -26,16 +26,18 @@ class PropertyRepresenter {
     BoolHandling handling_;
 };
 
+void set_atom(t_atom* atom, string const& s, BoolHandling handling);
+
 template <typename Data, int MAX_ATOMS = 20>
 void propertiesToMax(
         void* outlet,
         Data const& data,
         const TypedProperties<Data>& properties,
         Representation const& prefix,
-        BoolHandling handling = BoolHandling::AS_STRING) {
+        BoolHandling handling = BoolHandling::AS_NUMBER) {
     t_atom atoms[MAX_ATOMS];
     for (auto i = 0; i < prefix.size(); ++i)
-        atom_setsym(&atoms[i], cachedGensym(prefix[i]));
+        set_atom(&atoms[i], prefix[i], handling);
 
     t_symbol* symbol = cachedGensym(prefix[0]);
     PropertyRepresenter pr(prefix.size(), atoms, handling);

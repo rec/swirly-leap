@@ -10,7 +10,7 @@ using namespace std;
 
 namespace swirly {
 
-enum HandType { LEFT_HAND, RIGHT_HAND, NO_HAND = -1 };
+enum HandType { NO_HAND, LEFT_HAND, RIGHT_HAND };
 typedef vector<string> Representation;
 
 template <class T>

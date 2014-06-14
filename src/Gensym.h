@@ -10,7 +10,7 @@ extern "C" {
 namespace swirly {
 namespace leap {
 
-t_symbol* cachedGensym(string const&);
+t_symbol* cachedGensym(string);
 
 }  // namespace leap
 }  // namespace swirly

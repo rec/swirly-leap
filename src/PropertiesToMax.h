@@ -41,13 +41,20 @@ void propertiesToMax(
 
     t_symbol* symbol = cachedGensym(prefix[0]);
     PropertyRepresenter pr(prefix.size(), atoms, handling);
+    bool first = true;
     for (auto p: properties.properties()) {
         Representation rep;
         auto const& representer = p.second;
         representer->represent(rep, data);
         auto size = pr.represent(p.first, rep);
+        if (first) {
+            first = false;
+            outlet_anything(outlet, cachedGensym("framestart"), 0, nullptr);
+        }
         outlet_anything(outlet, symbol, size - 1, atoms + 1);
     }
+    if (not first)
+        outlet_anything(outlet, cachedGensym("frameend"), 0, nullptr);
 }
 
 }  // namespace leap

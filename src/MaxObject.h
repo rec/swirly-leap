@@ -24,9 +24,6 @@ class MaxObject : public Logger{
     void bang();
     void setRunning(bool isRunning);
 
-    void start();
-    void stop();
-
   private:
     void log(string const& message) const override;
     void err(string const& message) const override;

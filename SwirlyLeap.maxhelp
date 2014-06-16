@@ -8,7 +8,7 @@
 			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 146.0, 180.0, 878.0, 530.0 ],
+		"rect" : [ 156.0, 212.0, 878.0, 530.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -28,6 +28,30 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-37",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 168.0, 124.0, 11.0, 11.0 ],
+					"presentation_rect" : [ 172.0, 123.0, 0.0, 0.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-32",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 134.0, 124.0, 11.0, 11.0 ],
+					"presentation_rect" : [ 138.0, 124.0, 0.0, 0.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-42",
 					"maxclass" : "toggle",
@@ -61,7 +85,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 203.0, 116.0, 39.0, 32.0 ]
+					"patching_rect" : [ 154.0, 50.0, 39.0, 32.0 ]
 				}
 
 			}
@@ -98,7 +122,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 223.0, 164.5, 34.0, 20.0 ],
+					"patching_rect" : [ 210.0, 58.5, 34.0, 20.0 ],
 					"text" : "print"
 				}
 
@@ -389,7 +413,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 117.0, 116.0, 11.0, 11.0 ]
+					"patching_rect" : [ 246.0, 102.0, 11.0, 11.0 ]
 				}
 
 			}
@@ -506,7 +530,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 175.0, 82.0, 194.0, 33.0 ],
+					"patching_rect" : [ 254.0, 170.0, 194.0, 33.0 ],
 					"text" : "Get all properties from the middle finger and the left hand"
 				}
 
@@ -517,11 +541,11 @@
 					"fontsize" : 12.0,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
-					"numinlets" : 3,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 31.0, 93.0, 101.0, 20.0 ],
-					"text" : "route finger hand"
+					"numinlets" : 5,
+					"numoutlets" : 5,
+					"outlettype" : [ "", "", "", "", "" ],
+					"patching_rect" : [ 31.0, 93.0, 213.0, 20.0 ],
+					"text" : "route finger hand framestart frameend"
 				}
 
 			}
@@ -661,7 +685,25 @@
 					"destination" : [ "obj-22", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"source" : [ "obj-2", 4 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-32", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-2", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-37", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-2", 3 ]
 				}
 
 			}

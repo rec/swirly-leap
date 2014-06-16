@@ -22,7 +22,7 @@ HandType whichHand(Hand const& hand) {
     return NO_HAND;
 }
 
-const char* HAND_NAME[] = {"", "left", "right"};
+const char* HAND_NAME[] = {"left", "right", ""};
 
 }  // namespace
 

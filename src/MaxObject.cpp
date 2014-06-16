@@ -56,7 +56,7 @@ void MaxObject::bang() {
         err("bang: Can't send frame while running.");
 }
 
-void MaxObject::run() {
+void MaxObject::start() {
     leap_->config_.setRunning(true);
 }
 
@@ -79,8 +79,8 @@ void bang(MaxStruct *max) {
     max->maxObject_->bang();
 }
 
-void run(MaxStruct *max) {
-    max->maxObject_->run();
+void start(MaxStruct *max) {
+    max->maxObject_->start();
 }
 
 void stop(MaxStruct *max) {
@@ -89,7 +89,7 @@ void stop(MaxStruct *max) {
 
 void assist(MaxStruct *max, void *b, long m, long a, char *s) {
     auto message = (m == ASSIST_INLET) ?
-            "bang, run, stop" : "leap data messages";
+            "bang, start, stop" : "leap data messages";
     sprintf(s, "%s %ld", message, a);
 }
 
@@ -100,7 +100,7 @@ void registerMaxObject() {
 
     class_addmethod(CLASS_POINTER, (method) assist, "assist", A_CANT, 0);
     class_addmethod(CLASS_POINTER, (method) bang, "bang", 0);
-    class_addmethod(CLASS_POINTER, (method) run, "run", 0);
+    class_addmethod(CLASS_POINTER, (method) start, "start", 0);
     class_addmethod(CLASS_POINTER, (method) stop, "stop", 0);
     class_register(CLASS_BOX, CLASS_POINTER);
 }

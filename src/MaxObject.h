@@ -22,7 +22,7 @@ class MaxObject : public Logger{
     ~MaxObject();
 
     void bang();
-    void run();
+    void start();
     void stop();
 
   private:

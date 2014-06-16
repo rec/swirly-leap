@@ -13,7 +13,7 @@ namespace leap {
 Config::Config(Logger const& logger)
         : logger_(logger), switches_(new PropertySwitchArrayMap) {
     switches_->add<Hand>({"left", "right"});
-    switches_->add<Finger>({"thumb", "index", "middle", "ring", "little"});
+    switches_->add<Finger>({"thumb", "index", "middle", "ring", "pinky"});
     switches_->add<Tool>({"tool"});
     switches_->add<CircleGesture>({"circle"});
     switches_->add<KeyTapGesture>({"keytap"});

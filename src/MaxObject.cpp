@@ -56,12 +56,8 @@ void MaxObject::bang() {
         err("bang: Can't send frame while running.");
 }
 
-void MaxObject::start() {
-    leap_->config_.setRunning(true);
-}
-
-void MaxObject::stop() {
-    leap_->config_.setRunning(false);
+void MaxObject::setRunning(bool isRunning) {
+    leap_->config_.setRunning(isRunning);
 }
 
 void maxDelete(MaxStruct *max) {
@@ -75,16 +71,20 @@ void* maxNew(t_symbol *s, long argc, t_atom *argv) {
     return max;
 }
 
+void maxInt(MaxStruct *max, long n) {
+    max->maxObject_->setRunning(n);
+}
+
 void bang(MaxStruct *max) {
     max->maxObject_->bang();
 }
 
 void start(MaxStruct *max) {
-    max->maxObject_->start();
+    max->maxObject_->setRunning(true);
 }
 
 void stop(MaxStruct *max) {
-    max->maxObject_->stop();
+    max->maxObject_->setRunning(false);
 }
 
 void assist(MaxStruct *max, void *b, long m, long a, char *s) {
@@ -102,6 +102,7 @@ void registerMaxObject() {
     class_addmethod(CLASS_POINTER, (method) bang, "bang", 0);
     class_addmethod(CLASS_POINTER, (method) start, "start", 0);
     class_addmethod(CLASS_POINTER, (method) stop, "stop", 0);
+    class_addmethod(CLASS_POINTER, (method) maxInt, "int", A_LONG, 0);
     class_register(CLASS_BOX, CLASS_POINTER);
 }
 

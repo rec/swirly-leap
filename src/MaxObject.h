@@ -22,6 +22,8 @@ class MaxObject : public Logger{
     ~MaxObject();
 
     void bang();
+    void setRunning(bool isRunning);
+
     void start();
     void stop();
 

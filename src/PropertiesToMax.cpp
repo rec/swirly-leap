@@ -29,13 +29,13 @@ void set_atom(t_atom* atom, string const& name, BoolHandling handling) {
     }
 
     // Definitely a symbol.
-    atom_setsym(atom, cachedGensym(name));
+    setSymbol(atom, name);
 }
 
 int PropertyRepresenter::represent(
         string name, Representation const& rep) const {
     auto size = size_;
-    atom_setsym(&atoms_[size++], cachedGensym(name));
+    setSymbol(&atoms_[size++], name);
     for (auto& r: rep)
         set_atom(&atoms_[size++], r, handling_);
     return size;

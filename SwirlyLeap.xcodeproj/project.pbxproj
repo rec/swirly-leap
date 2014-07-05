@@ -23,6 +23,7 @@
 		E2C024071944D7EB00F784EE /* MaxMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C024061944D7EB00F784EE /* MaxMain.cpp */; };
 		E2C024091945202A00F784EE /* Split.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C024081945202A00F784EE /* Split.cpp */; };
 		E2C0240B194BDE7300F784EE /* PropertiesToMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C0240A194BDE7300F784EE /* PropertiesToMax.cpp */; };
+		E2C46D2219523FD500CC440A /* LeapUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C46D2119523FD500CC440A /* LeapUtil.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,6 +57,7 @@
 		E2C024061944D7EB00F784EE /* MaxMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaxMain.cpp; sourceTree = "<group>"; };
 		E2C024081945202A00F784EE /* Split.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Split.cpp; sourceTree = "<group>"; };
 		E2C0240A194BDE7300F784EE /* PropertiesToMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PropertiesToMax.cpp; sourceTree = "<group>"; };
+		E2C46D2119523FD500CC440A /* LeapUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LeapUtil.cpp; path = src/LeapUtil.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,8 @@
 				E2BD5FF1193BD9DA00880150 /* Config.cpp */,
 				E2BD5FED193BD21400880150 /* FrameHandler.cpp */,
 				E2BD5FF3193C0D6D00880150 /* Gensym.cpp */,
+				E2C46D2119523FD500CC440A /* LeapUtil.cpp */,
+				E2BD5FDB193A6A7100880150 /* Listener.cpp */,
 				E2BD5FCE193A5DC300880150 /* leap */,
 				E2BD5FD2193A5DC300880150 /* MaxObject.cpp */,
 				E2C024061944D7EB00F784EE /* MaxMain.cpp */,
@@ -110,7 +114,6 @@
 		E2BD5FCE193A5DC300880150 /* leap */ = {
 			isa = PBXGroup;
 			children = (
-				E2BD5FDB193A6A7100880150 /* Listener.cpp */,
 				E2BD5FDC193A6A7100880150 /* Listener.h */,
 				E2BD5FCF193A5DC300880150 /* Leap.h */,
 				E2BD5FD0193A5DC300880150 /* LeapMath.h */,
@@ -204,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2BD5FDD193A6A7100880150 /* Listener.cpp in Sources */,
+				E2C46D2219523FD500CC440A /* LeapUtil.cpp in Sources */,
 				E2C0240B194BDE7300F784EE /* PropertiesToMax.cpp in Sources */,
 				E2C024051943CF8800F784EE /* TypedProperties.cpp in Sources */,
 				E2C024091945202A00F784EE /* Split.cpp in Sources */,

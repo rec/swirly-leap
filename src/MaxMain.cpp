@@ -1,6 +1,4 @@
-extern "C" {
-#include "ext.h"
-}
+#include "Max.h"
 
 #include "MaxObject.h"
 

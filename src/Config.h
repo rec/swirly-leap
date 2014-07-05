@@ -18,6 +18,9 @@ class Config {
     void finishArguments();
     void dump();
 
+    Representation getHand() const;
+    Representation setHand(Representation const&);
+
     Logger const& logger_;
 
     PropertySwitchArrayMap const& switches() const { return *switches_; }

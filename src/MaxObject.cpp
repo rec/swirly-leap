@@ -1,10 +1,7 @@
-extern "C" {
-#include "ext.h"
-#include "ext_obex.h"
-}
-
+#include "Max.h"
 #include "MaxObject.h"
 #include "Callback.h"
+#include "Gensym.h"
 #include "LeapMotion.h"
 #include "Split.h"
 
@@ -29,8 +26,8 @@ MaxObject::MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
     leap_->frameHandler_.setOutlet(outlet_);
 
     for (auto i = 0; i < argc; ++i) {
-        if ((argv + i)->a_type == A_SYM)
-            leap_->config_.addArgument(atom_getsym(argv + i)->s_name);
+        if (argv[i].a_type == A_SYM)
+            leap_->config_.addArgument(getSymbol(&argv[i]));
         else
             err("forbidden argument");
     }
@@ -59,6 +56,8 @@ void MaxObject::bang() {
 void MaxObject::setRunning(bool isRunning) {
     leap_->config_.setRunning(isRunning);
 }
+
+namespace {
 
 void maxDelete(MaxStruct *max) {
     delete max->maxObject_;
@@ -93,17 +92,79 @@ void assist(MaxStruct *max, void *b, long m, long a, char *s) {
     sprintf(s, "%s %ld", message, a);
 }
 
+int j = 0;
+
+t_max_err getHand(MaxStruct *max, void*, long *atomCount, t_atom **atoms) {
+    print("getHand " + to_string(j++));
+    if (!(atomCount && atoms))
+        return MAX_ERR_NONE;
+
+    auto hand = max->maxObject_->leap().config_.getHand();
+    char alloc;
+    if (auto err = atom_alloc_array(hand.size(), atomCount, atoms, &alloc))
+        return err;
+
+    for (auto i = 0; i < hand.size(); ++i) {
+        print(to_string(i) + ": " + hand[i]);
+        if (i < 0)
+            setSymbol(atoms[i], hand[i]);
+    }
+    return MAX_ERR_NONE;
+}
+
+t_max_err setHand(MaxStruct *max, void *, long atomCount, t_atom *atoms) {
+    post(("setHand " + to_string(atomCount)).c_str());
+
+    Representation success, fail;
+    for (auto atom = atoms; atom != atoms + atomCount; ++atom) {
+        if (atom->a_type == A_SYM)
+            success.emplace_back(getSymbol(atom));
+        else if (atom->a_type == A_LONG)
+            fail.emplace_back(to_string(atom_getlong(atom)));
+        else if (atom->a_type == A_FLOAT)
+            fail.emplace_back(to_string(atom_getfloat(atom)));
+        else
+            fail.emplace_back("unknown type " + to_string(atom->a_type));
+    }
+
+    auto& config = max->maxObject_->leap().config_;
+    auto fail2 = config.setHand(success);
+    fail.insert(fail.end(), fail2.begin(), fail2.end());
+
+    if (!fail.empty()) {
+        std::sort(fail.begin(), fail.end());
+        config.logger_.err("Don't understand properties for attribute @hand");
+        for (auto& f: fail)
+            config.logger_.err(f);
+    }
+
+    config.setHand(success);
+    return MAX_ERR_NONE;
+}
+
+}  // namespace
+
 void registerMaxObject() {
     CLASS_POINTER = class_new("SwirlyLeap",
         (method) maxNew, (method) maxDelete,
         sizeof(MaxStruct), nullptr, A_GIMME, 0);
+    auto sl = CLASS_POINTER;
 
-    class_addmethod(CLASS_POINTER, (method) assist, "assist", A_CANT, 0);
-    class_addmethod(CLASS_POINTER, (method) bang, "bang", 0);
-    class_addmethod(CLASS_POINTER, (method) start, "start", 0);
-    class_addmethod(CLASS_POINTER, (method) stop, "stop", 0);
-    class_addmethod(CLASS_POINTER, (method) maxInt, "int", A_LONG, 0);
-    class_register(CLASS_BOX, CLASS_POINTER);
+    class_addmethod(sl, (method) assist, "assist", A_CANT, 0);
+    class_addmethod(sl, (method) bang, "bang", 0);
+    class_addmethod(sl, (method) start, "start", 0);
+    class_addmethod(sl, (method) stop, "stop", 0);
+    class_addmethod(sl, (method) maxInt, "int", A_LONG, 0);
+
+    CLASS_ATTR_SYM_VARSIZE(
+        sl, "hand", 0, MaxStruct, hands_, numHands_, MAX_PROPERTIES);
+    CLASS_ATTR_ACCESSORS(sl, "hand", (method) getHand, (method) setHand);
+#if 0
+    CLASS_ATTR_ACCESSORS(sl, "finger", (method) getFinger, (method) setFinger);
+    CLASS_ATTR_ACCESSORS(sl, "tool", (method) getTool, (method) setTool);
+#endif
+
+    class_register(CLASS_BOX, sl);
 }
 
 }  // namespace leap

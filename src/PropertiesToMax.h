@@ -1,10 +1,6 @@
 #include <string.h>
 
-extern "C" {
-#include "ext.h"
-#include "ext_obex.h"
-}
-
+#include "Max.h"
 #include "BoolHandling.h"
 #include "Gensym.h"
 #include "TypedProperties.h"

@@ -2,6 +2,7 @@
 
 #include "Logger.h"
 
+
 namespace swirly {
 namespace leap {
 
@@ -10,9 +11,13 @@ namespace leap {
 struct LeapMotion;
 class MaxObject;
 
+static const int MAX_PROPERTIES = 64;
+
 struct MaxStruct {
     t_object object_;
     MaxObject *maxObject_;
+    t_symbol hands_[MAX_PROPERTIES];
+    long numHands_;
 };
 
 // This is the C++ class contained in this structure.
@@ -23,6 +28,7 @@ class MaxObject : public Logger{
 
     void bang();
     void setRunning(bool isRunning);
+    LeapMotion& leap() { return *leap_; }
 
   private:
     void log(string const& message) const override;

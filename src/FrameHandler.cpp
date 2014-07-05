@@ -3,7 +3,9 @@
 #include "leap/Leap.h"
 
 #include "FrameHandler.h"
+
 #include "Config.h"
+#include "LeapUtil.h"
 #include "PropertiesToMax.h"
 #include "PropertySwitchArray.h"
 
@@ -11,20 +13,6 @@ using namespace Leap;
 
 namespace swirly {
 namespace leap {
-
-namespace {
-
-HandType whichHand(Hand const& hand) {
-    if (hand.isLeft())
-        return LEFT_HAND;
-    if (hand.isRight())
-        return RIGHT_HAND;
-    return NO_HAND;
-}
-
-const char* HAND_NAME[] = {"left", "right", ""};
-
-}  // namespace
 
 void FrameHandler::onFrame(Frame const& frame) {
     if (!outlet_) {
@@ -34,10 +22,11 @@ void FrameHandler::onFrame(Frame const& frame) {
     if (auto handProperties = config_.switches().get<Hand>()) {
         Representation rep{"hand", ""};
         auto const& hands = frame.hands();
-        auto properties = handProperties->properties_;
+        auto& switches = handProperties->switches_;
+        auto& properties = handProperties->properties_;
         for (auto const& hand: hands) {
             auto handType = whichHand(hand);
-            if (handType != NO_HAND and (*handProperties)[handType]) {
+            if (handType != NO_HAND and switches[handType].second) {
                 rep[1] = HAND_NAME[handType];
                 propertiesToMax(outlet_, hand, properties, rep);
             }
@@ -47,14 +36,16 @@ void FrameHandler::onFrame(Frame const& frame) {
     if (auto fingerProperties = config_.switches().get<Finger>()) {
         Representation rep{"finger", "", ""};
         auto const& fingers = frame.fingers();
+        auto& switches = fingerProperties->switches_;
         auto properties = fingerProperties->properties_;
         for (auto const& finger: fingers) {
             auto fingerType = finger.type();
-            if ((*fingerProperties)[fingerType]) {
+            auto sw = switches[fingerType];
+            if (sw.second) {
                 auto handType = whichHand(finger.hand());
                 if (handType != NO_HAND) {
                     rep[1] = HAND_NAME[handType];
-                    rep[2] = fingerProperties->name(fingerType);
+                    rep[2] = sw.first;
                     propertiesToMax(outlet_, finger, properties, rep);
                 }
             }

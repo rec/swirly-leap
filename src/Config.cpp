@@ -4,6 +4,7 @@
 #include "ArraySize.h"
 #include "PropertySwitchArray.h"
 #include "Split.h"
+#include "TypedProperties.h"
 
 using namespace Leap;
 
@@ -67,6 +68,33 @@ void Config::dump() {
     for (auto& s: *switches_)
         s.second->dump(s.first, logger_);
 }
+
+Representation Config::getHand() const {
+    Representation rep;
+    auto hand = switches_->get<Hand>();
+
+    if (hand->any() and not hand->properties_.empty()) {
+        if (hand->any(false)) {
+            for (auto& h: hand->switches_)
+                if (h.second)
+                    rep.push_back(h.first);
+        }
+
+        for (auto& h: hand->properties_.properties())
+            rep.push_back(h.first);
+
+    } else {
+        logger_.err("No hand!");
+    }
+
+    return rep;
+}
+
+Representation Config::setHand(Representation const& rep) {
+    Representation failure;
+    return failure;
+}
+
 
 }  // namespace leap
 }  // namespace swirly

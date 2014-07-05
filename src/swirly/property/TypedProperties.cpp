@@ -49,98 +49,103 @@ const char* humanName<ScreenTapGesture>()
     return "screentap";
 }
 
+#define PROP(CLASS, NAME) \
+    defaultProperty(#NAME, &CLASS::NAME)
+
 template <>
 void TypedProperties<Finger>::fillDefault() {
-    defaultProperty("direction", &Pointable::direction);
-    defaultProperty("isExtended", &Pointable::isExtended);
-    defaultProperty("length", &Pointable::length);
-    defaultProperty("stabilizedTipPosition", &Pointable::stabilizedTipPosition);
-    defaultProperty("timeVisible", &Pointable::timeVisible);
-    defaultProperty("tipPosition", &Pointable::tipPosition);
-    defaultProperty("tipVelocity", &Pointable::tipVelocity);
-    defaultProperty("touchDistance", &Pointable::touchDistance);
-    defaultProperty("touchZone", &Pointable::touchZone);
-    defaultProperty("width", &Pointable::width);
+    PROP(Pointable, direction); // norm
+    PROP(Pointable, isExtended);
+    PROP(Pointable, length);
+    PROP(Pointable, stabilizedTipPosition); // vec
+    PROP(Pointable, timeVisible);
+    PROP(Pointable, tipPosition); // vec
+    PROP(Pointable, tipVelocity);  // vec
+    PROP(Pointable, touchDistance);
+    PROP(Pointable, touchZone);
+    PROP(Pointable, width);
 }
 
 template <>
 void TypedProperties<Tool>::fillDefault() {
-    defaultProperty("direction", &Pointable::direction);
-    defaultProperty("isExtended", &Pointable::isExtended);
-    defaultProperty("length", &Pointable::length);
-    defaultProperty("stabilizedTipPosition", &Pointable::stabilizedTipPosition);
-    defaultProperty("timeVisible", &Pointable::timeVisible);
-    defaultProperty("tipPosition", &Pointable::tipPosition);
-    defaultProperty("tipVelocity", &Pointable::tipVelocity);
-    defaultProperty("touchDistance", &Pointable::touchDistance);
-    defaultProperty("touchZone", &Pointable::touchZone);
-    defaultProperty("width", &Pointable::width);
+    PROP(Pointable, direction); // norm
+    PROP(Pointable, isExtended);
+    PROP(Pointable, length);
+    PROP(Pointable, stabilizedTipPosition); // vec
+    PROP(Pointable, timeVisible);
+    PROP(Pointable, tipPosition); // vec
+    PROP(Pointable, tipVelocity);  // vec
+    PROP(Pointable, touchDistance);
+    PROP(Pointable, touchZone);
+    PROP(Pointable, width);
 }
 
 template <>
 void TypedProperties<Bone>::fillDefault() {
-    defaultProperty("basis", &Bone::basis);
-    defaultProperty("center", &Bone::center);
-    defaultProperty("direction", &Bone::direction);
-    defaultProperty("length", &Bone::length);
-    defaultProperty("type", &Bone::type);
-    defaultProperty("width", &Bone::width);
+    PROP(Bone, basis); // mat
+    PROP(Bone, center);  // vec
+    PROP(Bone, direction); // norm
+    PROP(Bone, length);
+    PROP(Bone, type);
+    PROP(Bone, width);
 }
 
 template <>
 void TypedProperties<Hand>::fillDefault() {
-    defaultProperty("basis", &Hand::basis);
-    defaultProperty("confidence", &Hand::confidence);
-    defaultProperty("direction", &Hand::direction);
-    defaultProperty("grabStrength", &Hand::grabStrength);
-    defaultProperty("palmNormal", &Hand::palmNormal);
-    defaultProperty("palmPosition", &Hand::palmPosition);
-    defaultProperty("palmVelocity", &Hand::palmVelocity);
-    defaultProperty("palmWidth", &Hand::palmWidth);
-    defaultProperty("pinchStrength", &Hand::pinchStrength);
-    defaultProperty("sphereCenter", &Hand::sphereCenter);
-    defaultProperty("sphereRadius", &Hand::sphereRadius);
-    defaultProperty("stabilizedPalmPosition", &Hand::stabilizedPalmPosition);
-    defaultProperty("timeVisible", &Hand::timeVisible);
+    PROP(Hand, basis);
+    PROP(Hand, confidence);
+    PROP(Hand, direction); // norm
+    PROP(Hand, grabStrength);
+    PROP(Hand, palmNormal); // norm
+    PROP(Hand, palmPosition); // vec
+    PROP(Hand, palmVelocity);  //vec
+    PROP(Hand, palmWidth);
+    PROP(Hand, pinchStrength);
+    PROP(Hand, sphereCenter); // vec
+    PROP(Hand, sphereRadius);
+    PROP(Hand, stabilizedPalmPosition); // vec
+    PROP(Hand, timeVisible);
 }
 
 template <>
 void TypedProperties<SwipeGesture>::fillDefault() {
-    defaultProperty("direction", &SwipeGesture::direction);
-    defaultProperty("durationSeconds", &SwipeGesture::durationSeconds);
-    defaultProperty("id", &SwipeGesture::id);
-    defaultProperty("position", &SwipeGesture::position);
-    defaultProperty("speed", &SwipeGesture::speed);
-    defaultProperty("startPosition", &SwipeGesture::startPosition);
+    PROP(SwipeGesture, direction);
+    PROP(SwipeGesture, durationSeconds);
+    PROP(SwipeGesture, id);
+    PROP(SwipeGesture, position);
+    PROP(SwipeGesture, speed);
+    PROP(SwipeGesture, startPosition);
 }
 
 template <>
 void TypedProperties<CircleGesture>::fillDefault() {
-    defaultProperty("center", &CircleGesture::center);
-    defaultProperty("durationSeconds", &CircleGesture::durationSeconds);
-    defaultProperty("id", &CircleGesture::id);
-    defaultProperty("normal", &CircleGesture::normal);
-    defaultProperty("progress", &CircleGesture::progress);
-    defaultProperty("radius", &CircleGesture::radius);
+    PROP(CircleGesture, center);
+    PROP(CircleGesture, durationSeconds);
+    PROP(CircleGesture, id);
+    PROP(CircleGesture, normal);
+    PROP(CircleGesture, progress);
+    PROP(CircleGesture, radius);
 }
 
 template <>
 void TypedProperties<ScreenTapGesture>::fillDefault() {
-    defaultProperty("direction", &ScreenTapGesture::direction);
-    defaultProperty("durationSeconds", &ScreenTapGesture::durationSeconds);
-    defaultProperty("id", &ScreenTapGesture::id);
-    defaultProperty("position", &ScreenTapGesture::position);
-    defaultProperty("progress", &ScreenTapGesture::progress);
+    PROP(ScreenTapGesture, direction);
+    PROP(ScreenTapGesture, durationSeconds);
+    PROP(ScreenTapGesture, id);
+    PROP(ScreenTapGesture, position);
+    PROP(ScreenTapGesture, progress);
 }
 
 template <>
 void TypedProperties<KeyTapGesture>::fillDefault() {
-    defaultProperty("direction", &KeyTapGesture::direction);
-    defaultProperty("durationSeconds", &KeyTapGesture::durationSeconds);
-    defaultProperty("id", &KeyTapGesture::id);
-    defaultProperty("position", &KeyTapGesture::position);
-    defaultProperty("progress", &KeyTapGesture::progress);
+    PROP(KeyTapGesture, direction);
+    PROP(KeyTapGesture, durationSeconds);
+    PROP(KeyTapGesture, id);
+    PROP(KeyTapGesture, position);
+    PROP(KeyTapGesture, progress);
 }
 
 }  // namespace leap
 }  // namespace swirly
+
+#undef PROP

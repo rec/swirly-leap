@@ -19,59 +19,86 @@ template <> const char* humanName<ScreenTapGesture>() { return "screentap"; }
 #define PROP(CLASS, NAME) \
     defaultProperty(#NAME, &CLASS::NAME)
 
+#ifdef READY
+
+#define PROP_BOX(CLASS, NAME) \
+    defaultProperty(#NAME "Raw", &CLASS::NAME); \
+    defaultBoxProperty(#NAME, &CLASS::NAME)
+
+#define PROP_BOX_NORMAL(CLASS, NAME) \
+    defaultProperty(#NAME "Raw", &CLASS::NAME); \
+    defaultNormalBoxProperty(#NAME, &CLASS::NAME)
+
+#else
+
+#define PROP_BOX(CLASS, NAME) \
+    defaultProperty(#NAME, &CLASS::NAME)
+#define PROP_BOX_NORMAL(CLASS, NAME) \
+    defaultProperty(#NAME, &CLASS::NAME)
+
+#endif
+
 template <>
 void TypedProperties<Finger>::fillDefault() {
-    PROP(Pointable, direction); // norm
     PROP(Pointable, isExtended);
     PROP(Pointable, length);
-    PROP(Pointable, stabilizedTipPosition); // vec
     PROP(Pointable, timeVisible);
-    PROP(Pointable, tipPosition); // vec
-    PROP(Pointable, tipVelocity);  // vec
     PROP(Pointable, touchDistance);
     PROP(Pointable, touchZone);
     PROP(Pointable, width);
+
+    PROP_BOX(Pointable, stabilizedTipPosition);
+    PROP_BOX(Pointable, tipPosition);
+    PROP_BOX(Pointable, tipVelocity);
+
+    PROP_BOX_NORMAL(Pointable, direction);
 }
 
 template <>
 void TypedProperties<Tool>::fillDefault() {
-    PROP(Pointable, direction); // norm
     PROP(Pointable, isExtended);
     PROP(Pointable, length);
-    PROP(Pointable, stabilizedTipPosition); // vec
     PROP(Pointable, timeVisible);
-    PROP(Pointable, tipPosition); // vec
-    PROP(Pointable, tipVelocity);  // vec
     PROP(Pointable, touchDistance);
     PROP(Pointable, touchZone);
     PROP(Pointable, width);
+
+    PROP_BOX(Pointable, stabilizedTipPosition);
+    PROP_BOX(Pointable, tipPosition);
+    PROP_BOX(Pointable, tipVelocity);
+
+    PROP_BOX_NORMAL(Pointable, direction);
 }
 
 template <>
 void TypedProperties<Bone>::fillDefault() {
-    PROP(Bone, basis); // mat
-    PROP(Bone, center);  // vec
-    PROP(Bone, direction); // norm
+    PROP(Bone, basis); // A matrix - what to do with that?
     PROP(Bone, length);
     PROP(Bone, type);
     PROP(Bone, width);
+
+    PROP_BOX(Bone, center);
+
+    PROP_BOX_NORMAL(Bone, direction);
 }
 
 template <>
 void TypedProperties<Hand>::fillDefault() {
     PROP(Hand, basis);
     PROP(Hand, confidence);
-    PROP(Hand, direction); // norm
     PROP(Hand, grabStrength);
-    PROP(Hand, palmNormal); // norm
-    PROP(Hand, palmPosition); // vec
-    PROP(Hand, palmVelocity);  //vec
     PROP(Hand, palmWidth);
     PROP(Hand, pinchStrength);
-    PROP(Hand, sphereCenter); // vec
     PROP(Hand, sphereRadius);
-    PROP(Hand, stabilizedPalmPosition); // vec
     PROP(Hand, timeVisible);
+
+    PROP_BOX(Hand, palmPosition);
+    PROP_BOX(Hand, palmVelocity);
+    PROP_BOX(Hand, sphereCenter);
+    PROP_BOX(Hand, stabilizedPalmPosition);
+
+    PROP_BOX_NORMAL(Hand, direction);
+    PROP_BOX_NORMAL(Hand, palmNormal);
 }
 
 template <>

@@ -7,47 +7,14 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
-template <>
-const char* humanName<Finger>() {
-    return "finger";
-}
-
-template <>
-const char* humanName<Hand>() {
-    return "hand";
-}
-
-template <>
-const char* humanName<Tool>() {
-    return "tool";
-}
-
-template <>
-const char* humanName<Bone>() {
-    return "bone";
-}
-
-template <>
-const char* humanName<SwipeGesture>() {
-    return "swipe";
-}
-
-template <>
-const char* humanName<CircleGesture>() {
-    return "circle";
-}
-
-template <>
-const char* humanName<KeyTapGesture>()
-{
-    return "keytap";
-}
-
-template <>
-const char* humanName<ScreenTapGesture>()
-{
-    return "screentap";
-}
+template <> const char* humanName<Finger>()           { return "finger"; }
+template <> const char* humanName<Hand>()             { return "hand"; }
+template <> const char* humanName<Tool>()             { return "tool"; }
+template <> const char* humanName<Bone>()             { return "bone"; }
+template <> const char* humanName<SwipeGesture>()     { return "swipe"; }
+template <> const char* humanName<CircleGesture>()    { return "circle"; }
+template <> const char* humanName<KeyTapGesture>()    { return "keytap"; }
+template <> const char* humanName<ScreenTapGesture>() { return "screentap"; }
 
 #define PROP(CLASS, NAME) \
     defaultProperty(#NAME, &CLASS::NAME)

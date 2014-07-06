@@ -9,6 +9,49 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
+template <typename Data>
+bool TypedProperties<Data>::addProperty(string const& name) {
+    if (name == "*") {
+        properties_ = getDefault().properties_;
+    } else if (name == "-") {
+        properties_.clear();
+    } else {
+        auto i = getDefault().properties_.find(name);
+        if (i == getDefault().properties_.end())
+            return false;
+        properties_[name] = i->second;
+    }
+
+    return true;
+}
+
+template <typename Data>
+void TypedProperties<Data>::dump(
+    string const& name, Logger const& logger) const {
+    if (not empty()) {
+        string result;
+        for (auto& p: properties_) {
+            if (not result.empty())
+                result += "+";
+            result += p.first;
+        }
+        logger.log(name + "=" + result);
+    }
+}
+
+template <typename Data>
+TypedProperties<Data> TypedProperties<Data>::makeDefault() {
+    TypedProperties<Data> property;
+    property.fillDefault();
+    return property;
+}
+
+template <typename Data>
+const TypedProperties<Data>& TypedProperties<Data>::getDefault() {
+    static TypedProperties<Data> PROPERTY = makeDefault();
+    return PROPERTY;
+}
+
 #define PROP(CLASS, NAME) \
     addGetter(*this, #NAME, &CLASS::NAME)
 
@@ -119,6 +162,16 @@ void TypedProperties<KeyTapGesture>::fillDefault() {
 
 #undef BOX
 #undef PROP
+
+template class TypedProperties<Finger>;
+template class TypedProperties<Tool>;
+template class TypedProperties<Bone>;
+template class TypedProperties<Hand>;
+
+template class TypedProperties<SwipeGesture>;
+template class TypedProperties<ScreenTapGesture>;
+template class TypedProperties<KeyTapGesture>;
+template class TypedProperties<CircleGesture>;
 
 }  // namespace leap
 }  // namespace swirly

@@ -22,46 +22,13 @@ class TypedProperties : public Properties {
     Map& properties() { return properties_; }
     const Map& properties() const { return properties_; }
 
-    bool addProperty(string const& name) override {
-        if (name == "*") {
-            properties_ = getDefault().properties_;
-        } else if (name == "-") {
-            properties_.clear();
-        } else {
-            auto i = getDefault().properties_.find(name);
-            if (i == getDefault().properties_.end())
-                return false;
-            properties_[name] = i->second;
-        }
-
-        return true;
-    }
-
-    void dump(string const& name, Logger const& logger) const {
-        if (not empty()) {
-            string result;
-            for (auto& p: properties_) {
-                if (not result.empty())
-                    result += "+";
-                result += p.first;
-            }
-            logger.log(name + "=" + result);
-        }
-    }
-
+    bool addProperty(string const& name) override;
+    void dump(string const& name, Logger const& logger) const;
     bool empty() const { return properties_.empty(); }
 
   private:
-    static TypedProperties<Data> makeDefault() {
-        TypedProperties<Data> property;
-        property.fillDefault();
-        return property;
-    }
-
-    static const TypedProperties<Data>& getDefault() {
-        static TypedProperties<Data> PROPERTY = makeDefault();
-        return PROPERTY;
-    }
+    static TypedProperties<Data> makeDefault();
+    static const TypedProperties<Data>& getDefault();
 
     void fillDefault();
 

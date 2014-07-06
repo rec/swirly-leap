@@ -12,12 +12,15 @@ namespace leap {
 template <typename Data>
 const char* humanName();
 
+struct Context {};
+
 template <typename Data>
 class TypedProperties : public Properties {
   public:
     class Representer {
       public:
-        virtual void represent(Representation&, Data const&) const = 0;
+        virtual void represent(
+            Representation&, Data const&, Context const&) const = 0;
         virtual ~Representer() {}
     };
 
@@ -27,7 +30,8 @@ class TypedProperties : public Properties {
     class GetterRepresenter : public Representer {
       public:
         GetterRepresenter(Getter getter) : getter_(getter) {}
-        void represent(Representation& rep, Data const& data) const override {
+        void represent(Representation& rep, Data const& data,
+                       Context const& context) const override {
             leap::represent(rep, getter_(data));
         }
 

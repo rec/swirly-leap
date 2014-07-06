@@ -41,7 +41,7 @@ void propertiesToMax(
     for (auto p: properties.properties()) {
         Representation rep;
         auto const& representer = p.second;
-        representer->represent(rep, data);
+        representer->represent(rep, data, Context());
         auto size = pr.represent(p.first, rep);
         if (first) {
             first = false;

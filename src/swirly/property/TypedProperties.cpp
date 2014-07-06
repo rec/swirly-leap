@@ -7,39 +7,79 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
-template <> const char* humanName<Finger>()           { return "finger"; }
-template <> const char* humanName<Hand>()             { return "hand"; }
-template <> const char* humanName<Tool>()             { return "tool"; }
-template <> const char* humanName<Bone>()             { return "bone"; }
-template <> const char* humanName<SwipeGesture>()     { return "swipe"; }
-template <> const char* humanName<CircleGesture>()    { return "circle"; }
-template <> const char* humanName<KeyTapGesture>()    { return "keytap"; }
-template <> const char* humanName<ScreenTapGesture>() { return "screentap"; }
+namespace {
+
+template <typename Data, typename Getter>
+class GetterRepresenter : public Representer<Data> {
+  public:
+    GetterRepresenter(Getter getter) : getter_(getter)  {}
+
+    void represent(Representation& rep, Data const& data, Context const&)
+            const override {
+        leap::represent(rep, getter_(data));
+    }
+
+  private:
+    Getter const getter_;
+};
+
+template <typename Data, typename Getter>
+static shared_ptr<Representer<Data>> makeRepresenter(Getter getter) {
+    return make_shared<GetterRepresenter<Data, Getter>>(getter);
+}
+
+template <typename Data, typename Method>
+void addGetter(TypedProperties<Data>& props, string const& name, Method m) {
+    props.properties()[name] = makeRepresenter<Data>(bind(m, placeholders::_1));
+}
+
+enum class Restrict { FREE, CLAMP };
+
+template <typename Data, typename Getter>
+class Boxer : public Representer<Data> {
+  public:
+    Boxer(Getter g, Restrict r) : getter_(g), clamp_(r == Restrict::CLAMP) {}
+
+    void represent(Representation& rep, Data const& data,
+                   Context const& context) const override {
+        auto v = getter_(data);
+        v = context.box_.normalizePoint(v, clamp_);
+        leap::represent(rep, v);
+    }
+
+  private:
+    Getter const getter_;
+    bool const clamp_;
+};
+
+template <typename Data, typename Getter>
+static shared_ptr<Representer<Data>> makeBox(Getter get, Restrict restrict) {
+    return make_shared<Boxer<Data, Getter>>(get, restrict);
+}
+
+template <typename Data, typename Method>
+void addBox(TypedProperties<Data>& props, string const& name, Method m,
+            Restrict restrict) {
+    auto getter = bind(m, placeholders::_1);
+    props.properties()[name] = makeBox<Data>(getter, restrict);
+}
 
 #define PROP(CLASS, NAME) \
-    defaultProperty(#NAME, &CLASS::NAME)
+    addGetter(*this, #NAME, &CLASS::NAME)
 
-#ifdef READY
+#define BOX(CLASS, NAME) \
+    do {                                                            \
+        addBox(*this, #NAME, &CLASS::NAME, Restrict::CLAMP);        \
+        addBox(*this, #NAME "Free", &CLASS::NAME, Restrict::FREE);  \
+        addGetter(*this, #NAME "Raw", &CLASS::NAME);                \
+    } while (false)
 
-#define PROP_BOX(CLASS, NAME) \
-    defaultProperty(#NAME "Raw", &CLASS::NAME); \
-    defaultBoxProperty(#NAME, &CLASS::NAME)
 
-#define PROP_BOX_NORMAL(CLASS, NAME) \
-    defaultProperty(#NAME "Raw", &CLASS::NAME); \
-    defaultNormalBoxProperty(#NAME, &CLASS::NAME)
-
-#else
-
-#define PROP_BOX(CLASS, NAME) \
-    defaultProperty(#NAME, &CLASS::NAME)
-#define PROP_BOX_NORMAL(CLASS, NAME) \
-    defaultProperty(#NAME, &CLASS::NAME)
-
-#endif
+}  // namespace
 
 template <>
 void TypedProperties<Finger>::fillDefault() {
+    PROP(Pointable, direction);
     PROP(Pointable, isExtended);
     PROP(Pointable, length);
     PROP(Pointable, timeVisible);
@@ -47,15 +87,14 @@ void TypedProperties<Finger>::fillDefault() {
     PROP(Pointable, touchZone);
     PROP(Pointable, width);
 
-    PROP_BOX(Pointable, stabilizedTipPosition);
-    PROP_BOX(Pointable, tipPosition);
-    PROP_BOX(Pointable, tipVelocity);
-
-    PROP_BOX_NORMAL(Pointable, direction);
+    BOX(Pointable, stabilizedTipPosition);
+    BOX(Pointable, tipPosition);
+    BOX(Pointable, tipVelocity);
 }
 
 template <>
 void TypedProperties<Tool>::fillDefault() {
+    PROP(Pointable, direction);
     PROP(Pointable, isExtended);
     PROP(Pointable, length);
     PROP(Pointable, timeVisible);
@@ -63,42 +102,38 @@ void TypedProperties<Tool>::fillDefault() {
     PROP(Pointable, touchZone);
     PROP(Pointable, width);
 
-    PROP_BOX(Pointable, stabilizedTipPosition);
-    PROP_BOX(Pointable, tipPosition);
-    PROP_BOX(Pointable, tipVelocity);
-
-    PROP_BOX_NORMAL(Pointable, direction);
+    BOX(Pointable, stabilizedTipPosition);
+    BOX(Pointable, tipPosition);
+    BOX(Pointable, tipVelocity);
 }
 
 template <>
 void TypedProperties<Bone>::fillDefault() {
     PROP(Bone, basis); // A matrix - what to do with that?
+    PROP(Bone, direction);
     PROP(Bone, length);
     PROP(Bone, type);
     PROP(Bone, width);
 
-    PROP_BOX(Bone, center);
-
-    PROP_BOX_NORMAL(Bone, direction);
+    BOX(Bone, center);
 }
 
 template <>
 void TypedProperties<Hand>::fillDefault() {
     PROP(Hand, basis);
     PROP(Hand, confidence);
+    PROP(Hand, direction);
     PROP(Hand, grabStrength);
+    PROP(Hand, palmNormal);
     PROP(Hand, palmWidth);
     PROP(Hand, pinchStrength);
     PROP(Hand, sphereRadius);
     PROP(Hand, timeVisible);
 
-    PROP_BOX(Hand, palmPosition);
-    PROP_BOX(Hand, palmVelocity);
-    PROP_BOX(Hand, sphereCenter);
-    PROP_BOX(Hand, stabilizedPalmPosition);
-
-    PROP_BOX_NORMAL(Hand, direction);
-    PROP_BOX_NORMAL(Hand, palmNormal);
+    BOX(Hand, palmPosition);
+    BOX(Hand, palmVelocity);
+    BOX(Hand, sphereCenter);
+    BOX(Hand, stabilizedPalmPosition);
 }
 
 template <>

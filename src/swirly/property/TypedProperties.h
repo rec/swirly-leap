@@ -16,33 +16,7 @@ const char* humanName();
 template <typename Data>
 class TypedProperties : public Properties {
   public:
-    class Representer {
-      public:
-        virtual void represent(
-            Representation&, Data const&, Context const&) const = 0;
-        virtual ~Representer() {}
-    };
-
-    typedef shared_ptr<Representer> RepPtr;
-
-    template <typename Getter>
-    class GetterRepresenter : public Representer {
-      public:
-        GetterRepresenter(Getter getter) : getter_(getter) {}
-        void represent(Representation& rep, Data const& data, Context const&)
-                const override {
-            leap::represent(rep, getter_(data));
-        }
-
-      private:
-        Getter const getter_;
-    };
-
-    template <typename Getter>
-    static RepPtr makeRepresenter(Getter getter) {
-        return RepPtr(new GetterRepresenter<Getter>(getter));
-    }
-
+    typedef shared_ptr<Representer<Data>> RepPtr;
     typedef map<string, RepPtr> Map;
 
     Map& properties() { return properties_; }
@@ -61,11 +35,6 @@ class TypedProperties : public Properties {
         }
 
         return true;
-    }
-
-    template <typename Method>
-    void defaultProperty(string const& name, Method m) {
-        properties_[name] = makeRepresenter(bind(m, placeholders::_1));
     }
 
     void dump(string const& name, Logger const& logger) const {

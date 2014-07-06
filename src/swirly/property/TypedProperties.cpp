@@ -40,31 +40,34 @@ void TypedProperties<Data>::dump(
 }
 
 template <typename Data>
-TypedProperties<Data> TypedProperties<Data>::makeDefault() {
+void fillDefault(TypedProperties<Data>&);
+
+template <typename Data>
+TypedProperties<Data> newDefault() {
     TypedProperties<Data> property;
-    property.fillDefault();
+    fillDefault(property);
     return property;
 }
 
 template <typename Data>
 const TypedProperties<Data>& TypedProperties<Data>::getDefault() {
-    static TypedProperties<Data> PROPERTY = makeDefault();
+    static auto const PROPERTY = newDefault<Data>();
     return PROPERTY;
 }
 
 #define PROP(CLASS, NAME) \
-    addGetter(*this, #NAME, &CLASS::NAME)
+    addGetter(prop, #NAME, &CLASS::NAME)
 
 #define BOX(CLASS, NAME) \
     do {                                                            \
-        addBox(*this, #NAME, &CLASS::NAME, Restrict::CLAMP);        \
-        addBox(*this, #NAME "Free", &CLASS::NAME, Restrict::FREE);  \
-        addGetter(*this, #NAME "Raw", &CLASS::NAME);                \
+        addBox(prop, #NAME, &CLASS::NAME, Restrict::CLAMP);        \
+        addBox(prop, #NAME "Free", &CLASS::NAME, Restrict::FREE);  \
+        addGetter(prop, #NAME "Raw", &CLASS::NAME);                \
     } while (false)
 
 
 template <>
-void TypedProperties<Finger>::fillDefault() {
+void fillDefault(TypedProperties<Finger>& prop) {
     PROP(Pointable, direction);
     PROP(Pointable, isExtended);
     PROP(Pointable, length);
@@ -79,7 +82,7 @@ void TypedProperties<Finger>::fillDefault() {
 }
 
 template <>
-void TypedProperties<Tool>::fillDefault() {
+void fillDefault(TypedProperties<Tool>& prop) {
     PROP(Pointable, direction);
     PROP(Pointable, isExtended);
     PROP(Pointable, length);
@@ -94,7 +97,7 @@ void TypedProperties<Tool>::fillDefault() {
 }
 
 template <>
-void TypedProperties<Bone>::fillDefault() {
+void fillDefault(TypedProperties<Bone>& prop) {
     PROP(Bone, basis); // A matrix - what to do with that?
     PROP(Bone, direction);
     PROP(Bone, length);
@@ -105,7 +108,7 @@ void TypedProperties<Bone>::fillDefault() {
 }
 
 template <>
-void TypedProperties<Hand>::fillDefault() {
+void fillDefault(TypedProperties<Hand>& prop) {
     PROP(Hand, basis);
     PROP(Hand, confidence);
     PROP(Hand, direction);
@@ -123,7 +126,7 @@ void TypedProperties<Hand>::fillDefault() {
 }
 
 template <>
-void TypedProperties<SwipeGesture>::fillDefault() {
+void fillDefault(TypedProperties<SwipeGesture>& prop) {
     PROP(SwipeGesture, direction);
     PROP(SwipeGesture, durationSeconds);
     PROP(SwipeGesture, id);
@@ -133,7 +136,7 @@ void TypedProperties<SwipeGesture>::fillDefault() {
 }
 
 template <>
-void TypedProperties<CircleGesture>::fillDefault() {
+void fillDefault(TypedProperties<CircleGesture>& prop) {
     PROP(CircleGesture, center);
     PROP(CircleGesture, durationSeconds);
     PROP(CircleGesture, id);
@@ -143,7 +146,7 @@ void TypedProperties<CircleGesture>::fillDefault() {
 }
 
 template <>
-void TypedProperties<ScreenTapGesture>::fillDefault() {
+void fillDefault(TypedProperties<ScreenTapGesture>& prop) {
     PROP(ScreenTapGesture, direction);
     PROP(ScreenTapGesture, durationSeconds);
     PROP(ScreenTapGesture, id);
@@ -152,7 +155,7 @@ void TypedProperties<ScreenTapGesture>::fillDefault() {
 }
 
 template <>
-void TypedProperties<KeyTapGesture>::fillDefault() {
+void fillDefault(TypedProperties<KeyTapGesture>& prop) {
     PROP(KeyTapGesture, direction);
     PROP(KeyTapGesture, durationSeconds);
     PROP(KeyTapGesture, id);

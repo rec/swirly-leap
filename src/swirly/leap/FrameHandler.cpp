@@ -13,6 +13,39 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
+namespace {
+
+FingerList  getList(Frame f, Finger)  { return f.fingers(); }
+GestureList getList(Frame f, Gesture) { return f.gestures(); }
+HandList    getList(Frame f, Hand)    { return f.hands(); }
+ToolList    getList(Frame f, Tool)    { return f.tools(); }
+
+template <typename Data>
+struct RepLength {
+    static const int LENGTH;
+};
+
+template <typename Data> const int RepLength<Data>::LENGTH = 3;
+template <>              const int RepLength<Hand>::LENGTH = 2;
+
+template <typename Data, typename Callback>
+void execute(Config const& config, Context const& context, Callback callback) {
+    if (auto properties = config.switches().get<Data>()) {
+        Representation rep;
+        rep.resize(RepLength<Data>::LENGTH);
+        rep[0] = humanName<Data>();
+
+        auto const& list = getList(context.frame_, Data());
+        for (auto const& item: list) {
+            if (filter(item, context, rep))
+                callback(rep);
+        }
+    }
+}
+
+} // namespace
+
+
 void FrameHandler::onFrame(Frame const& frame) {
     Context context(frame);
     if (!outlet_) {

@@ -27,10 +27,7 @@ class TypedProperties : public Properties {
     bool empty() const { return properties_.empty(); }
 
   private:
-    static TypedProperties<Data> makeDefault();
     static const TypedProperties<Data>& getDefault();
-
-    void fillDefault();
 
     Map properties_;
 };

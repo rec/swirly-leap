@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include <swirly/base/Logger.h>
+#include <swirly/property/Context.h>
 #include <swirly/property/Properties.h>
 #include <swirly/property/Represent.h>
 
@@ -11,8 +12,6 @@ namespace leap {
 
 template <typename Data>
 const char* humanName();
-
-struct Context {};
 
 template <typename Data>
 class TypedProperties : public Properties {
@@ -30,8 +29,8 @@ class TypedProperties : public Properties {
     class GetterRepresenter : public Representer {
       public:
         GetterRepresenter(Getter getter) : getter_(getter) {}
-        void represent(Representation& rep, Data const& data,
-                       Context const& context) const override {
+        void represent(Representation& rep, Data const& data, Context const&)
+                const override {
             leap::represent(rep, getter_(data));
         }
 

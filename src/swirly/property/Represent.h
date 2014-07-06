@@ -9,11 +9,15 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
+template <typename Data>
+const char* humanName();
+
 string to_string(Bone::Type);
 string to_string(Pointable::Zone);
 string to_string(bool);
 
-template <typename T> string to_string(T t) {
+template <typename T>
+string to_string(T t) {
     return std::to_string(t);
 }
 
@@ -24,6 +28,16 @@ void represent(Representation& rep, Data d) {
 
 void represent(Representation&, Matrix);
 void represent(Representation&, Vector);
+
+struct Context;
+
+template <typename Data>
+class Representer {
+  public:
+    virtual void represent(
+        Representation&, Data const&, Context const&) const = 0;
+    virtual ~Representer() {}
+};
 
 }  // namespace leap
 }  // namespace swirly

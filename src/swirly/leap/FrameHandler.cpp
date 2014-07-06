@@ -4,7 +4,7 @@
 
 #include <swirly/leap/FrameHandler.h>
 #include <swirly/leap/Config.h>
-#include <leapUtil.h>
+#include <swirly/leap/LeapUtil.h>
 #include <swirly/property/PropertiesToMax.h>
 #include <swirly/property/PropertySwitchArray.h>
 
@@ -14,6 +14,7 @@ namespace swirly {
 namespace leap {
 
 void FrameHandler::onFrame(Frame const& frame) {
+    Context context(frame);
     if (!outlet_) {
         config_.logger_.err("No outlet!");
         return;
@@ -27,7 +28,7 @@ void FrameHandler::onFrame(Frame const& frame) {
             auto handType = whichHand(hand);
             if (handType != NO_HAND and switches[handType].second) {
                 rep[1] = HAND_NAME[handType];
-                propertiesToMax(outlet_, hand, properties, rep);
+                propertiesToMax(outlet_, hand, properties, rep, context);
             }
         }
     }
@@ -45,7 +46,7 @@ void FrameHandler::onFrame(Frame const& frame) {
                 if (handType != NO_HAND) {
                     rep[1] = HAND_NAME[handType];
                     rep[2] = sw.first;
-                    propertiesToMax(outlet_, finger, properties, rep);
+                    propertiesToMax(outlet_, finger, properties, rep, context);
                 }
             }
         }
@@ -61,7 +62,7 @@ void FrameHandler::onFrame(Frame const& frame) {
             if (handType != NO_HAND) {
                 rep[1] = HAND_NAME[handType];
                 rep[2] = to_string(toolCount);
-                propertiesToMax(outlet_, tool, properties, rep);
+                propertiesToMax(outlet_, tool, properties, rep, context);
             }
             toolCount++;
         }

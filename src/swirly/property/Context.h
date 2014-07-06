@@ -10,6 +10,11 @@ namespace swirly {
 namespace leap {
 
 struct Context {
+    explicit Context(Frame const& frame)
+            : frame_(frame), box_(frame_.interactionBox()) {
+    }
+
+    Leap::Frame frame_;
     Leap::InteractionBox box_;
 };
 

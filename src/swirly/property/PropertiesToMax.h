@@ -30,6 +30,7 @@ void propertiesToMax(
         Data const& data,
         const TypedProperties<Data>& properties,
         Representation const& prefix,
+        Context const& context,
         BoolHandling handling = BoolHandling::AS_NUMBER) {
     t_atom atoms[MAX_ATOMS];
     for (auto i = 0; i < prefix.size(); ++i)
@@ -41,7 +42,7 @@ void propertiesToMax(
     for (auto p: properties.properties()) {
         Representation rep;
         auto const& representer = p.second;
-        representer->represent(rep, data, Context());
+        representer->represent(rep, data, context);
         auto size = pr.represent(p.first, rep);
         if (first) {
             first = false;

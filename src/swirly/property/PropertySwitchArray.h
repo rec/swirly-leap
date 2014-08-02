@@ -12,7 +12,7 @@ struct PropertySwitchArray : SwitchArray {
     using SwitchArray::SwitchArray;
 
     bool set(string const& name) override {
-        return SwitchArray::set(name) or properties_.addProperty(name);
+        return SwitchArray::set(name) or properties_.addRepresenter(name);
     }
 
     void dump(string const& name, Logger const& logger) const override {

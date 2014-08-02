@@ -42,7 +42,7 @@ void onFrame(Context const& context, Callback callback) {
             continue;
 
         auto name = properties->name(type);
-        for (auto const& p: properties->properties_.properties()) {
+        for (auto const& p: properties->properties_.representers()) {
             Representation rep{partName<Part>()};
             addRepresentation(part, rep);
             rep.push_back(name);

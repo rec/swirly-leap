@@ -2,7 +2,7 @@
 
 #include <swirly/base/Logger.h>
 #include <swirly/property/Context.h>
-#include <swirly/property/Properties.h>
+#include <swirly/property/RepresenterMap.h>
 #include <swirly/property/Represent.h>
 
 namespace swirly {
@@ -10,23 +10,23 @@ namespace leap {
 
 /** A collection of properties attached to a specific Leap Frame part. */
 template <typename Part>
-class PartRepresenterMap : public Properties {
+class PartRepresenterMap : public RepresenterMap {
   public:
     typedef shared_ptr<Representer<Part>> RepPtr;
     typedef map<string, RepPtr> Map;
 
-    Map& properties() { return properties_; }
-    const Map& properties() const { return properties_; }
+    Map& representers() { return representers_; }
+    const Map& representers() const { return representers_; }
 
-    bool addProperty(string const& name) override;
+    bool addRepresenter(string const& name) override;
     void dump(string const& name, Logger const& logger) const;
-    bool empty() const { return properties_.empty(); }
+    bool empty() const { return representers_.empty(); }
     void represent(Representation&) const;
 
   private:
     static const PartRepresenterMap<Part>& getDefault();
 
-    Map properties_;
+    Map representers_;
 };
 
 }  // namespace leap

@@ -33,7 +33,7 @@ template <typename Data, typename Method>
 void addBox(PartRepresenterMap<Data>& props, string const& name, Method m,
             Restrict restrict) {
     auto getter = bind(m, placeholders::_1);
-    props.properties()[name] = makeBox<Data>(getter, restrict);
+    props.representers()[name] = makeBox<Data>(getter, restrict);
 }
 
 }  // namespace leap

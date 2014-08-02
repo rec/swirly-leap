@@ -34,7 +34,7 @@ void propertiesToMax(
     PropertyRepresenter pr(prefix.size(), atoms);
     outlet_anything(outlet, cachedGensym("framestart"), 0, nullptr);
 
-    for (auto p: properties.properties()) {
+    for (auto p: properties.representers()) {
         Representation rep;
         auto const& representer = p.second;
         representer->represent(rep, data, context);

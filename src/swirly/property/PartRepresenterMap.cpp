@@ -10,16 +10,16 @@ namespace swirly {
 namespace leap {
 
 template <typename Part>
-bool PartRepresenterMap<Part>::addProperty(string const& name) {
+bool PartRepresenterMap<Part>::addRepresenter(string const& name) {
     if (name == "*") {
-        properties_ = getDefault().properties_;
+        representers_ = getDefault().representers_;
     } else if (name == "-") {
-        properties_.clear();
+        representers_.clear();
     } else {
-        auto i = getDefault().properties_.find(name);
-        if (i == getDefault().properties_.end())
+        auto i = getDefault().representers_.find(name);
+        if (i == getDefault().representers_.end())
             return false;
-        properties_[name] = i->second;
+        representers_[name] = i->second;
     }
 
     return true;
@@ -30,7 +30,7 @@ void PartRepresenterMap<Part>::dump(
         string const& name, Logger const& logger) const {
     if (not empty()) {
         string result;
-        for (auto& p: properties_) {
+        for (auto& p: representers_) {
             if (not result.empty())
                 result += "+";
             result += p.first;
@@ -41,7 +41,7 @@ void PartRepresenterMap<Part>::dump(
 
 template <typename Part>
 void PartRepresenterMap<Part>::represent(Representation& rep) const {
-    for (auto& p: properties_)
+    for (auto& p: representers_)
         rep.push_back(p.first);
 }
 
@@ -51,15 +51,15 @@ void fillDefault(PartRepresenterMap<Part>&);
 
 template <typename Part>
 PartRepresenterMap<Part> newDefault() {
-    PartRepresenterMap<Part> property;
-    fillDefault(property);
-    return property;
+    PartRepresenterMap<Part> representer;
+    fillDefault(representer);
+    return representer;
 }
 
 template <typename Part>
 const PartRepresenterMap<Part>& PartRepresenterMap<Part>::getDefault() {
-    static auto const PROPERTY = newDefault<Part>();
-    return PROPERTY;
+    static auto const REPRESENTER = newDefault<Part>();
+    return REPRESENTER;
 }
 
 #define PROP(CLASS, NAME) \

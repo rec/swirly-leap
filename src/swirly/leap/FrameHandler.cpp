@@ -3,10 +3,11 @@
 #include <leap/Leap.h>
 
 #include <swirly/leap/FrameHandler.h>
+
 #include <swirly/leap/Config.h>
+#include <swirly/leap/Getter.h>
 #include <swirly/leap/LeapUtil.h>
-#include <swirly/property/PropertiesToMax.h>
-#include <swirly/property/PropertySwitchArray.h>
+#include <swirly/represent/MasterRepresenter.h>
 
 using namespace Leap;
 
@@ -15,30 +16,63 @@ namespace leap {
 
 namespace {
 
-FingerList  getList(Frame f, Finger)  { return f.fingers(); }
-GestureList getList(Frame f, Gesture) { return f.gestures(); }
-HandList    getList(Frame f, Hand)    { return f.hands(); }
-ToolList    getList(Frame f, Tool)    { return f.tools(); }
+template <typename Part>
+void addRepresentation(Part const& part, Representation& rep) {
+}
 
-template <typename Data>
-struct RepLength {
-    static const int LENGTH;
-};
+void addRepresentation(Finger const& finger, Representation& rep) {
+    auto handType = whichHand(finger.hand());
+    rep.push_back(handType == NO_HAND ? "none" : HAND_NAME[handType]);
+}
 
-template <typename Data> const int RepLength<Data>::LENGTH = 3;
-template <>              const int RepLength<Hand>::LENGTH = 2;
 
-template <typename Data, typename Callback>
-void execute(Config const& config, Context const& context, Callback callback) {
-    if (auto properties = config.switches().get<Data>()) {
-        Representation rep;
-        rep.resize(RepLength<Data>::LENGTH);
-        rep[0] = humanName<Data>();
+/** Return a c-string representing the name.
+    nullptr means that type is not enabled.
+    The empty string "" means that type is enabled but doesn't need a name.
+ */
+template <typename Part, typename Type>
+char const* getName(SwitchArray const& partMap, Type type) {
+    return partMap.isOn(type) ? partMap.name(type).c_str() : nullptr;
+}
 
-        auto const& list = getList(context.frame_, Data());
-        for (auto const& item: list) {
-            if (filter(item, context, rep))
-                callback(rep);
+template <>
+char const* getName<SwipeGesture>(SwitchArray const&, Gesture::Type type) {
+    return type == Gesture::TYPE_SWIPE ? "" : nullptr;
+}
+
+template <>
+char const* getName<CircleGesture>(SwitchArray const&, Gesture::Type type) {
+    return type == Gesture::TYPE_CIRCLE ? "" : nullptr;
+}
+
+template <>
+char const* getName<KeyTapGesture>(SwitchArray const&, Gesture::Type type) {
+    return type == Gesture::TYPE_KEY_TAP ? "" : nullptr;
+}
+
+template <>
+char const* getName<ScreenTapGesture>(SwitchArray const&, Gesture::Type type) {
+    return type == Gesture::TYPE_SCREEN_TAP ? "" : nullptr;
+}
+
+template <typename Part>
+void framePart(Context const& context,
+               Callback<Representation const&>& handler) {
+    if (auto partMap = context.config_.representers().getPartMap<Part>()) {
+        auto const& partList = getPartList(context.frame_, Part());
+        for (auto const& part: partList) {
+            auto type = getType(part);
+            if (auto name = getName<Part>(*partMap, type)) {
+                for (auto const& r: partMap->partMap().representers()) {
+                    Representation rep{partName<Part>()};
+                    addRepresentation(part, rep);
+                    if (name[0])
+                        rep.push_back(name);
+                    rep.push_back(r.first);
+                    r.second->represent(rep, part, context);
+                    handler.callback(rep);
+                }
+            }
         }
     }
 }
@@ -47,59 +81,25 @@ void execute(Config const& config, Context const& context, Callback callback) {
 
 
 void FrameHandler::onFrame(Frame const& frame) {
-    Context context(frame);
     if (!outlet_) {
         config_.logger_.err("No outlet!");
         return;
     }
-    if (auto handProperties = config_.switches().get<Hand>()) {
-        Representation rep{"hand", ""};
-        auto const& hands = frame.hands();
-        auto& switches = handProperties->switches_;
-        auto& properties = handProperties->properties_;
-        for (auto const& hand: hands) {
-            auto handType = whichHand(hand);
-            if (handType != NO_HAND and switches[handType].second) {
-                rep[1] = HAND_NAME[handType];
-                propertiesToMax(outlet_, hand, properties, rep, context);
-            }
-        }
-    }
 
-    if (auto fingerProperties = config_.switches().get<Finger>()) {
-        Representation rep{"finger", "", ""};
-        auto const& fingers = frame.fingers();
-        auto& switches = fingerProperties->switches_;
-        auto properties = fingerProperties->properties_;
-        for (auto const& finger: fingers) {
-            auto fingerType = finger.type();
-            auto sw = switches[fingerType];
-            if (sw.second) {
-                auto handType = whichHand(finger.hand());
-                if (handType != NO_HAND) {
-                    rep[1] = HAND_NAME[handType];
-                    rep[2] = sw.first;
-                    propertiesToMax(outlet_, finger, properties, rep, context);
-                }
-            }
-        }
-    }
+    Context context(frame, config_);
 
-    if (auto toolProperties = config_.switches().get<Tool>()) {
-        Representation rep{"tool", "", ""};
-        auto const& tools = frame.tools();
-        auto properties = toolProperties->properties_;
-        auto toolCount = 0;
-        for (auto const& tool: tools) {
-            auto handType = whichHand(tool.hand());
-            if (handType != NO_HAND) {
-                rep[1] = HAND_NAME[handType];
-                rep[2] = to_string(toolCount);
-                propertiesToMax(outlet_, tool, properties, rep, context);
-            }
-            toolCount++;
-        }
-    }
+    callback({"framestart"});
+
+    framePart<Finger>(context, *this);
+    framePart<Hand>(context, *this);
+    framePart<Tool>(context, *this);
+
+    framePart<CircleGesture>(context, *this);
+    framePart<KeyTapGesture>(context, *this);
+    framePart<ScreenTapGesture>(context, *this);
+    framePart<SwipeGesture>(context, *this);
+
+    callback({"frameend"});
 }
 
 }  // namespace leap

@@ -1,13 +1,17 @@
-#include <swirly/property/SwitchArray.h>
+#include <swirly/represent/SwitchArray.h>
+
+namespace Leap {
+class Controller;
+}
 
 namespace swirly {
 namespace leap {
 
-struct PropertySwitchArrayMap;
+class MasterRepresenter;
 
 class Config {
   public:
-    Config(Logger const&);
+    Config(Logger const&, Leap::Controller&);
     ~Config();
 
     static auto const VALUE_SEPARATOR = '+';
@@ -15,7 +19,7 @@ class Config {
     static auto const OPTION_PREFIX = '@';
 
     void addArgument(string const&);
-    void finishArguments();
+    void finish();
     void dump();
 
     Representation getHand() const;
@@ -23,7 +27,7 @@ class Config {
 
     Logger const& logger_;
 
-    PropertySwitchArrayMap const& switches() const { return *switches_; }
+    MasterRepresenter const& representers() const { return *masterRepresenter_; }
 
     typedef function<void()> Callback;
     void addCallback(Callback cb) {
@@ -41,9 +45,8 @@ class Config {
     bool isVerbose() const { return verbose_; }
 
   private:
-    bool verbose_ = false;
-    bool json_ = false;
     bool all_ = false;
+    bool verbose_ = false;
     bool running_ = false;
 
     void updateCallbacks() {
@@ -51,7 +54,7 @@ class Config {
             cb();
     }
 
-    unique_ptr<PropertySwitchArrayMap> switches_;
+    unique_ptr<MasterRepresenter> masterRepresenter_;
     vector<Callback> callbacks_;
 };
 

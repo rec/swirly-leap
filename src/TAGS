@@ -1,0 +1,548 @@
+
+leap/Leap.h,9890
+#define __Leap_h__10,593
+typedef __int32 int32_t;18,774
+typedef __int64 int64_t;19,799
+typedef unsigned __int32 uint32_t;20,824
+typedef unsigned __int64 uint64_t;21,859
+#define LEAP_EXPORT29,1015
+#define LEAP_EXPORT 31,1065
+#define LEAP_EXPORT 33,1113
+#define LEAP_EXPORT_CLASS35,1162
+#define LEAP_EXPORT_PLUGIN 36,1188
+#define LEAP_EXPORT 38,1258
+#define LEAP_EXPORT_CLASS 39,1317
+#define LEAP_EXPORT_PLUGIN 40,1382
+#define LEAP_EXPORT42,1454
+#define LEAP_EXPORT_CLASS43,1474
+#define LEAP_EXPORT_PLUGIN44,1500
+    struct Implementation 52,1638
+      LEAP_EXPORT virtual ~Implementation(53,1666
+  class Pointable 122,4376
+    enum Zone 130,4579
+      ZONE_NONE 136,4739
+      ZONE_HOVERING 142,4886
+      ZONE_TOUCHING 147,5002
+      ZONENONE 150,5067
+      ZONENONE        = ZONE_NONE,150,5067
+      ZONEHOVERING 151,5102
+      ZONEHOVERING    = ZONE_HOVERING,151,5102
+      ZONETOUCHING 152,5141
+      ZONETOUCHING    = ZONE_TOUCHING,152,5141
+    LEAP_EXPORT int32_t id(193,6549
+    std::string toString(Pointable::toString452,15226
+  class Bone 483,16342
+    enum Type Bone::Type492,16567
+      TYPE_METACARPAL Bone::Type::TYPE_METACARPAL493,16583
+      TYPE_PROXIMAL Bone::Type::TYPE_PROXIMAL494,16672
+      TYPE_INTERMEDIATE Bone::Type::TYPE_INTERMEDIATE495,16737
+      TYPE_DISTAL Bone::Type::TYPE_DISTAL496,16807
+    std::string toString(Bone::toString678,22128
+  class Finger 710,23605
+    enum Joint Finger::Joint715,23703
+      JOINT_MCP Finger::Joint::JOINT_MCP716,23720
+      JOINT_PIP Finger::Joint::JOINT_PIP717,23741
+      JOINT_DIP Finger::Joint::JOINT_DIP718,23762
+      JOINT_TIP Finger::Joint::JOINT_TIP719,23783
+    enum Type Finger::Type729,23998
+      TYPE_THUMB Finger::Type::TYPE_THUMB730,24014
+      TYPE_INDEX Finger::Type::TYPE_INDEX731,24055
+      TYPE_MIDDLE Finger::Type::TYPE_MIDDLE732,24111
+      TYPE_RING Finger::Type::TYPE_RING733,24160
+      TYPE_PINKY Finger::Type::TYPE_PINKY734,24207
+    std::string toString(Finger::toString810,26260
+  class Tool 841,27448
+    std::string toString(Tool::toString888,28690
+  class Hand 918,29776
+    std::string toString(Hand::toString1520,52074
+  class Gesture 1601,55933
+    enum Type Gesture::Type1610,56122
+      TYPE_INVALID Gesture::Type::TYPE_INVALID1615,56204
+      TYPE_SWIPE Gesture::Type::TYPE_SWIPE1620,56341
+      TYPE_CIRCLE Gesture::Type::TYPE_CIRCLE1625,56450
+      TYPE_SCREEN_TAP Gesture::Type::TYPE_SCREEN_TAP1630,56566
+      TYPE_KEY_TAP Gesture::Type::TYPE_KEY_TAP1635,56683
+      TYPEINVALID Gesture::Type::TYPEINVALID1638,56748
+      TYPEINVALID     = TYPE_INVALID,Gesture::Type::TYPE_INVALID1638,56748
+      TYPESWIPE Gesture::Type::TYPESWIPE1639,56786
+      TYPESWIPE       = TYPE_SWIPE,Gesture::Type::TYPE_SWIPE1639,56786
+      TYPECIRCLE Gesture::Type::TYPECIRCLE1640,56822
+      TYPECIRCLE      = TYPE_CIRCLE,Gesture::Type::TYPE_CIRCLE1640,56822
+      TYPESCREENTAP Gesture::Type::TYPESCREENTAP1641,56859
+      TYPESCREENTAP   = TYPE_SCREEN_TAP,Gesture::Type::TYPE_SCREEN_TAP1641,56859
+      TYPEKEYTAP Gesture::Type::TYPEKEYTAP1642,56900
+      TYPEKEYTAP      = TYPE_KEY_TAP,Gesture::Type::TYPE_KEY_TAP1642,56900
+    enum State Gesture::State1650,57023
+      STATE_INVALID Gesture::State::STATE_INVALID1655,57106
+      STATE_START Gesture::State::STATE_START1660,57248
+      STATE_UPDATE Gesture::State::STATE_UPDATE1665,57389
+      STATE_STOP Gesture::State::STATE_STOP1670,57501
+      STATEINVALID Gesture::State::STATEINVALID1673,57564
+      STATEINVALID  = STATE_INVALID,Gesture::State::STATE_INVALID1673,57564
+      STATESTART Gesture::State::STATESTART1674,57601
+      STATESTART    = STATE_START,Gesture::State::STATE_START1674,57601
+      STATEUPDATE Gesture::State::STATEUPDATE1675,57636
+      STATEUPDATE   = STATE_UPDATE,Gesture::State::STATE_UPDATE1675,57636
+      STATESTOP Gesture::State::STATESTOP1676,57672
+      STATESTOP     = STATE_STOP,Gesture::State::STATE_STOP1676,57672
+    std::string toString(Gesture::toString1846,62560
+  class SwipeGesture 1908,64798
+    static Type classType(SwipeGesture::classType1919,65037
+  class CircleGesture 2038,69058
+    static Type classType(CircleGesture::classType2049,69301
+  class ScreenTapGesture 2180,74182
+    static Type classType(ScreenTapGesture::classType2191,74439
+  class KeyTapGesture 2296,78078
+    static Type classType(KeyTapGesture::classType2307,78323
+  class Screen 2372,80031
+    std::string toString(Screen::toString2411,81166
+  class Device 2433,81852
+    enum TypeDevice::Type2440,81980
+      TYPE_PERIPHERAL Device::Type::TYPE_PERIPHERAL2446,82114
+      TYPE_LAPTOP,Device::Type::TYPE_LAPTOP2447,82141
+      TYPE_KEYBOARDDevice::Type::TYPE_KEYBOARD2452,82245
+    std::string toString(Device::toString2627,87995
+  class ConstListIterator 2640,88276
+    ConstListIterator<ConstListIterator::ConstListIterator2642,88314
+    const T operator*(ConstListIterator::operator*2644,88402
+    void operator++(ConstListIterator::operator++2645,88460
+    const ConstListIterator<L,T>& operator++(ConstListIterator::operator++2646,88498
+    bool operator!=(ConstListIterator::operator!=2647,88574
+    bool operator==(ConstListIterator::operator==2648,88670
+    typedef std::ptrdiff_t difference_type;ConstListIterator::difference_type2650,88767
+    typedef T value_type;ConstListIterator::value_type2651,88811
+    typedef const T* pointer;ConstListIterator::pointer2652,88837
+    typedef const T& reference;ConstListIterator::reference2653,88867
+    typedef std::forward_iterator_tag iterator_category;ConstListIterator::iterator_category2654,88899
+  class PointableList 2672,89349
+    typedef ConstListIterator<PointableList, Pointable> const_iterator;PointableList::const_iterator2788,92867
+  class FingerList 2818,93545
+    typedef ConstListIterator<FingerList, Finger> const_iterator;FingerList::const_iterator2930,96658
+  class ToolList 2960,97323
+    typedef ConstListIterator<ToolList, Tool> const_iterator;ToolList::const_iterator3050,99749
+  class HandList 3079,100378
+    typedef ConstListIterator<HandList, Hand> const_iterator;HandList::const_iterator3171,102984
+  class GestureList 3198,103577
+    typedef ConstListIterator<GestureList, Gesture> const_iterator;GestureList::const_iterator3254,104996
+  class ScreenList 3278,105504
+    typedef ConstListIterator<ScreenList, Screen> const_iterator;ScreenList::const_iterator3291,105799
+  class DeviceList 3310,106364
+    typedef ConstListIterator<DeviceList, Device> const_iterator;DeviceList::const_iterator3358,107633
+  class InteractionBox 3390,108694
+    std::string toString(InteractionBox::toString3530,113274
+  class Frame 3555,114044
+    std::string toString(Frame::toString4071,134271
+  class Config 4119,136434
+    enum ValueType Config::ValueType4138,136935
+      TYPE_UNKNOWN Config::ValueType::TYPE_UNKNOWN4143,137031
+      TYPE_BOOLEAN Config::ValueType::TYPE_BOOLEAN4148,137121
+      TYPE_INT32 Config::ValueType::TYPE_INT324153,137212
+      TYPE_FLOAT Config::ValueType::TYPE_FLOAT4158,137310
+      TYPE_STRING Config::ValueType::TYPE_STRING4163,137407
+      TYPEUNKNOWN Config::ValueType::TYPEUNKNOWN4166,137469
+      TYPEUNKNOWN  = TYPE_UNKNOWN,Config::ValueType::TYPE_UNKNOWN4166,137469
+      TYPEBOOLEAN Config::ValueType::TYPEBOOLEAN4167,137504
+      TYPEBOOLEAN  = TYPE_BOOLEAN,Config::ValueType::TYPE_BOOLEAN4167,137504
+      TYPEINT32 Config::ValueType::TYPEINT324168,137539
+      TYPEINT32    = TYPE_INT32,Config::ValueType::TYPE_INT324168,137539
+      TYPEFLOAT Config::ValueType::TYPEFLOAT4169,137572
+      TYPEFLOAT    = TYPE_FLOAT,Config::ValueType::TYPE_FLOAT4169,137572
+      TYPESTRING Config::ValueType::TYPESTRING4170,137605
+      TYPESTRING   = TYPE_STRING,Config::ValueType::TYPE_STRING4170,137605
+    ValueType type(Config::type4184,138020
+    bool getBool(Config::getBool4195,138262
+    bool setBool(Config::setBool4206,138549
+    int32_t getInt32(Config::getInt324217,138813
+    bool setInt32(Config::setInt324228,139113
+    float getFloat(Config::getFloat4239,139382
+    bool setFloat(Config::setFloat4250,139680
+    std::string getString(Config::getString4261,139940
+    bool setString(Config::setString4275,140325
+  class Controller 4351,144441
+    enum PolicyFlag Controller::PolicyFlag4433,147516
+      POLICY_DEFAULT Controller::PolicyFlag::POLICY_DEFAULT4438,147607
+      POLICY_BACKGROUND_FRAMES Controller::PolicyFlag::POLICY_BACKGROUND_FRAMES4443,147709
+      POLICYDEFAULT Controller::PolicyFlag::POLICYDEFAULT4446,147790
+      POLICYDEFAULT = POLICY_DEFAULT,Controller::PolicyFlag::POLICY_DEFAULT4446,147790
+      POLICYBACKGROUNDFRAMES Controller::PolicyFlag::POLICYBACKGROUNDFRAMES4447,147828
+      POLICYBACKGROUNDFRAMES = POLICY_BACKGROUND_FRAMES,Controller::PolicyFlag::POLICY_BACKGROUND_FRAMES4447,147828
+  class Listener 4641,155773
+    LEAP_EXPORT Listener(Listener::Listener4647,155873
+    LEAP_EXPORT virtual ~Listener(Listener::~Listener4652,155958
+    LEAP_EXPORT virtual void onInit(Listener::onInit4662,156240
+    LEAP_EXPORT virtual void onConnect(Listener::onConnect4678,156913
+    LEAP_EXPORT virtual void onDisconnect(Listener::onDisconnect4696,157731
+    LEAP_EXPORT virtual void onExit(Listener::onExit4707,158079
+    LEAP_EXPORT virtual void onFrame(Listener::onFrame4726,159012
+    LEAP_EXPORT virtual void onFocusGained(Listener::onFocusGained4740,159512
+    LEAP_EXPORT virtual void onFocusLost(Listener::onFocusLost4754,160008
+    LEAP_EXPORT virtual void onServiceConnect(Listener::onServiceConnect4766,160640
+    LEAP_EXPORT virtual void onServiceDisconnect(Listener::onServiceDisconnect4776,161099
+    LEAP_EXPORT virtual void onDeviceChange(Listener::onDeviceChange4788,161640
+
+leap/LeapMath.h,3143
+#define __LeapMath_h__10,597
+struct Vector 60,2231
+  Vector(65,2334
+  Vector(74,2507
+  Vector(83,2682
+  static const Vector& zero(92,2856
+  static const Vector& xAxis(103,3050
+  static const Vector& yAxis(113,3246
+  static const Vector& zAxis(123,3442
+  static const Vector& left(134,3672
+  static const Vector& right(144,3900
+  static const Vector& down(153,4093
+  static const Vector& up(163,4315
+  static const Vector& forward(172,4511
+  static const Vector& backward(182,4754
+  float magnitude(197,5139
+  float magnitudeSquared(Vector::magnitudeSquared209,5408
+  float distanceTo(Vector::distanceTo223,5783
+  float angleTo(Vector::angleTo247,6650
+  float pitch(Vector::pitch277,7576
+  float yaw(Vector::yaw297,8243
+  float roll(Vector::roll322,9159
+  float dot(Vector::dot340,9597
+  Vector cross(Vector::cross360,10283
+  Vector normalized(Vector::normalized378,10812
+  Vector operator-(Vector::operator-395,11235
+  Vector operator+(Vector::operator+405,11396
+  Vector operator-(Vector::operator-415,11609
+  Vector operator*(Vector::operator*425,11818
+  Vector operator/(Vector::operator/435,12016
+  friend Vector operator*(Vector::operator*446,12272
+  Vector& operator+=(Vector::operator+=455,12504
+  Vector& operator-=(Vector::operator-=466,12717
+  Vector& operator*=(Vector::operator*=477,12923
+  Vector& operator/=(Vector::operator/=488,13118
+  std::string toString(Vector::toString499,13341
+  friend std::ostream& operator<<(Vector::operator<<508,13604
+  bool operator==(Vector::operator==518,13833
+  bool operator!=(Vector::operator!=527,14055
+  bool isValid(Vector::isValid538,14362
+  const float* toFloatPointer(Vector::toFloatPointer563,15035
+  const Vector3Type toVector3(Vector::toVector3575,15393
+  const Vector4Type toVector4(Vector::toVector4589,15867
+struct FloatArray 617,16367
+  operator float* FloatArray::operator float*630,16654
+  operator const FloatArray::operator const638,16799
+struct Matrix660,17371
+  Matrix(Matrix::Matrix669,17508
+  Matrix(Matrix::Matrix683,17741
+  Matrix(Matrix::Matrix700,18282
+  Matrix(Matrix::Matrix718,18953
+  Matrix(Matrix::Matrix734,19435
+  Matrix(Matrix::Matrix750,19982
+  static const Matrix& identity(Matrix::identity763,20316
+  void setRotation(Matrix::setRotation780,20830
+  Vector transformPoint(Matrix::transformPoint803,21657
+  Vector transformDirection(Matrix::transformDirection817,22053
+  Matrix rigidInverse(Matrix::rigidInverse833,22572
+  Matrix operator*(Matrix::operator*853,23315
+  Matrix& operator*=(Matrix::operator*=867,23714
+  bool operator==(Matrix::operator==878,23925
+  bool operator!=(Matrix::operator!=891,24252
+  const Matrix3x3Type toMatrix3x3(Matrix::toMatrix3x3908,24750
+  const Matrix4x4Type toMatrix4x4(Matrix::toMatrix4x4922,25220
+  T* toArray3x3(Matrix::toArray3x3939,25743
+  FloatArray toArray3x3(Matrix::toArray3x3956,26271
+  T* toArray4x4(Matrix::toArray4x4970,26569
+  FloatArray toArray4x4(Matrix::toArray4x4986,27211
+  std::string toString(Matrix::toString996,27414
+  friend std::ostream& operator<<(Matrix::operator<<1010,27818
+
+swirly/base/ArraySize.h,134
+template <typename TypeName,21,954
+template <typename TypeName,28,1243
+#define arraysize(32,1346
+#define ARRAYSIZE_UNSAFE(71,3086
+
+swirly/base/Base.h,269
+using namespace std;9,106
+enum HandType 13,148
+enum HandType { LEFT_HAND,13,148
+enum HandType { LEFT_HAND, RIGHT_HAND,13,148
+enum HandType { LEFT_HAND, RIGHT_HAND, NO_HAND 13,148
+typedef vector<string> Representation;14,198
+std::unique_ptr<T> make_unique(22,362
+
+swirly/base/Callback.h,53
+struct Callback 9,107
+    virtual ~Callback(11,162
+
+swirly/base/Logger.h,74
+struct Logger 6,68
+    virtual ~Logger(7,84
+    virtual void log(8,109
+
+swirly/leap/Config.cpp,313
+namespace swirly 12,242
+namespace leap swirly::leap13,261
+Config::Config(swirly::leap::Config::Config15,279
+Config::~Config(19,390
+void Config::addArgument(21,412
+void Config::finishArguments(36,801
+void Config::dump(45,959
+Representation Config::getHand(49,1023
+Representation Config::setHand(56,1196
+
+swirly/leap/Config.h,246
+class Config 8,105
+    Representation getHand(21,386
+    typedef function<void()> Callback;28,585
+    void addCallback(29,624
+    void setRunning(33,701
+    bool isRunning(40,852
+    bool isVerbose(41,900
+    void updateCallbacks(48,1038
+
+swirly/leap/FrameHandler.cpp,214
+namespace swirly 14,250
+namespace leap swirly::leap15,269
+void addRepresentation(swirly::leap::addRepresentation20,325
+void addRepresentation(23,392
+void framePart(29,605
+void FrameHandler::onFrame(54,1330
+
+swirly/leap/FrameHandler.h,79
+class FrameHandler 13,159
+    FrameHandler(15,190
+    void setOutlet(16,244
+
+swirly/leap/Getter.h,50
+using namespace Leap;7,73
+namespace swirly 9,96
+
+swirly/leap/LeapMotion.h,49
+struct LeapMotion 10,158
+    LeapMotion(11,178
+
+swirly/leap/LeapUtil.cpp,147
+namespace swirly 4,67
+namespace leap swirly::leap5,86
+HandType whichHand(swirly::leap::whichHand7,104
+const char* HAND_NAME[HAND_NAME15,266
+
+swirly/leap/LeapUtil.h,27
+using namespace Leap;7,69
+
+swirly/leap/Listener.cpp,672
+namespace swirly 7,138
+namespace leap swirly::leap8,157
+Listener::Listener(swirly::leap::Listener::Listener10,175
+void Listener::configCallback(15,362
+bool Listener::sendFrame(19,436
+void Listener::setRunning(26,540
+Listener::~Listener(36,776
+void Listener::onInit(40,826
+void Listener::onExit(44,895
+void Listener::onConnect(48,964
+void Listener::onDisconnect(52,1035
+void Listener::onFrame(56,1112
+void Listener::onFocusGained(61,1241
+void Listener::onFocusLost(65,1324
+void Listener::onDeviceChange(69,1403
+void Listener::onServiceConnect(73,1488
+void Listener::onServiceDisconnect(77,1577
+void Listener::log(81,1668
+void Listener::verbose(85,1749
+
+swirly/leap/Listener.h,92
+class Listener 11,131
+    typedef Leap::Controller Controller;Listener::Controller22,414
+
+swirly/max/Gensym.cpp,210
+namespace swirly 4,57
+namespace leap swirly::leap5,76
+void removeQuotes(swirly::leap::removeQuotes9,107
+unordered_map<string, t_symbol*> SYMBOLS;14,243
+t_symbol* cachedGensym(19,304
+void setAtom(29,543
+
+swirly/max/Gensym.h,37
+inline const char* getSymbol(14,210
+
+swirly/max/Main.cpp,26
+int C74_EXPORT main(4,63
+
+swirly/max/Max.h,26
+inline void print(10,100
+
+swirly/max/MaxFrameHandler.h,82
+class MaxFrameHandler 10,149
+    void callback(MaxFrameHandler::callback14,244
+
+swirly/max/MaxObject.cpp,503
+namespace swirly 9,184
+namespace leap swirly::leap10,203
+MaxObject::MaxObject(20,311
+MaxObject::~MaxObject(38,900
+void MaxObject::log(40,928
+void MaxObject::err(46,1093
+void MaxObject::bang(52,1266
+void MaxObject::setRunning(57,1387
+void maxDelete(::maxDelete63,1490
+void* maxNew(67,1554
+void maxInt(74,1763
+void bang(78,1840
+void start(82,1900
+void stop(86,1971
+void assist(90,2042
+int j 96,2244
+t_max_err getHand(98,2256
+t_max_err setHand(116,2791
+void registerMaxObject(148,3854
+
+swirly/max/MaxObject.h,94
+struct MaxStruct 16,240
+class MaxObject 24,423
+    LeapMotion& leap(MaxObject::leap31,614
+
+swirly/represent/BoxRepresenter.h,318
+enum class Restrict 8,91
+enum class Restrict { FREE,8,91
+enum class Restrict { FREE, CLAMP 8,91
+class Boxer 11,171
+    Boxer(13,222
+    void represent(Boxer::represent15,301
+template <typename Part,27,607
+static shared_ptr<Representer<Part>> makeBox(28,649
+template <typename Part,32,790
+void addBox(33,832
+
+swirly/represent/Context.h,79
+using namespace Leap;7,69
+struct Context 14,144
+    explicit Context(15,161
+
+swirly/represent/GetterRepresenter.h,236
+class GetterRepresenter 9,133
+    GetterRepresenter(11,196
+    void represent(13,256
+template <typename Part,22,452
+static shared_ptr<Representer<Part>> makeRepresenter(23,494
+template <typename Part,27,632
+void addGetter(28,674
+
+swirly/represent/MasterRepresenter.cpp,289
+namespace swirly 4,80
+namespace leap swirly::leap5,99
+void add(swirly::leap::add10,155
+MasterRepresenter::MasterRepresenter(16,327
+void MasterRepresenter::dump(26,684
+void MasterRepresenter::finish(31,811
+void MasterRepresenter::set(36,901
+void MasterRepresenter::setAll(56,1511
+
+swirly/represent/MasterRepresenter.h,171
+class MasterRepresenter 9,137
+    SwitchedPartRepresenterMap<Part>* getPartMap(14,228
+    void dump(21,478
+    typedef map<string, unique_ptr<SwitchArray>> Map;28,630
+
+swirly/represent/PartRepresenterMap.cpp,736
+namespace swirly 9,187
+namespace leap swirly::leap10,206
+bool PartRepresenterMap<Part>::addRepresenter(swirly::leap::addRepresenter13,249
+void PartRepresenterMap<Part>::dump(dump29,658
+void PartRepresenterMap<Part>::describe(describe43,1021
+void PartRepresenterMap<Part>::setAll(setAll49,1183
+PartRepresenterMap<Part> newDefault(59,1374
+const PartRepresenterMap<Part>& PartRepresenterMap<Part>::getDefault(getDefault66,1538
+#define PROP(71,1694
+#define BOX(74,1764
+void fillDefault(83,2102
+void fillDefault(98,2504
+void fillDefault(113,2904
+void fillDefault(124,3149
+void fillDefault(142,3595
+void fillDefault(152,3877
+void fillDefault(162,4157
+void fillDefault(171,4427
+#undef BOX179,4667
+#undef PROP180,4678
+
+swirly/represent/PartRepresenterMap.h,258
+class PartRepresenterMap 13,303
+    typedef shared_ptr<Representer<Part>> RepPtr;15,364
+    typedef map<string, RepPtr> Map;16,414
+    Map& representers(18,452
+    const Map& representers(19,502
+    bool addRepresenter(21,565
+    void describe(24,739
+
+swirly/represent/Represent.cpp,201
+namespace swirly 5,63
+namespace leap swirly::leap6,82
+string to_string(swirly::leap::to_string8,100
+string to_string(12,163
+string to_string(20,381
+void represent(30,701
+void represent(36,827
+
+swirly/represent/Represent.h,135
+using namespace Leap;7,69
+void represent(22,323
+class Representer 32,530
+    virtual ~Representer(Representer::~Representer36,657
+
+swirly/represent/RepresenterMap.h,65
+class RepresenterMap 10,103
+    virtual ~RepresenterMap(13,193
+
+swirly/represent/Switch.h,313
+class Switch 10,191
+    Switch(12,216
+    operator bool(19,366
+    bool isOn(20,425
+    void finish(22,484
+    const char* name(27,586
+    enum Value 34,758
+    enum Value { UNSET_SWITCH,34,758
+    enum Value { UNSET_SWITCH, OFF_SWITCH,34,758
+    enum Value { UNSET_SWITCH, OFF_SWITCH, ON_SWITCH 34,758
+
+swirly/represent/SwitchArray.cpp,327
+namespace swirly 7,117
+namespace leap swirly::leap8,136
+SwitchArray::SwitchArray(swirly::leap::SwitchArray::SwitchArray10,154
+void SwitchArray::finish(16,320
+bool SwitchArray::set(31,690
+void SwitchArray::dump(63,1323
+bool SwitchArray::any(70,1525
+void SwitchArray::describe(78,1693
+void SwitchArray::setAll(85,1847
+
+swirly/represent/SwitchArray.h,199
+class SwitchArray 10,104
+    SwitchArray(12,134
+    virtual ~SwitchArray(14,195
+    virtual void dump(18,287
+    bool any(22,463
+    string const& name(25,571
+    virtual void describe(28,724
+
+swirly/represent/SwitchedPartRepresenterMap.h,411
+struct SwitchedPartRepresenterMap 12,229
+    bool set(SwitchedPartRepresenterMap::set15,316
+    void dump(SwitchedPartRepresenterMap::dump19,439
+    bool empty(SwitchedPartRepresenterMap::empty26,651
+    void describe(SwitchedPartRepresenterMap::describe30,749
+    void setAll(SwitchedPartRepresenterMap::setAll35,880
+    PartRepresenterMap<Part>& partMap(SwitchedPartRepresenterMap::partMap41,975
+
+swirly/util/BoolHandling.h,125
+enum class BoolHandling 7,65
+enum class BoolHandling { AS_NUMBER,7,65
+enum class BoolHandling { AS_NUMBER, AS_STRING 7,65
+
+swirly/util/Split.cpp,97
+namespace swirly 5,52
+vector<string> split(swirly::split7,72
+StringValues splitEquals(16,280
+
+swirly/util/Split.h,56
+typedef pair<string, vector<string>> StringValues;7,65
+
+swirly/util/Concat.h,0

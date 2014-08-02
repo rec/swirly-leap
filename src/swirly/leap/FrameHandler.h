@@ -1,5 +1,5 @@
-#include <swirly/base/Base.h>
 #include <swirly/base/Callback.h>
+#include <swirly/represent/Represent.h>
 
 namespace Leap {
 class Frame;
@@ -10,13 +10,14 @@ namespace leap {
 
 class Config;
 
-class FrameHandler {
+class FrameHandler : public Callback<Representation const&> {
   public:
-    FrameHandler(Config& config) : config_(config) {}
+    FrameHandler(Config& config) : config_(config) { }
     void setOutlet(void* outlet) { outlet_ = outlet; }
     void onFrame(Leap::Frame const&);
+    virtual void callback(Representation const&) = 0;
 
-  private:
+  protected:
     Config& config_;
     void* outlet_ = nullptr;
 };

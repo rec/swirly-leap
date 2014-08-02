@@ -7,10 +7,10 @@
 namespace swirly {
 namespace leap {
 
-class Properties {
+class RepresenterMap {
   public:
-    virtual bool addProperty(string const& name) = 0;
-    virtual ~Properties() {}
+    virtual bool addRepresenter(string const& name) = 0;
+    virtual ~RepresenterMap() {}
 };
 
 }  // namespace leap

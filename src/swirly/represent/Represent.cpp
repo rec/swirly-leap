@@ -1,4 +1,4 @@
-#include <swirly/property/Represent.h>
+#include <swirly/represent/Represent.h>
 
 using namespace Leap;
 
@@ -6,7 +6,11 @@ namespace swirly {
 namespace leap {
 
 string to_string(bool f) {
+#ifdef USE_BOOLEANS
     return f ? "true" : "false";
+#else
+    return f ? "1" : "0";
+#endif
 }
 
 string to_string(Pointable::Zone z) {
@@ -47,15 +51,6 @@ void represent(Representation& rep, Matrix m) {
     represent(rep, m.origin.y);
     represent(rep, m.origin.z);
 }
-
-template <> const char* humanName<Finger>()           { return "finger"; }
-template <> const char* humanName<Hand>()             { return "hand"; }
-template <> const char* humanName<Tool>()             { return "tool"; }
-template <> const char* humanName<Bone>()             { return "bone"; }
-template <> const char* humanName<SwipeGesture>()     { return "swipe"; }
-template <> const char* humanName<CircleGesture>()    { return "circle"; }
-template <> const char* humanName<KeyTapGesture>()    { return "keytap"; }
-template <> const char* humanName<ScreenTapGesture>() { return "screentap"; }
 
 }  // namespace leap
 }  // namespace swirly

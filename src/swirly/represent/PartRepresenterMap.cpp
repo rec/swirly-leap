@@ -1,36 +1,36 @@
 #include <leap/Leap.h>
 
-#include <swirly/property/TypedProperties.h>
-#include <swirly/property/GetterRepresenter.h>
-#include <swirly/property/BoxRepresenter.h>
+#include <swirly/represent/PartRepresenterMap.h>
+#include <swirly/represent/GetterRepresenter.h>
+#include <swirly/represent/BoxRepresenter.h>
 
 using namespace Leap;
 
 namespace swirly {
 namespace leap {
 
-template <typename Data>
-bool TypedProperties<Data>::addProperty(string const& name) {
+template <typename Part>
+bool PartRepresenterMap<Part>::addRepresenter(string const& name) {
     if (name == "*") {
-        properties_ = getDefault().properties_;
+        setAll();
     } else if (name == "-") {
-        properties_.clear();
+        representers_.clear();
     } else {
-        auto i = getDefault().properties_.find(name);
-        if (i == getDefault().properties_.end())
+        auto i = getDefault().representers_.find(name);
+        if (i == getDefault().representers_.end())
             return false;
-        properties_[name] = i->second;
+        representers_[name] = i->second;
     }
 
     return true;
 }
 
-template <typename Data>
-void TypedProperties<Data>::dump(
-    string const& name, Logger const& logger) const {
+template <typename Part>
+void PartRepresenterMap<Part>::dump(
+        string const& name, Logger const& logger) const {
     if (not empty()) {
         string result;
-        for (auto& p: properties_) {
+        for (auto& p: representers_) {
             if (not result.empty())
                 result += "+";
             result += p.first;
@@ -39,20 +39,33 @@ void TypedProperties<Data>::dump(
     }
 }
 
-template <typename Data>
-void fillDefault(TypedProperties<Data>&);
-
-template <typename Data>
-TypedProperties<Data> newDefault() {
-    TypedProperties<Data> property;
-    fillDefault(property);
-    return property;
+template <typename Part>
+void PartRepresenterMap<Part>::describe(Representation& rep) const {
+    for (auto& p: representers_)
+        rep.push_back(p.first);
 }
 
-template <typename Data>
-const TypedProperties<Data>& TypedProperties<Data>::getDefault() {
-    static auto const PROPERTY = newDefault<Data>();
-    return PROPERTY;
+template <typename Part>
+void PartRepresenterMap<Part>::setAll() {
+    representers_ = getDefault().representers_;
+}
+
+
+
+template <typename Part>
+void fillDefault(PartRepresenterMap<Part>&);
+
+template <typename Part>
+PartRepresenterMap<Part> newDefault() {
+    PartRepresenterMap<Part> representer;
+    fillDefault(representer);
+    return representer;
+}
+
+template <typename Part>
+const PartRepresenterMap<Part>& PartRepresenterMap<Part>::getDefault() {
+    static auto const REPRESENTER = newDefault<Part>();
+    return REPRESENTER;
 }
 
 #define PROP(CLASS, NAME) \
@@ -67,7 +80,7 @@ const TypedProperties<Data>& TypedProperties<Data>::getDefault() {
 
 
 template <>
-void fillDefault(TypedProperties<Finger>& prop) {
+void fillDefault(PartRepresenterMap<Finger>& prop) {
     PROP(Pointable, direction);
     PROP(Pointable, isExtended);
     PROP(Pointable, length);
@@ -82,7 +95,7 @@ void fillDefault(TypedProperties<Finger>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<Tool>& prop) {
+void fillDefault(PartRepresenterMap<Tool>& prop) {
     PROP(Pointable, direction);
     PROP(Pointable, isExtended);
     PROP(Pointable, length);
@@ -97,7 +110,7 @@ void fillDefault(TypedProperties<Tool>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<Bone>& prop) {
+void fillDefault(PartRepresenterMap<Bone>& prop) {
     PROP(Bone, basis); // A matrix - what to do with that?
     PROP(Bone, direction);
     PROP(Bone, length);
@@ -108,7 +121,7 @@ void fillDefault(TypedProperties<Bone>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<Hand>& prop) {
+void fillDefault(PartRepresenterMap<Hand>& prop) {
     PROP(Hand, basis);
     PROP(Hand, confidence);
     PROP(Hand, direction);
@@ -126,7 +139,7 @@ void fillDefault(TypedProperties<Hand>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<SwipeGesture>& prop) {
+void fillDefault(PartRepresenterMap<SwipeGesture>& prop) {
     PROP(SwipeGesture, direction);
     PROP(SwipeGesture, durationSeconds);
     PROP(SwipeGesture, id);
@@ -136,7 +149,7 @@ void fillDefault(TypedProperties<SwipeGesture>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<CircleGesture>& prop) {
+void fillDefault(PartRepresenterMap<CircleGesture>& prop) {
     PROP(CircleGesture, center);
     PROP(CircleGesture, durationSeconds);
     PROP(CircleGesture, id);
@@ -146,7 +159,7 @@ void fillDefault(TypedProperties<CircleGesture>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<ScreenTapGesture>& prop) {
+void fillDefault(PartRepresenterMap<ScreenTapGesture>& prop) {
     PROP(ScreenTapGesture, direction);
     PROP(ScreenTapGesture, durationSeconds);
     PROP(ScreenTapGesture, id);
@@ -155,7 +168,7 @@ void fillDefault(TypedProperties<ScreenTapGesture>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<KeyTapGesture>& prop) {
+void fillDefault(PartRepresenterMap<KeyTapGesture>& prop) {
     PROP(KeyTapGesture, direction);
     PROP(KeyTapGesture, durationSeconds);
     PROP(KeyTapGesture, id);
@@ -166,15 +179,15 @@ void fillDefault(TypedProperties<KeyTapGesture>& prop) {
 #undef BOX
 #undef PROP
 
-template class TypedProperties<Finger>;
-template class TypedProperties<Tool>;
-template class TypedProperties<Bone>;
-template class TypedProperties<Hand>;
+template class PartRepresenterMap<Finger>;
+template class PartRepresenterMap<Tool>;
+template class PartRepresenterMap<Bone>;
+template class PartRepresenterMap<Hand>;
 
-template class TypedProperties<SwipeGesture>;
-template class TypedProperties<ScreenTapGesture>;
-template class TypedProperties<KeyTapGesture>;
-template class TypedProperties<CircleGesture>;
+template class PartRepresenterMap<SwipeGesture>;
+template class PartRepresenterMap<ScreenTapGesture>;
+template class PartRepresenterMap<KeyTapGesture>;
+template class PartRepresenterMap<CircleGesture>;
 
 }  // namespace leap
 }  // namespace swirly

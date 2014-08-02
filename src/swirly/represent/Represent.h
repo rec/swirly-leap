@@ -9,9 +9,6 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
-template <typename Data>
-const char* humanName();
-
 string to_string(Bone::Type);
 string to_string(Pointable::Zone);
 string to_string(bool);
@@ -31,11 +28,11 @@ void represent(Representation&, Vector);
 
 struct Context;
 
-template <typename Data>
+template <typename Part>
 class Representer {
   public:
     virtual void represent(
-        Representation&, Data const&, Context const&) const = 0;
+            Representation&, Part const&, Context const&) const = 0;
     virtual ~Representer() {}
 };
 

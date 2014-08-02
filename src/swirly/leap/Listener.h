@@ -10,7 +10,7 @@ class FrameHandler;
 
 class Listener : public Leap::Listener {
   public:
-    Listener(Config&, FrameHandler&);
+    Listener(Config&, FrameHandler&, Leap::Controller&);
     ~Listener();
 
     void setRunning(bool);
@@ -33,7 +33,7 @@ class Listener : public Leap::Listener {
     void onServiceDisconnect(Controller const&) override;
 
   private:
-    Controller controller_;
+    Controller& controller_;
     Config& config_;
     FrameHandler& frameHandler_;
     bool running_ = false;

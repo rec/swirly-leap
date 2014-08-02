@@ -1,7 +1,7 @@
 #include <strings.h>
 #include <algorithm>
 
-#include <swirly/property/SwitchArray.h>
+#include <swirly/represent/SwitchArray.h>
 #include <swirly/base/Logger.h>
 
 namespace swirly {
@@ -73,6 +73,18 @@ bool SwitchArray::any(bool isSet) const {
             return true;
     }
     return false;
+}
+
+void SwitchArray::describe(Representation& rep) const {
+    for (auto& s: switches_) {
+        if (s.second)
+            rep.push_back(s.first);
+    }
+}
+
+void SwitchArray::setAll() {
+    for (auto& s: switches_)
+        s.second = true;
 }
 
 }  // namespace leap

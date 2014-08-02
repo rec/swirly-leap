@@ -14,7 +14,7 @@ struct LeapMotion {
               listener_(config_, frameHandler_) {
     }
     Config config_;
-    FrameHandler frameHandler_;
+    MaxFrameHandler frameHandler_;
     Listener listener_;
 };
 

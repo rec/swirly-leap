@@ -28,11 +28,11 @@ void represent(Representation&, Vector);
 
 struct Context;
 
-template <typename Data>
+template <typename Part>
 class Representer {
   public:
     virtual void represent(
-        Representation&, Data const&, Context const&) const = 0;
+            Representation&, Part const&, Context const&) const = 0;
     virtual ~Representer() {}
 };
 

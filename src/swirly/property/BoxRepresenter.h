@@ -7,14 +7,14 @@ namespace leap {
 
 enum class Restrict { FREE, CLAMP };
 
-template <typename Data, typename Getter>
-class Boxer : public Representer<Data> {
+template <typename Part, typename Getter>
+class Boxer : public Representer<Part> {
   public:
     Boxer(Getter g, Restrict r) : getter_(g), clamp_(r == Restrict::CLAMP) {}
 
-    void represent(Representation& rep, Data const& data,
+    void represent(Representation& rep, Part const& part,
                    Context const& context) const override {
-        auto v = getter_(data);
+        auto v = getter_(part);
         v = context.box_.normalizePoint(v, clamp_);
         leap::represent(rep, v);
     }
@@ -24,16 +24,16 @@ class Boxer : public Representer<Data> {
     bool const clamp_;
 };
 
-template <typename Data, typename Getter>
-static shared_ptr<Representer<Data>> makeBox(Getter get, Restrict restrict) {
-    return make_shared<Boxer<Data, Getter>>(get, restrict);
+template <typename Part, typename Getter>
+static shared_ptr<Representer<Part>> makeBox(Getter get, Restrict restrict) {
+    return make_shared<Boxer<Part, Getter>>(get, restrict);
 }
 
-template <typename Data, typename Method>
-void addBox(PartRepresenterMap<Data>& props, string const& name, Method m,
-            Restrict restrict) {
+template <typename Part, typename Method>
+void addBox(PartRepresenterMap<Part>& representers, string const& name,
+            Method m, Restrict restrict) {
     auto getter = bind(m, placeholders::_1);
-    props.representers()[name] = makeBox<Data>(getter, restrict);
+    representers.representers()[name] = makeBox<Part>(getter, restrict);
 }
 
 }  // namespace leap

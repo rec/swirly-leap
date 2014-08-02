@@ -72,22 +72,8 @@ void Config::dump() {
 
 Representation Config::getHand() const {
     Representation rep;
-    auto hand = switches_->get<Hand>();
-
-    if (hand->any() and not hand->properties_.empty()) {
-        if (hand->any(false)) {
-            for (auto& h: hand->switches_)
-                if (h.second)
-                    rep.push_back(h.first);
-        }
-
-        for (auto& h: hand->properties_.properties())
-            rep.push_back(h.first);
-
-    } else {
-        logger_.err("No hand!");
-    }
-
+    if (auto hand = switches_->get<Hand>())
+        hand->represent(rep);
     return rep;
 }
 

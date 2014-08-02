@@ -3,7 +3,9 @@
 #include <leap/Leap.h>
 
 #include <swirly/leap/FrameHandler.h>
+
 #include <swirly/leap/Config.h>
+#include <swirly/leap/Getter.h>
 #include <swirly/leap/LeapUtil.h>
 #include <swirly/property/PropertiesToMax.h>
 #include <swirly/property/PropertySwitchArray.h>
@@ -15,51 +17,60 @@ namespace leap {
 
 namespace {
 
-FingerList  getList(Frame f, Finger)  { return f.fingers(); }
-GestureList getList(Frame f, Gesture) { return f.gestures(); }
-HandList    getList(Frame f, Hand)    { return f.hands(); }
-ToolList    getList(Frame f, Tool)    { return f.tools(); }
+string to_string(HandType t) { return HAND_NAME[t]; }
 
 template <typename Data>
-struct RepLength {
-    static const int LENGTH;
-};
+void addRepresentation(Data const& data, Representation& rep) {
+}
 
-template <typename Data> const int RepLength<Data>::LENGTH = 3;
-template <>              const int RepLength<Hand>::LENGTH = 2;
+template <>
+void addRepresentation(Finger const& finger, Representation& rep) {
+    auto handType = whichHand(finger.hand());
+    rep.push_back(handType == NO_HAND ? "none" : HAND_NAME[handType]);
+}
 
 template <typename Data, typename Callback>
-void execute(Config const& config, Context const& context, Callback callback) {
-    if (auto properties = config.switches().get<Data>()) {
-        Representation rep;
-        rep.resize(RepLength<Data>::LENGTH);
-        rep[0] = humanName<Data>();
-
-        auto const& list = getList(context.frame_, Data());
-        for (auto const& item: list) {
-            if (filter(item, context, rep))
-                callback(rep);
+void onFrame(Context const& context, Callback callback) {
+    if (auto properties = context.config_.switches().get<Data>()) {
+        auto const& dataList = getList(context.frame_, Data());
+        for (auto const& data: dataList) {
+            auto name = properties->enabledName(getType(data));
+            if (not name.empty()) {
+                for (auto const& p: properties->properties_.properties()) {
+                    Representation rep{humanName<Data>()};
+                    addRepresentation(data, rep);
+                    rep.push_back(name);
+                    p.second->represent(rep, data, context);
+                    callback(rep);
+                }
+            }
         }
     }
+}
+
+void myCallback(Representation&) {}
+
+void test(Context const& context) {
+    onFrame<Tool>(context, &myCallback);
 }
 
 } // namespace
 
 
 void FrameHandler::onFrame(Frame const& frame) {
-    Context context(frame);
     if (!outlet_) {
         config_.logger_.err("No outlet!");
         return;
     }
+
+    Context context(frame, config_);
     if (auto handProperties = config_.switches().get<Hand>()) {
         Representation rep{"hand", ""};
         auto const& hands = frame.hands();
-        auto& switches = handProperties->switches_;
         auto& properties = handProperties->properties_;
         for (auto const& hand: hands) {
             auto handType = whichHand(hand);
-            if (handType != NO_HAND and switches[handType].second) {
+            if (handProperties->isSet(handType)) {
                 rep[1] = HAND_NAME[handType];
                 propertiesToMax(outlet_, hand, properties, rep, context);
             }
@@ -69,16 +80,14 @@ void FrameHandler::onFrame(Frame const& frame) {
     if (auto fingerProperties = config_.switches().get<Finger>()) {
         Representation rep{"finger", "", ""};
         auto const& fingers = frame.fingers();
-        auto& switches = fingerProperties->switches_;
         auto properties = fingerProperties->properties_;
         for (auto const& finger: fingers) {
             auto fingerType = finger.type();
-            auto sw = switches[fingerType];
-            if (sw.second) {
+            if (fingerProperties->isSet(fingerType)) {
                 auto handType = whichHand(finger.hand());
                 if (handType != NO_HAND) {
                     rep[1] = HAND_NAME[handType];
-                    rep[2] = sw.first;
+                    rep[2] = fingerProperties->name(handType);
                     propertiesToMax(outlet_, finger, properties, rep, context);
                 }
             }

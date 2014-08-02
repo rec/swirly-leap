@@ -9,9 +9,6 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
-template <typename Data>
-const char* humanName();
-
 string to_string(Bone::Type);
 string to_string(Pointable::Zone);
 string to_string(bool);

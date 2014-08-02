@@ -1,4 +1,5 @@
-#include <leapUtil.h>
+#include <swirly/leap/LeapUtil.h>
+#include <swirly/leap/Getter.h>
 
 namespace swirly {
 namespace leap {

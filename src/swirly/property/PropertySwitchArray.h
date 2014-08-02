@@ -1,5 +1,6 @@
 #pragma once
 
+#include <swirly/leap/Getter.h>
 #include <swirly/property/Switch.h>
 #include <swirly/property/TypedProperties.h>
 
@@ -19,6 +20,15 @@ struct PropertySwitchArray : SwitchArray {
             SwitchArray::dump(name, logger);
             properties_.dump(name, logger);
         }
+    }
+
+    bool empty() const override {
+        return SwitchArray::empty() or properties_.empty();
+    }
+
+    void represent(Representation& rep) const override {
+        SwitchArray::represent(rep);
+        properties_.represent(rep);
     }
 
     TypedProperties<Data> properties_;

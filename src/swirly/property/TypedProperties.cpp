@@ -27,7 +27,7 @@ bool TypedProperties<Data>::addProperty(string const& name) {
 
 template <typename Data>
 void TypedProperties<Data>::dump(
-    string const& name, Logger const& logger) const {
+        string const& name, Logger const& logger) const {
     if (not empty()) {
         string result;
         for (auto& p: properties_) {
@@ -38,6 +38,13 @@ void TypedProperties<Data>::dump(
         logger.log(name + "=" + result);
     }
 }
+
+template <typename Data>
+void TypedProperties<Data>::represent(Representation& rep) const {
+    for (auto& p: properties_)
+        rep.push_back(p.first);
+}
+
 
 template <typename Data>
 void fillDefault(TypedProperties<Data>&);

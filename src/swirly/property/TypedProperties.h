@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string.h>
-
 #include <swirly/base/Logger.h>
 #include <swirly/property/Context.h>
 #include <swirly/property/Properties.h>
@@ -9,9 +7,6 @@
 
 namespace swirly {
 namespace leap {
-
-template <typename Data>
-const char* humanName();
 
 template <typename Data>
 class TypedProperties : public Properties {
@@ -25,6 +20,7 @@ class TypedProperties : public Properties {
     bool addProperty(string const& name) override;
     void dump(string const& name, Logger const& logger) const;
     bool empty() const { return properties_.empty(); }
+    void represent(Representation&) const;
 
   private:
     static const TypedProperties<Data>& getDefault();

@@ -25,7 +25,7 @@ static shared_ptr<Representer<Data>> makeRepresenter(Getter getter) {
 }
 
 template <typename Data, typename Method>
-void addGetter(TypedProperties<Data>& props, string const& name, Method m) {
+void addGetter(PartRepresenterMap<Data>& props, string const& name, Method m) {
     props.properties()[name] = makeRepresenter<Data>(bind(m, placeholders::_1));
 }
 

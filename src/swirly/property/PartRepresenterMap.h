@@ -8,10 +8,11 @@
 namespace swirly {
 namespace leap {
 
-template <typename Data>
-class TypedProperties : public Properties {
+/** A collection of properties attached to a specific Leap Frame part. */
+template <typename Part>
+class PartRepresenterMap : public Properties {
   public:
-    typedef shared_ptr<Representer<Data>> RepPtr;
+    typedef shared_ptr<Representer<Part>> RepPtr;
     typedef map<string, RepPtr> Map;
 
     Map& properties() { return properties_; }
@@ -23,7 +24,7 @@ class TypedProperties : public Properties {
     void represent(Representation&) const;
 
   private:
-    static const TypedProperties<Data>& getDefault();
+    static const PartRepresenterMap<Part>& getDefault();
 
     Map properties_;
 };

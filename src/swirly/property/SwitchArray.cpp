@@ -75,15 +75,6 @@ bool SwitchArray::any(bool isSet) const {
     return false;
 }
 
-bool SwitchArray::isSet(unsigned int i) const {
-    return i < switches_.size() and switches_[i].second;
-}
-
-string SwitchArray::enabledName(unsigned int i) const {
-    auto enabled = i < switches_.size() && switches_[i].second;
-    return enabled ? switches_[i].first : "";
-}
-
 void SwitchArray::represent(Representation& rep) const {
     for (auto& s: switches_) {
         if (s.second)

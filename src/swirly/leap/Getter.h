@@ -9,27 +9,26 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
-inline HandList    getList(Frame f, Hand)    { return f.hands(); }
-inline FingerList  getList(Frame f, Finger)  { return f.fingers(); }
-inline GestureList getList(Frame f, Gesture) { return f.gestures(); }
-inline ToolList    getList(Frame f, Tool)    { return f.tools(); }
+inline HandList    getPartList(Frame f, Hand)    { return f.hands(); }
+inline FingerList  getPartList(Frame f, Finger)  { return f.fingers(); }
+inline GestureList getPartList(Frame f, Gesture) { return f.gestures(); }
+inline ToolList    getPartList(Frame f, Tool)    { return f.tools(); }
 
 inline HandType      getType(Hand hand)       { return whichHand(hand); }
 inline int           getType(Tool tool)       { return 0; }
 inline Finger::Type  getType(Finger finger)   { return finger.type(); }
 inline Gesture::Type getType(Gesture gesture) { return gesture.type(); }
 
-template <typename Data>
-const char* humanName();
+template <typename P>   const char* partName();
 
-template<> inline const char* humanName<Finger>()           { return "finger"; }
-template<> inline const char* humanName<Hand>()             { return "hand"; }
-template<> inline const char* humanName<Tool>()             { return "tool"; }
-template<> inline const char* humanName<Bone>()             { return "bone"; }
-template<> inline const char* humanName<SwipeGesture>()     { return "swipe"; }
-template<> inline const char* humanName<CircleGesture>()    { return "circle"; }
-template<> inline const char* humanName<KeyTapGesture>()    { return "keytap"; }
-template<> inline const char* humanName<ScreenTapGesture>() { return "screentap"; }
+template<> inline const char* partName<Finger>()           { return "finger"; }
+template<> inline const char* partName<Hand>()             { return "hand"; }
+template<> inline const char* partName<Tool>()             { return "tool"; }
+template<> inline const char* partName<Bone>()             { return "bone"; }
+template<> inline const char* partName<SwipeGesture>()     { return "swipe"; }
+template<> inline const char* partName<CircleGesture>()    { return "circle"; }
+template<> inline const char* partName<KeyTapGesture>()    { return "keytap"; }
+template<> inline const char* partName<ScreenTapGesture>() { return "screentap"; }
 
-}  // humanNamespace leap
-}  // humanNamespace swirly
+}  // leap
+}  // swirly

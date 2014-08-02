@@ -37,14 +37,14 @@
 		E2E2B8B41968BC650047C7F8 /* Switch.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B88E1968BC650047C7F8 /* Switch.h */; };
 		E2E2B8B51968BC650047C7F8 /* SwitchArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2E2B88F1968BC650047C7F8 /* SwitchArray.cpp */; };
 		E2E2B8B61968BC650047C7F8 /* SwitchArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8901968BC650047C7F8 /* SwitchArray.h */; };
-		E2E2B8B71968BC650047C7F8 /* TypedProperties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2E2B8911968BC650047C7F8 /* TypedProperties.cpp */; };
-		E2E2B8B81968BC650047C7F8 /* TypedProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8921968BC650047C7F8 /* TypedProperties.h */; };
 		E2E2B8B91968BC650047C7F8 /* BoolHandling.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8941968BC650047C7F8 /* BoolHandling.h */; };
 		E2E2B8BA1968BC650047C7F8 /* Concat.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8951968BC650047C7F8 /* Concat.h */; };
 		E2E2B8BB1968BC650047C7F8 /* Split.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2E2B8961968BC650047C7F8 /* Split.cpp */; };
 		E2E2B8BC1968BC650047C7F8 /* Split.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8971968BC650047C7F8 /* Split.h */; };
 		E2E2B8BD1968BC650047C7F8 /* Leap.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8991968BC650047C7F8 /* Leap.h */; };
 		E2E2B8BE1968BC650047C7F8 /* LeapMath.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B89A1968BC650047C7F8 /* LeapMath.h */; };
+		E2FA4B7B198D8BF9007CD5DA /* PartRepresenterMap.h in Headers */ = {isa = PBXBuildFile; fileRef = E2FA4B79198D8BF9007CD5DA /* PartRepresenterMap.h */; };
+		E2FA4B7C198D8BF9007CD5DA /* PartRepresenterMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2FA4B7A198D8BF9007CD5DA /* PartRepresenterMap.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -92,14 +92,14 @@
 		E2E2B88E1968BC650047C7F8 /* Switch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Switch.h; sourceTree = "<group>"; };
 		E2E2B88F1968BC650047C7F8 /* SwitchArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchArray.cpp; sourceTree = "<group>"; };
 		E2E2B8901968BC650047C7F8 /* SwitchArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchArray.h; sourceTree = "<group>"; };
-		E2E2B8911968BC650047C7F8 /* TypedProperties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TypedProperties.cpp; sourceTree = "<group>"; };
-		E2E2B8921968BC650047C7F8 /* TypedProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypedProperties.h; sourceTree = "<group>"; };
 		E2E2B8941968BC650047C7F8 /* BoolHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoolHandling.h; sourceTree = "<group>"; };
 		E2E2B8951968BC650047C7F8 /* Concat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Concat.h; sourceTree = "<group>"; };
 		E2E2B8961968BC650047C7F8 /* Split.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Split.cpp; sourceTree = "<group>"; };
 		E2E2B8971968BC650047C7F8 /* Split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Split.h; sourceTree = "<group>"; };
 		E2E2B8991968BC650047C7F8 /* Leap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Leap.h; sourceTree = "<group>"; };
 		E2E2B89A1968BC650047C7F8 /* LeapMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeapMath.h; sourceTree = "<group>"; };
+		E2FA4B79198D8BF9007CD5DA /* PartRepresenterMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartRepresenterMap.h; sourceTree = "<group>"; };
+		E2FA4B7A198D8BF9007CD5DA /* PartRepresenterMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PartRepresenterMap.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +198,8 @@
 			isa = PBXGroup;
 			children = (
 				E2E2B8881968BC650047C7F8 /* Properties.h */,
+				E2FA4B79198D8BF9007CD5DA /* PartRepresenterMap.h */,
+				E2FA4B7A198D8BF9007CD5DA /* PartRepresenterMap.cpp */,
 				E2E2B8891968BC650047C7F8 /* PropertiesToMax.cpp */,
 				E2E2B88A1968BC650047C7F8 /* PropertiesToMax.h */,
 				E2E2B88B1968BC650047C7F8 /* PropertySwitchArray.h */,
@@ -206,8 +208,6 @@
 				E2E2B88E1968BC650047C7F8 /* Switch.h */,
 				E2E2B88F1968BC650047C7F8 /* SwitchArray.cpp */,
 				E2E2B8901968BC650047C7F8 /* SwitchArray.h */,
-				E2E2B8911968BC650047C7F8 /* TypedProperties.cpp */,
-				E2E2B8921968BC650047C7F8 /* TypedProperties.h */,
 			);
 			path = property;
 			sourceTree = "<group>";
@@ -241,7 +241,6 @@
 			files = (
 				E2E2B8AB1968BC650047C7F8 /* Max.h in Headers */,
 				E2E2B8A51968BC650047C7F8 /* LeapUtil.h in Headers */,
-				E2E2B8B81968BC650047C7F8 /* TypedProperties.h in Headers */,
 				E2E2B8BC1968BC650047C7F8 /* Split.h in Headers */,
 				E2E2B8A01968BC650047C7F8 /* Config.h in Headers */,
 				E2E2B8A31968BC650047C7F8 /* LeapMotion.h in Headers */,
@@ -262,6 +261,7 @@
 				E2E2B89D1968BC650047C7F8 /* Callback.h in Headers */,
 				E2E2B8BA1968BC650047C7F8 /* Concat.h in Headers */,
 				E2E2B8A91968BC650047C7F8 /* Gensym.h in Headers */,
+				E2FA4B7B198D8BF9007CD5DA /* PartRepresenterMap.h in Headers */,
 				E2E2B8B41968BC650047C7F8 /* Switch.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,9 +343,9 @@
 				E2E2B8BB1968BC650047C7F8 /* Split.cpp in Sources */,
 				E2E2B8AF1968BC650047C7F8 /* PropertiesToMax.cpp in Sources */,
 				E2E2B8B51968BC650047C7F8 /* SwitchArray.cpp in Sources */,
-				E2E2B8B71968BC650047C7F8 /* TypedProperties.cpp in Sources */,
 				E2E2B8A11968BC650047C7F8 /* FrameHandler.cpp in Sources */,
 				E2E2B8B21968BC650047C7F8 /* Represent.cpp in Sources */,
+				E2FA4B7C198D8BF9007CD5DA /* PartRepresenterMap.cpp in Sources */,
 				E2E2B8A41968BC650047C7F8 /* LeapUtil.cpp in Sources */,
 				E2E2B89F1968BC650047C7F8 /* Config.cpp in Sources */,
 				E2E2B8AC1968BC650047C7F8 /* MaxObject.cpp in Sources */,

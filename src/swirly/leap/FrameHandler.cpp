@@ -29,21 +29,25 @@ void addRepresentation(Finger const& finger, Representation& rep) {
     rep.push_back(handType == NO_HAND ? "none" : HAND_NAME[handType]);
 }
 
-template <typename Data, typename Callback>
+template <typename Part, typename Callback>
 void onFrame(Context const& context, Callback callback) {
-    if (auto properties = context.config_.switches().get<Data>()) {
-        auto const& dataList = getList(context.frame_, Data());
-        for (auto const& data: dataList) {
-            auto name = properties->enabledName(getType(data));
-            if (not name.empty()) {
-                for (auto const& p: properties->properties_.properties()) {
-                    Representation rep{humanName<Data>()};
-                    addRepresentation(data, rep);
-                    rep.push_back(name);
-                    p.second->represent(rep, data, context);
-                    callback(rep);
-                }
-            }
+    auto properties = context.config_.switches().get<Part>();
+    if (not properties)
+        return;
+
+    auto const& partList = getPartList(context.frame_, Part());
+    for (auto const& part: partList) {
+        auto type = getType(part);
+        if (not properties->isOn(type))
+            continue;
+
+        auto name = properties->name(type);
+        for (auto const& p: properties->properties_.properties()) {
+            Representation rep{partName<Part>()};
+            addRepresentation(part, rep);
+            rep.push_back(name);
+            p.second->represent(rep, part, context);
+            callback(rep);
         }
     }
 }
@@ -64,13 +68,14 @@ void FrameHandler::onFrame(Frame const& frame) {
     }
 
     Context context(frame, config_);
+
     if (auto handProperties = config_.switches().get<Hand>()) {
         Representation rep{"hand", ""};
         auto const& hands = frame.hands();
         auto& properties = handProperties->properties_;
         for (auto const& hand: hands) {
             auto handType = whichHand(hand);
-            if (handProperties->isSet(handType)) {
+            if (handProperties->isOn(handType)) {
                 rep[1] = HAND_NAME[handType];
                 propertiesToMax(outlet_, hand, properties, rep, context);
             }
@@ -83,7 +88,7 @@ void FrameHandler::onFrame(Frame const& frame) {
         auto properties = fingerProperties->properties_;
         for (auto const& finger: fingers) {
             auto fingerType = finger.type();
-            if (fingerProperties->isSet(fingerType)) {
+            if (fingerProperties->isOn(fingerType)) {
                 auto handType = whichHand(finger.hand());
                 if (handType != NO_HAND) {
                     rep[1] = HAND_NAME[handType];

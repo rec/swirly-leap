@@ -5,6 +5,8 @@
 namespace swirly {
 namespace leap {
 
+/** Switches are booleans that also have a third state - unset.
+ *  Unset switches read as on by default. */
 class Switch {
   public:
     Switch() : switch_(UNSET_SWITCH) {}
@@ -15,7 +17,7 @@ class Switch {
     }
 
     operator bool() const { return switch_ == ON_SWITCH; }
-    bool isSet() const { return switch_ != UNSET_SWITCH; }
+    bool isOn() const { return switch_ != UNSET_SWITCH; }
 
     void finish(bool on = true) {
         if (switch_ == UNSET_SWITCH)

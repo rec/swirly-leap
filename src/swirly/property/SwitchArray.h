@@ -18,14 +18,11 @@ class SwitchArray {
     virtual void dump(string const& name, Logger const&) const;
     virtual bool empty() const { return any(); }
 
+    /** Return true if any of the switches has this value. */
     bool any(bool isSet = true) const;
 
-    bool isSet(unsigned int index) const;
-    string const& name(unsigned int i) { return switches_[i].first; }
-
-    /** Return the name, if that switch item is enabled, else the empty string.
-     */
-    string enabledName(unsigned int index) const;
+    bool isOn(unsigned int i) const { return switches_[i].second; }
+    string const& name(unsigned int i) const { return switches_[i].first; }
 
     /** Represent this SwitchArray as a list of its enabled switch names. */
     virtual void represent(Representation&) const;

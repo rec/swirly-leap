@@ -2,12 +2,12 @@
 
 #include <swirly/leap/Getter.h>
 #include <swirly/property/Switch.h>
-#include <swirly/property/TypedProperties.h>
+#include <swirly/property/PartRepresenterMap.h>
 
 namespace swirly {
 namespace leap {
 
-template <typename Data>
+template <typename Part>
 struct PropertySwitchArray : SwitchArray {
     using SwitchArray::SwitchArray;
 
@@ -31,20 +31,20 @@ struct PropertySwitchArray : SwitchArray {
         properties_.represent(rep);
     }
 
-    TypedProperties<Data> properties_;
+    PartRepresenterMap<Part> properties_;
 };
 
 struct PropertySwitchArrayMap : map<string, unique_ptr<SwitchArray>> {
-    template <typename Data>
+    template <typename Part>
     void add(Representation const& rep) {
-        (*this)[humanName<Data>()].reset(new PropertySwitchArray<Data>(rep));
+        (*this)[partName<Part>()].reset(new PropertySwitchArray<Part>(rep));
     }
 
-    template <typename Data>
-    PropertySwitchArray<Data>* get() const {
-        auto i = find(humanName<Data>());
+    template <typename Part>
+    PropertySwitchArray<Part>* get() const {
+        auto i = find(partName<Part>());
         if (i != end())
-            return dynamic_cast<PropertySwitchArray<Data>*>(i->second.get());
+            return dynamic_cast<PropertySwitchArray<Part>*>(i->second.get());
 
         return nullptr;
     }

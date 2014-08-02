@@ -4,7 +4,7 @@
 
 #include <swirly/base/ArraySize.h>
 #include <swirly/property/PropertySwitchArray.h>
-#include <swirly/property/TypedProperties.h>
+#include <swirly/property/PartRepresenterMap.h>
 #include <swirly/util/Split.h>
 
 using namespace Leap;

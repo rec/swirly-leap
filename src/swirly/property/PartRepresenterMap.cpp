@@ -1,6 +1,6 @@
 #include <leap/Leap.h>
 
-#include <swirly/property/TypedProperties.h>
+#include <swirly/property/PartRepresenterMap.h>
 #include <swirly/property/GetterRepresenter.h>
 #include <swirly/property/BoxRepresenter.h>
 
@@ -9,8 +9,8 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
-template <typename Data>
-bool TypedProperties<Data>::addProperty(string const& name) {
+template <typename Part>
+bool PartRepresenterMap<Part>::addProperty(string const& name) {
     if (name == "*") {
         properties_ = getDefault().properties_;
     } else if (name == "-") {
@@ -25,8 +25,8 @@ bool TypedProperties<Data>::addProperty(string const& name) {
     return true;
 }
 
-template <typename Data>
-void TypedProperties<Data>::dump(
+template <typename Part>
+void PartRepresenterMap<Part>::dump(
         string const& name, Logger const& logger) const {
     if (not empty()) {
         string result;
@@ -39,26 +39,26 @@ void TypedProperties<Data>::dump(
     }
 }
 
-template <typename Data>
-void TypedProperties<Data>::represent(Representation& rep) const {
+template <typename Part>
+void PartRepresenterMap<Part>::represent(Representation& rep) const {
     for (auto& p: properties_)
         rep.push_back(p.first);
 }
 
 
-template <typename Data>
-void fillDefault(TypedProperties<Data>&);
+template <typename Part>
+void fillDefault(PartRepresenterMap<Part>&);
 
-template <typename Data>
-TypedProperties<Data> newDefault() {
-    TypedProperties<Data> property;
+template <typename Part>
+PartRepresenterMap<Part> newDefault() {
+    PartRepresenterMap<Part> property;
     fillDefault(property);
     return property;
 }
 
-template <typename Data>
-const TypedProperties<Data>& TypedProperties<Data>::getDefault() {
-    static auto const PROPERTY = newDefault<Data>();
+template <typename Part>
+const PartRepresenterMap<Part>& PartRepresenterMap<Part>::getDefault() {
+    static auto const PROPERTY = newDefault<Part>();
     return PROPERTY;
 }
 
@@ -74,7 +74,7 @@ const TypedProperties<Data>& TypedProperties<Data>::getDefault() {
 
 
 template <>
-void fillDefault(TypedProperties<Finger>& prop) {
+void fillDefault(PartRepresenterMap<Finger>& prop) {
     PROP(Pointable, direction);
     PROP(Pointable, isExtended);
     PROP(Pointable, length);
@@ -89,7 +89,7 @@ void fillDefault(TypedProperties<Finger>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<Tool>& prop) {
+void fillDefault(PartRepresenterMap<Tool>& prop) {
     PROP(Pointable, direction);
     PROP(Pointable, isExtended);
     PROP(Pointable, length);
@@ -104,7 +104,7 @@ void fillDefault(TypedProperties<Tool>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<Bone>& prop) {
+void fillDefault(PartRepresenterMap<Bone>& prop) {
     PROP(Bone, basis); // A matrix - what to do with that?
     PROP(Bone, direction);
     PROP(Bone, length);
@@ -115,7 +115,7 @@ void fillDefault(TypedProperties<Bone>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<Hand>& prop) {
+void fillDefault(PartRepresenterMap<Hand>& prop) {
     PROP(Hand, basis);
     PROP(Hand, confidence);
     PROP(Hand, direction);
@@ -133,7 +133,7 @@ void fillDefault(TypedProperties<Hand>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<SwipeGesture>& prop) {
+void fillDefault(PartRepresenterMap<SwipeGesture>& prop) {
     PROP(SwipeGesture, direction);
     PROP(SwipeGesture, durationSeconds);
     PROP(SwipeGesture, id);
@@ -143,7 +143,7 @@ void fillDefault(TypedProperties<SwipeGesture>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<CircleGesture>& prop) {
+void fillDefault(PartRepresenterMap<CircleGesture>& prop) {
     PROP(CircleGesture, center);
     PROP(CircleGesture, durationSeconds);
     PROP(CircleGesture, id);
@@ -153,7 +153,7 @@ void fillDefault(TypedProperties<CircleGesture>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<ScreenTapGesture>& prop) {
+void fillDefault(PartRepresenterMap<ScreenTapGesture>& prop) {
     PROP(ScreenTapGesture, direction);
     PROP(ScreenTapGesture, durationSeconds);
     PROP(ScreenTapGesture, id);
@@ -162,7 +162,7 @@ void fillDefault(TypedProperties<ScreenTapGesture>& prop) {
 }
 
 template <>
-void fillDefault(TypedProperties<KeyTapGesture>& prop) {
+void fillDefault(PartRepresenterMap<KeyTapGesture>& prop) {
     PROP(KeyTapGesture, direction);
     PROP(KeyTapGesture, durationSeconds);
     PROP(KeyTapGesture, id);
@@ -173,15 +173,15 @@ void fillDefault(TypedProperties<KeyTapGesture>& prop) {
 #undef BOX
 #undef PROP
 
-template class TypedProperties<Finger>;
-template class TypedProperties<Tool>;
-template class TypedProperties<Bone>;
-template class TypedProperties<Hand>;
+template class PartRepresenterMap<Finger>;
+template class PartRepresenterMap<Tool>;
+template class PartRepresenterMap<Bone>;
+template class PartRepresenterMap<Hand>;
 
-template class TypedProperties<SwipeGesture>;
-template class TypedProperties<ScreenTapGesture>;
-template class TypedProperties<KeyTapGesture>;
-template class TypedProperties<CircleGesture>;
+template class PartRepresenterMap<SwipeGesture>;
+template class PartRepresenterMap<ScreenTapGesture>;
+template class PartRepresenterMap<KeyTapGesture>;
+template class PartRepresenterMap<CircleGesture>;
 
 }  // namespace leap
 }  // namespace swirly

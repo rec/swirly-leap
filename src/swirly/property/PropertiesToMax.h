@@ -2,7 +2,7 @@
 
 #include <swirly/max/Gensym.h>
 #include <swirly/max/Max.h>
-#include <swirly/property/TypedProperties.h>
+#include <swirly/property/PartRepresenterMap.h>
 
 namespace swirly {
 namespace leap {
@@ -23,7 +23,7 @@ template <typename Data, int MAX_ATOMS = 20>
 void propertiesToMax(
         void* outlet,
         Data const& data,
-        const TypedProperties<Data>& properties,
+        const PartRepresenterMap<Data>& properties,
         Representation const& prefix,
         Context const& context) {
     t_atom atoms[MAX_ATOMS];

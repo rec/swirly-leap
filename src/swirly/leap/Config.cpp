@@ -3,7 +3,7 @@
 #include <swirly/leap/Config.h>
 
 #include <swirly/base/ArraySize.h>
-#include <swirly/property/PropertySwitchArray.h>
+#include <swirly/property/SwitchedPartRepresenterMap.h>
 #include <swirly/property/PartRepresenterMap.h>
 #include <swirly/util/Split.h>
 
@@ -13,7 +13,7 @@ namespace swirly {
 namespace leap {
 
 Config::Config(Logger const& logger)
-        : logger_(logger), switches_(new PropertySwitchArrayMap) {
+        : logger_(logger), switches_(new SwitchedPartRepresenterMapMap) {
     switches_->add<Hand>({"left", "right"});
     switches_->add<Finger>({"thumb", "index", "middle", "ring", "pinky"});
     switches_->add<Tool>({"tool"});

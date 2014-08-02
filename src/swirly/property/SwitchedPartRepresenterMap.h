@@ -8,7 +8,7 @@ namespace swirly {
 namespace leap {
 
 template <typename Part>
-struct PropertySwitchArray : SwitchArray {
+struct SwitchedPartRepresenterMap : SwitchArray {
     using SwitchArray::SwitchArray;
 
     bool set(string const& name) override {
@@ -34,17 +34,17 @@ struct PropertySwitchArray : SwitchArray {
     PartRepresenterMap<Part> properties_;
 };
 
-struct PropertySwitchArrayMap : map<string, unique_ptr<SwitchArray>> {
+struct SwitchedPartRepresenterMapMap : map<string, unique_ptr<SwitchArray>> {
     template <typename Part>
     void add(Representation const& rep) {
-        (*this)[partName<Part>()].reset(new PropertySwitchArray<Part>(rep));
+        (*this)[partName<Part>()].reset(new SwitchedPartRepresenterMap<Part>(rep));
     }
 
     template <typename Part>
-    PropertySwitchArray<Part>* get() const {
+    SwitchedPartRepresenterMap<Part>* get() const {
         auto i = find(partName<Part>());
         if (i != end())
-            return dynamic_cast<PropertySwitchArray<Part>*>(i->second.get());
+            return dynamic_cast<SwitchedPartRepresenterMap<Part>*>(i->second.get());
 
         return nullptr;
     }

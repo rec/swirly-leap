@@ -28,10 +28,8 @@
 		E2E2B8AB1968BC650047C7F8 /* Max.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8841968BC650047C7F8 /* Max.h */; };
 		E2E2B8AC1968BC650047C7F8 /* MaxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2E2B8851968BC650047C7F8 /* MaxObject.cpp */; };
 		E2E2B8AD1968BC650047C7F8 /* MaxObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8861968BC650047C7F8 /* MaxObject.h */; };
-		E2E2B8AE1968BC650047C7F8 /* Properties.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8881968BC650047C7F8 /* Properties.h */; };
 		E2E2B8AF1968BC650047C7F8 /* PropertiesToMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2E2B8891968BC650047C7F8 /* PropertiesToMax.cpp */; };
 		E2E2B8B01968BC650047C7F8 /* PropertiesToMax.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B88A1968BC650047C7F8 /* PropertiesToMax.h */; };
-		E2E2B8B11968BC650047C7F8 /* PropertySwitchArray.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B88B1968BC650047C7F8 /* PropertySwitchArray.h */; };
 		E2E2B8B21968BC650047C7F8 /* Represent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2E2B88C1968BC650047C7F8 /* Represent.cpp */; };
 		E2E2B8B31968BC650047C7F8 /* Represent.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B88D1968BC650047C7F8 /* Represent.h */; };
 		E2E2B8B41968BC650047C7F8 /* Switch.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B88E1968BC650047C7F8 /* Switch.h */; };
@@ -83,10 +81,8 @@
 		E2E2B8841968BC650047C7F8 /* Max.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Max.h; sourceTree = "<group>"; };
 		E2E2B8851968BC650047C7F8 /* MaxObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaxObject.cpp; sourceTree = "<group>"; };
 		E2E2B8861968BC650047C7F8 /* MaxObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxObject.h; sourceTree = "<group>"; };
-		E2E2B8881968BC650047C7F8 /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Properties.h; sourceTree = "<group>"; };
 		E2E2B8891968BC650047C7F8 /* PropertiesToMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PropertiesToMax.cpp; sourceTree = "<group>"; };
 		E2E2B88A1968BC650047C7F8 /* PropertiesToMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertiesToMax.h; sourceTree = "<group>"; };
-		E2E2B88B1968BC650047C7F8 /* PropertySwitchArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertySwitchArray.h; sourceTree = "<group>"; };
 		E2E2B88C1968BC650047C7F8 /* Represent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Represent.cpp; sourceTree = "<group>"; };
 		E2E2B88D1968BC650047C7F8 /* Represent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Represent.h; sourceTree = "<group>"; };
 		E2E2B88E1968BC650047C7F8 /* Switch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Switch.h; sourceTree = "<group>"; };
@@ -197,12 +193,10 @@
 		E2E2B8871968BC650047C7F8 /* property */ = {
 			isa = PBXGroup;
 			children = (
-				E2E2B8881968BC650047C7F8 /* Properties.h */,
 				E2FA4B79198D8BF9007CD5DA /* PartRepresenterMap.h */,
 				E2FA4B7A198D8BF9007CD5DA /* PartRepresenterMap.cpp */,
 				E2E2B8891968BC650047C7F8 /* PropertiesToMax.cpp */,
 				E2E2B88A1968BC650047C7F8 /* PropertiesToMax.h */,
-				E2E2B88B1968BC650047C7F8 /* PropertySwitchArray.h */,
 				E2E2B88C1968BC650047C7F8 /* Represent.cpp */,
 				E2E2B88D1968BC650047C7F8 /* Represent.h */,
 				E2E2B88E1968BC650047C7F8 /* Switch.h */,
@@ -247,7 +241,6 @@
 				E2E2B8B91968BC650047C7F8 /* BoolHandling.h in Headers */,
 				E2E2B8A71968BC650047C7F8 /* Listener.h in Headers */,
 				E2E2B8B01968BC650047C7F8 /* PropertiesToMax.h in Headers */,
-				E2E2B8B11968BC650047C7F8 /* PropertySwitchArray.h in Headers */,
 				E2E2B89B1968BC650047C7F8 /* ArraySize.h in Headers */,
 				E2E2B8AD1968BC650047C7F8 /* MaxObject.h in Headers */,
 				E2E2B8BE1968BC650047C7F8 /* LeapMath.h in Headers */,
@@ -256,7 +249,6 @@
 				E2E2B89C1968BC650047C7F8 /* Base.h in Headers */,
 				E2E2B8A21968BC650047C7F8 /* FrameHandler.h in Headers */,
 				E2E2B89E1968BC650047C7F8 /* Logger.h in Headers */,
-				E2E2B8AE1968BC650047C7F8 /* Properties.h in Headers */,
 				E2E2B8B61968BC650047C7F8 /* SwitchArray.h in Headers */,
 				E2E2B89D1968BC650047C7F8 /* Callback.h in Headers */,
 				E2E2B8BA1968BC650047C7F8 /* Concat.h in Headers */,

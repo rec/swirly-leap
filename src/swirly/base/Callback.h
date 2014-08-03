@@ -5,9 +5,9 @@
 namespace swirly {
 namespace leap {
 
-template <typename Output>
+template <typename Type>
 struct Callback {
-    virtual void callback(Output) = 0;
+    virtual void callback(Type) = 0;
     virtual ~Callback() {}
 };
 

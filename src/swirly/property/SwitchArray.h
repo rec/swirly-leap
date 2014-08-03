@@ -24,8 +24,11 @@ class SwitchArray {
     bool isOn(unsigned int i) const { return switches_[i].second; }
     string const& name(unsigned int i) const { return switches_[i].first; }
 
-    /** Represent this SwitchArray as a list of its enabled switch names. */
-    virtual void represent(Representation&) const;
+    /** Describe this SwitchArray as a list of its enabled switch names. */
+    virtual void describe(Representation&) const;
+
+    /** Turn all the switches on. */
+    virtual void setAll();
 
   private:
     vector<pair<string, Switch>> switches_;

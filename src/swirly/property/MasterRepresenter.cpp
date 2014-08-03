@@ -24,7 +24,7 @@ MasterRepresenter::MasterRepresenter() {
 }
 
 void MasterRepresenter::dump(Logger const& logger) const {
-    for (auto &i: map_)
+    for (auto& i: map_)
         i.second->dump(i.first, logger);
 }
 
@@ -51,6 +51,11 @@ void MasterRepresenter::set(string const& s, Logger const& logger) {
     } else {
         logger.err("Don't understand argument " + s);
     }
+}
+
+void MasterRepresenter::setAll() {
+    for (auto& i: map_)
+        i.second->setAll();
 }
 
 }  // namespace leap

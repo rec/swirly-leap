@@ -21,7 +21,8 @@ class PartRepresenterMap : public RepresenterMap {
     bool addRepresenter(string const& name) override;
     void dump(string const& name, Logger const& logger) const;
     bool empty() const { return representers_.empty(); }
-    void represent(Representation&) const;
+    void describe(Representation&) const;
+    void setAll();
 
   private:
     static const PartRepresenterMap<Part>& getDefault();

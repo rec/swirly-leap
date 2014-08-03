@@ -23,8 +23,6 @@ void Config::addArgument(const string &str) {
     if (s[0] == FLAG_PREFIX) {
         if (s == "-verbose")
             verbose_ = true;
-        else if (s == "-json")
-            json_ = true;
         else if (s == "-all")
             all_ = true;
         else
@@ -36,6 +34,9 @@ void Config::addArgument(const string &str) {
 }
 
 void Config::finishArguments() {
+    if (all_)
+        masterRepresenter_->setAll();
+
     masterRepresenter_->finish();
     updateCallbacks();
     dump();
@@ -48,7 +49,7 @@ void Config::dump() {
 Representation Config::getHand() const {
     Representation rep;
     if (auto hand = masterRepresenter_->getPartMap<Hand>())
-        hand->represent(rep);
+        hand->describe(rep);
     return rep;
 }
 

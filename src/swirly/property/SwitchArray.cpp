@@ -75,11 +75,16 @@ bool SwitchArray::any(bool isSet) const {
     return false;
 }
 
-void SwitchArray::represent(Representation& rep) const {
+void SwitchArray::describe(Representation& rep) const {
     for (auto& s: switches_) {
         if (s.second)
             rep.push_back(s.first);
     }
+}
+
+void SwitchArray::setAll() {
+    for (auto& s: switches_)
+        s.second = true;
 }
 
 }  // namespace leap

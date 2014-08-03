@@ -41,9 +41,8 @@ class Config {
     bool isVerbose() const { return verbose_; }
 
   private:
-    bool verbose_ = false;
-    bool json_ = false;
     bool all_ = false;
+    bool verbose_ = false;
     bool running_ = false;
 
     void updateCallbacks() {

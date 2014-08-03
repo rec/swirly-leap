@@ -22,6 +22,9 @@ class MasterRepresenter {
     void finish();
     void set(string const& s, Logger const&);
 
+    /** Turn everything on.*/
+    void setAll();
+
     typedef map<string, unique_ptr<SwitchArray>> Map;
 
   private:

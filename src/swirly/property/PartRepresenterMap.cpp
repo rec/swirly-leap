@@ -12,7 +12,7 @@ namespace leap {
 template <typename Part>
 bool PartRepresenterMap<Part>::addRepresenter(string const& name) {
     if (name == "*") {
-        representers_ = getDefault().representers_;
+        setAll();
     } else if (name == "-") {
         representers_.clear();
     } else {
@@ -40,10 +40,16 @@ void PartRepresenterMap<Part>::dump(
 }
 
 template <typename Part>
-void PartRepresenterMap<Part>::represent(Representation& rep) const {
+void PartRepresenterMap<Part>::describe(Representation& rep) const {
     for (auto& p: representers_)
         rep.push_back(p.first);
 }
+
+template <typename Part>
+void PartRepresenterMap<Part>::setAll() {
+    representers_ = getDefault().representers_;
+}
+
 
 
 template <typename Part>

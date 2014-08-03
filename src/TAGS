@@ -276,38 +276,38 @@ struct Logger 6,68
     virtual ~Logger(7,84
     virtual void log(8,109
 
-swirly/leap/Config.cpp,315
-namespace swirly 12,244
-namespace leap swirly::leap13,263
-Config::Config(swirly::leap::Config::Config15,281
-Config::~Config(26,736
-void Config::addArgument(28,758
-void Config::finishArguments(61,1716
-void Config::dump(68,1845
-Representation Config::getHand(73,1942
-Representation Config::setHand(80,2100
+swirly/leap/Config.cpp,313
+namespace swirly 12,242
+namespace leap swirly::leap13,261
+Config::Config(swirly::leap::Config::Config15,279
+Config::~Config(19,390
+void Config::addArgument(21,412
+void Config::finishArguments(38,858
+void Config::dump(44,963
+Representation Config::getHand(48,1027
+Representation Config::setHand(55,1201
 
 swirly/leap/Config.h,246
-class Config 8,111
-    Representation getHand(21,392
-    typedef function<void()> Callback;28,583
-    void addCallback(29,622
-    void setRunning(33,699
-    bool isRunning(40,850
-    bool isVerbose(41,898
-    void updateCallbacks(49,1060
+class Config 8,105
+    Representation getHand(21,386
+    typedef function<void()> Callback;28,581
+    void addCallback(29,620
+    void setRunning(33,697
+    bool isRunning(40,848
+    bool isVerbose(41,896
+    void updateCallbacks(49,1058
 
 swirly/leap/FrameHandler.cpp,337
-namespace swirly 15,297
-namespace leap swirly::leap16,316
-string to_string(swirly::leap::to_string20,347
-void addRepresentation(swirly::leap::addRepresentation23,427
-void addRepresentation(27,506
-template <typename Part,32,694
-void onFrame(33,738
-void myCallback(55,1438
-void test(57,1475
-void FrameHandler::onFrame(64,1572
+namespace swirly 15,295
+namespace leap swirly::leap16,314
+string to_string(swirly::leap::to_string20,345
+void addRepresentation(swirly::leap::addRepresentation23,425
+void addRepresentation(27,504
+template <typename Part,32,692
+void onFrame(33,736
+void myCallback(55,1456
+void test(57,1493
+void FrameHandler::onFrame(64,1590
 
 swirly/leap/FrameHandler.h,185
 class FrameHandler 13,150
@@ -426,6 +426,21 @@ static shared_ptr<Representer<Part>> makeRepresenter(23,494
 template <typename Part,27,632
 void addGetter(28,674
 
+swirly/property/MasterRepresenter.cpp,249
+namespace swirly 4,80
+namespace leap swirly::leap5,99
+void add(swirly::leap::add10,155
+MasterRepresenter::MasterRepresenter(16,327
+void MasterRepresenter::dump(26,684
+void MasterRepresenter::finish(31,811
+void MasterRepresenter::set(36,901
+
+swirly/property/MasterRepresenter.h,171
+class MasterRepresenter 9,137
+    SwitchedPartRepresenterMap<Part>* getPartMap(14,228
+    void dump(21,478
+    typedef map<string, unique_ptr<SwitchArray>> Map;25,580
+
 swirly/property/PartRepresenterMap.cpp,684
 namespace swirly 9,187
 namespace leap swirly::leap10,206
@@ -519,15 +534,13 @@ class SwitchArray 10,104
     string const& name(25,571
     virtual void represent(28,725
 
-swirly/property/SwitchedPartRepresenterMap.h,397
-struct PropertySwitchArray 11,193
-    bool set(PropertySwitchArray::set14,273
-    void dump(PropertySwitchArray::dump18,399
-    bool empty(PropertySwitchArray::empty25,617
-    void represent(PropertySwitchArray::represent29,718
-struct PropertySwitchArrayMap 37,901
-    void add(PropertySwitchArrayMap::add39,1001
-    PropertySwitchArray<Part>* get(PropertySwitchArrayMap::get44,1156
+swirly/property/SwitchedPartRepresenterMap.h,364
+struct SwitchedPartRepresenterMap 12,229
+    bool set(SwitchedPartRepresenterMap::set15,316
+    void dump(SwitchedPartRepresenterMap::dump19,444
+    bool empty(SwitchedPartRepresenterMap::empty26,666
+    void represent(SwitchedPartRepresenterMap::represent30,769
+    PartRepresenterMap<Part>& representers(SwitchedPartRepresenterMap::representers35,908
 
 swirly/util/BoolHandling.h,125
 enum class BoolHandling 7,65

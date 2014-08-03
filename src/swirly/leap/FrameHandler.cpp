@@ -31,7 +31,7 @@ void addRepresentation(Finger const& finger, Representation& rep) {
 
 template <typename Part, typename Callback>
 void onFrame(Context const& context, Callback callback) {
-    auto representers = context.config_.switches().get<Part>();
+    auto representers = context.config_.representers().getPartMap<Part>();
     if (not representers)
         return;
 
@@ -69,7 +69,7 @@ void FrameHandler::onFrame(Frame const& frame) {
 
     Context context(frame, config_);
 
-    if (auto handRepresenters = config_.switches().get<Hand>()) {
+    if (auto handRepresenters = config_.representers().getPartMap<Hand>()) {
         Representation rep{"hand", ""};
         auto const& hands = frame.hands();
         auto& representers = handRepresenters->representers();
@@ -82,7 +82,7 @@ void FrameHandler::onFrame(Frame const& frame) {
         }
     }
 
-    if (auto fingerRepresenters = config_.switches().get<Finger>()) {
+    if (auto fingerRepresenters = config_.representers().getPartMap<Finger>()) {
         Representation rep{"finger", "", ""};
         auto const& fingers = frame.fingers();
         auto representers = fingerRepresenters->representers();
@@ -99,7 +99,7 @@ void FrameHandler::onFrame(Frame const& frame) {
         }
     }
 
-    if (auto toolRepresenters = config_.switches().get<Tool>()) {
+    if (auto toolRepresenters = config_.representers().getPartMap<Tool>()) {
         Representation rep{"tool", "", ""};
         auto const& tools = frame.tools();
         auto representers = toolRepresenters->representers();

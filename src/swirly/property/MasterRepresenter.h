@@ -5,12 +5,13 @@
 namespace swirly {
 namespace leap {
 
+/** The MasterRepresenter */
 class MasterRepresenter {
   public:
     MasterRepresenter();
 
     template <typename Part>
-    SwitchedPartRepresenterMap<Part>* get() const {
+    SwitchedPartRepresenterMap<Part>* getPartMap() const {
         auto i = map_.find(partName<Part>());
         if (i == map_.end())
             return nullptr;

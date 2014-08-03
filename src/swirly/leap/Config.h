@@ -23,7 +23,7 @@ class Config {
 
     Logger const& logger_;
 
-    MasterRepresenter const& switches() const { return *masterRepresenter_; }
+    MasterRepresenter const& representers() const { return *masterRepresenter_; }
 
     typedef function<void()> Callback;
     void addCallback(Callback cb) {

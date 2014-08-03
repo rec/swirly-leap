@@ -47,7 +47,7 @@ void Config::dump() {
 
 Representation Config::getHand() const {
     Representation rep;
-    if (auto hand = masterRepresenter_->get<Hand>())
+    if (auto hand = masterRepresenter_->getPartMap<Hand>())
         hand->represent(rep);
     return rep;
 }

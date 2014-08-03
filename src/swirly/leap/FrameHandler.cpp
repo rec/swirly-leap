@@ -30,7 +30,7 @@ void addRepresentation(Finger const& finger, Representation& rep) {
 }
 
 template <typename Part>
-void onFrame(Context const& context, FrameHandler& handler) {
+void framePart(Context const& context, FrameHandler& handler) {
     auto representers = context.config_.representers().getPartMap<Part>();
     if (not representers)
         return;
@@ -63,7 +63,14 @@ void FrameHandler::onFrame(Frame const& frame) {
 
     Context context(frame, config_);
 
-#if 0
+#if 1
+    framePart<Hand>(context, *this);
+    framePart<Tool>(context, *this);
+    framePart<Finger>(context, *this);
+    framePart<SwipeGesture>(context, *this);
+    framePart<CircleGesture>(context, *this);
+    framePart<KeyTapGesture>(context, *this);
+    framePart<ScreenTapGesture>(context, *this);
 #else
     if (auto handRepresenters = config_.representers().getPartMap<Hand>()) {
         Representation rep{"hand", ""};
@@ -77,7 +84,6 @@ void FrameHandler::onFrame(Frame const& frame) {
             }
         }
     }
-#endif
 
     if (auto fingerRepresenters = config_.representers().getPartMap<Finger>()) {
         Representation rep{"finger", "", ""};
@@ -111,6 +117,7 @@ void FrameHandler::onFrame(Frame const& frame) {
             toolCount++;
         }
     }
+#endif
 }
 
 }  // namespace leap

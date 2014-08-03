@@ -3,7 +3,7 @@
 #include <swirly/leap/Config.h>
 
 #include <swirly/base/ArraySize.h>
-#include <swirly/property/SwitchedPartRepresenterMap.h>
+#include <swirly/property/MasterRepresenter.h>
 #include <swirly/property/PartRepresenterMap.h>
 #include <swirly/util/Split.h>
 
@@ -13,14 +13,7 @@ namespace swirly {
 namespace leap {
 
 Config::Config(Logger const& logger)
-        : logger_(logger), switches_(new SwitchedPartRepresenterMapMap) {
-    switches_->add<Hand>({"left", "right"});
-    switches_->add<Finger>({"thumb", "index", "middle", "ring", "pinky"});
-    switches_->add<Tool>({"tool"});
-    switches_->add<CircleGesture>({"circle"});
-    switches_->add<KeyTapGesture>({"keytap"});
-    switches_->add<ScreenTapGesture>({"screentap"});
-    switches_->add<SwipeGesture>({"swipe"});
+        : logger_(logger), masterRepresenter_(new MasterRepresenter) {
 }
 
 Config::~Config() {}
@@ -39,22 +32,22 @@ void Config::addArgument(const string &str) {
         return;
     }
 
-    switches_->set(s, logger_);
+    masterRepresenter_->set(s, logger_);
 }
 
 void Config::finishArguments() {
-    switches_->finish();
+    masterRepresenter_->finish();
     updateCallbacks();
     dump();
 }
 
 void Config::dump() {
-    switches_->dump(logger_);
+    masterRepresenter_->dump(logger_);
 }
 
 Representation Config::getHand() const {
     Representation rep;
-    if (auto hand = switches_->get<Hand>())
+    if (auto hand = masterRepresenter_->get<Hand>())
         hand->represent(rep);
     return rep;
 }

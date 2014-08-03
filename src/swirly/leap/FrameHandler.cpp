@@ -7,8 +7,8 @@
 #include <swirly/leap/Config.h>
 #include <swirly/leap/Getter.h>
 #include <swirly/leap/LeapUtil.h>
+#include <swirly/property/MasterRepresenter.h>
 #include <swirly/property/PropertiesToMax.h>
-#include <swirly/property/SwitchedPartRepresenterMap.h>
 
 using namespace Leap;
 

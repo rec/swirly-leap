@@ -3,7 +3,7 @@
 namespace swirly {
 namespace leap {
 
-class SwitchedPartRepresenterMapMap;
+class MasterRepresenter;
 
 class Config {
   public:
@@ -23,7 +23,7 @@ class Config {
 
     Logger const& logger_;
 
-    SwitchedPartRepresenterMapMap const& switches() const { return *switches_; }
+    MasterRepresenter const& switches() const { return *masterRepresenter_; }
 
     typedef function<void()> Callback;
     void addCallback(Callback cb) {
@@ -51,7 +51,7 @@ class Config {
             cb();
     }
 
-    unique_ptr<SwitchedPartRepresenterMapMap> switches_;
+    unique_ptr<MasterRepresenter> masterRepresenter_;
     vector<Callback> callbacks_;
 };
 

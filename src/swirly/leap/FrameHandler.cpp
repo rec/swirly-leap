@@ -64,6 +64,7 @@ void FrameHandler::onFrame(Frame const& frame) {
     Context context(frame, config_);
 
 #if 1
+    callback({"framestart"});
     framePart<Hand>(context, *this);
     framePart<Tool>(context, *this);
     framePart<Finger>(context, *this);
@@ -71,6 +72,7 @@ void FrameHandler::onFrame(Frame const& frame) {
     framePart<CircleGesture>(context, *this);
     framePart<KeyTapGesture>(context, *this);
     framePart<ScreenTapGesture>(context, *this);
+    callback({"frameend"});
 #else
     if (auto handRepresenters = config_.representers().getPartMap<Hand>()) {
         Representation rep{"hand", ""};

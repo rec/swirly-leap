@@ -26,5 +26,20 @@ t_symbol* cachedGensym(string name) {
     return result;
 }
 
+void setAtom(t_atom* atom, string const& name) {
+    auto ch = name[0];
+    if (ch == '-' or isdigit(ch)) {
+        // It's a number.
+        if (name.find('.') != string::npos)
+            atom_setfloat(atom, atof(name.c_str()));
+        else
+            atom_setlong(atom, atol(name.c_str()));
+        return;
+    }
+
+    // Definitely a symbol.
+    setSymbol(atom, name);
+}
+
 }  // namespace leap
 }  // namespace swirly

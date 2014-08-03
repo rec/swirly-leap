@@ -7,18 +7,7 @@
 namespace swirly {
 namespace leap {
 
-class PropertyRepresenter {
-  public:
-    PropertyRepresenter(int size, t_atom* atoms) : size_(size), atoms_(atoms) {}
-    int represent(string const& name, Representation const& rep) const;
-
-  private:
-    int size_;
-    t_atom* atoms_;
-};
-
-void set_atom(t_atom* atom, string const& s);
-
+#if 0
 template <typename Data, int MAX_ATOMS = 20>
 void propertiesToMax(
         void* outlet,
@@ -28,7 +17,7 @@ void propertiesToMax(
         Context const& context) {
     t_atom atoms[MAX_ATOMS];
     for (auto i = 0; i < prefix.size(); ++i)
-        set_atom(&atoms[i], prefix[i]);
+        setAtom(&atoms[i], prefix[i]);
 
     t_symbol* symbol = cachedGensym(prefix[0]);
     PropertyRepresenter pr(prefix.size(), atoms);
@@ -43,6 +32,7 @@ void propertiesToMax(
     }
     outlet_anything(outlet, cachedGensym("frameend"), 0, nullptr);
 }
+#endif
 
 }  // namespace leap
 }  // namespace swirly

@@ -39,35 +39,17 @@ void Config::addArgument(const string &str) {
         return;
     }
 
-    auto const value = splitEquals(s, Config::VALUE_SEPARATOR);
-    auto const& name = value.first;
-    auto const& values = value.second;
-    if (name.empty() or values.empty()) {
-        logger_.err("Don't understand argument " + s);
-        return;
-    }
-
-    auto i = switches_->find(name);
-    if (i != switches_->end()) {
-        for (auto const& v: values) {
-            if (!i->second->set(v))
-                logger_.err("Don't understand switch value " + s);
-        }
-    } else {
-        logger_.err("Don't understand argument " + s);
-    }
+    switches_->set(s, logger_);
 }
 
 void Config::finishArguments() {
-    for (auto& s: *switches_)
-        s.second->finish();
+    switches_->finish();
     updateCallbacks();
     dump();
 }
 
 void Config::dump() {
-    for (auto& s: *switches_)
-        s.second->dump(s.first, logger_);
+    switches_->dump(logger_);
 }
 
 Representation Config::getHand() const {
@@ -81,7 +63,6 @@ Representation Config::setHand(Representation const& rep) {
     Representation failure;
     return failure;
 }
-
 
 }  // namespace leap
 }  // namespace swirly

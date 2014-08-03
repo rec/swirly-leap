@@ -3,7 +3,7 @@
 namespace swirly {
 namespace leap {
 
-struct SwitchedPartRepresenterMapMap;
+class SwitchedPartRepresenterMapMap;
 
 class Config {
   public:

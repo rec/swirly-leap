@@ -12,27 +12,15 @@ class Config;
 
 class FrameHandler {
   public:
-    typedef Callback<Representation const&> OutputCallback;
-
-    FrameHandler(Config& config, OutputCallback& callback)
-            : config_(config), callback_(callback) {
-    }
+    FrameHandler(Config& config) : config_(config) {}
     void setOutlet(void* outlet) { outlet_ = outlet; }
     void onFrame(Leap::Frame const&);
+    virtual void callback(Representation const&) = 0;
 
-  private:
+  protected:
     Config& config_;
-    OutputCallback& callback_;
     void* outlet_ = nullptr;
 };
-
-class MaxFrameHandler : public FrameHandler,
-                        public FrameHandler::OutputCallback {
-  public:
-    MaxFrameHandler(Config& config) : FrameHandler(config, *this) {}
-    void callback(Representation const&) override {}
-};
-
 
 }  // namespace leap
 }  // namespace swirly

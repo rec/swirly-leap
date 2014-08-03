@@ -1,7 +1,7 @@
 #pragma once
 
 #include <swirly/leap/Config.h>
-#include <swirly/leap/FrameHandler.h>
+#include <swirly/max/MaxFrameHandler.h>
 #include <swirly/leap/Listener.h>
 
 namespace swirly {

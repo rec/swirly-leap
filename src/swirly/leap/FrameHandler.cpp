@@ -29,8 +29,8 @@ void addRepresentation(Finger const& finger, Representation& rep) {
     rep.push_back(handType == NO_HAND ? "none" : HAND_NAME[handType]);
 }
 
-template <typename Part, typename Callback>
-void onFrame(Context const& context, Callback callback) {
+template <typename Part>
+void onFrame(Context const& context, FrameHandler& handler) {
     auto representers = context.config_.representers().getPartMap<Part>();
     if (not representers)
         return;
@@ -47,15 +47,9 @@ void onFrame(Context const& context, Callback callback) {
             addRepresentation(part, rep);
             rep.push_back(name);
             p.second->represent(rep, part, context);
-            callback(rep);
+            handler.callback(rep);
         }
     }
-}
-
-void myCallback(Representation&) {}
-
-void test(Context const& context) {
-    onFrame<Tool>(context, &myCallback);
 }
 
 } // namespace
@@ -69,6 +63,8 @@ void FrameHandler::onFrame(Frame const& frame) {
 
     Context context(frame, config_);
 
+#if 0
+#else
     if (auto handRepresenters = config_.representers().getPartMap<Hand>()) {
         Representation rep{"hand", ""};
         auto const& hands = frame.hands();
@@ -81,6 +77,7 @@ void FrameHandler::onFrame(Frame const& frame) {
             }
         }
     }
+#endif
 
     if (auto fingerRepresenters = config_.representers().getPartMap<Finger>()) {
         Representation rep{"finger", "", ""};

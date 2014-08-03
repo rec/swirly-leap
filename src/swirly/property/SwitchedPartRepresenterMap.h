@@ -13,26 +13,29 @@ struct SwitchedPartRepresenterMap : SwitchArray {
     using SwitchArray::SwitchArray;
 
     bool set(string const& name) override {
-        return SwitchArray::set(name) or properties_.addRepresenter(name);
+        return SwitchArray::set(name) or representers_.addRepresenter(name);
     }
 
     void dump(string const& name, Logger const& logger) const override {
-        if (not properties_.empty()) {
+        if (not representers_.empty()) {
             SwitchArray::dump(name, logger);
-            properties_.dump(name, logger);
+            representers_.dump(name, logger);
         }
     }
 
     bool empty() const override {
-        return SwitchArray::empty() or properties_.empty();
+        return SwitchArray::empty() or representers_.empty();
     }
 
     void represent(Representation& rep) const override {
         SwitchArray::represent(rep);
-        properties_.represent(rep);
+        representers_.represent(rep);
     }
 
-    PartRepresenterMap<Part> properties_;
+    PartRepresenterMap<Part>& representers() { return representers_; }
+
+  private:
+    PartRepresenterMap<Part> representers_;
 };
 
 class SwitchedPartRepresenterMapMap {

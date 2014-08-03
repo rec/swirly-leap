@@ -31,18 +31,18 @@ void addRepresentation(Finger const& finger, Representation& rep) {
 
 template <typename Part, typename Callback>
 void onFrame(Context const& context, Callback callback) {
-    auto properties = context.config_.switches().get<Part>();
-    if (not properties)
+    auto representers = context.config_.switches().get<Part>();
+    if (not representers)
         return;
 
     auto const& partList = getPartList(context.frame_, Part());
     for (auto const& part: partList) {
         auto type = getType(part);
-        if (not properties->isOn(type))
+        if (not representers->isOn(type))
             continue;
 
-        auto name = properties->name(type);
-        for (auto const& p: properties->properties_.representers()) {
+        auto name = representers->name(type);
+        for (auto const& p: representers->representers().representers()) {
             Representation rep{partName<Part>()};
             addRepresentation(part, rep);
             rep.push_back(name);
@@ -69,47 +69,47 @@ void FrameHandler::onFrame(Frame const& frame) {
 
     Context context(frame, config_);
 
-    if (auto handProperties = config_.switches().get<Hand>()) {
+    if (auto handRepresenters = config_.switches().get<Hand>()) {
         Representation rep{"hand", ""};
         auto const& hands = frame.hands();
-        auto& properties = handProperties->properties_;
+        auto& representers = handRepresenters->representers();
         for (auto const& hand: hands) {
             auto handType = whichHand(hand);
-            if (handProperties->isOn(handType)) {
+            if (handRepresenters->isOn(handType)) {
                 rep[1] = HAND_NAME[handType];
-                propertiesToMax(outlet_, hand, properties, rep, context);
+                propertiesToMax(outlet_, hand, representers, rep, context);
             }
         }
     }
 
-    if (auto fingerProperties = config_.switches().get<Finger>()) {
+    if (auto fingerRepresenters = config_.switches().get<Finger>()) {
         Representation rep{"finger", "", ""};
         auto const& fingers = frame.fingers();
-        auto properties = fingerProperties->properties_;
+        auto representers = fingerRepresenters->representers();
         for (auto const& finger: fingers) {
             auto fingerType = finger.type();
-            if (fingerProperties->isOn(fingerType)) {
+            if (fingerRepresenters->isOn(fingerType)) {
                 auto handType = whichHand(finger.hand());
                 if (handType != NO_HAND) {
                     rep[1] = HAND_NAME[handType];
-                    rep[2] = fingerProperties->name(handType);
-                    propertiesToMax(outlet_, finger, properties, rep, context);
+                    rep[2] = fingerRepresenters->name(handType);
+                    propertiesToMax(outlet_, finger, representers, rep, context);
                 }
             }
         }
     }
 
-    if (auto toolProperties = config_.switches().get<Tool>()) {
+    if (auto toolRepresenters = config_.switches().get<Tool>()) {
         Representation rep{"tool", "", ""};
         auto const& tools = frame.tools();
-        auto properties = toolProperties->properties_;
+        auto representers = toolRepresenters->representers();
         auto toolCount = 0;
         for (auto const& tool: tools) {
             auto handType = whichHand(tool.hand());
             if (handType != NO_HAND) {
                 rep[1] = HAND_NAME[handType];
                 rep[2] = to_string(toolCount);
-                propertiesToMax(outlet_, tool, properties, rep, context);
+                propertiesToMax(outlet_, tool, representers, rep, context);
             }
             toolCount++;
         }

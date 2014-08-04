@@ -7,7 +7,7 @@
 #include <swirly/leap/Config.h>
 #include <swirly/leap/Getter.h>
 #include <swirly/leap/LeapUtil.h>
-#include <swirly/property/MasterRepresenter.h>
+#include <swirly/represent/MasterRepresenter.h>
 
 using namespace Leap;
 
@@ -26,7 +26,8 @@ void addRepresentation(Finger const& finger, Representation& rep) {
 }
 
 template <typename Part>
-void framePart(Context const& context, FrameHandler& handler) {
+void framePart(Context const& context,
+               Callback<Representation const&>& handler) {
     auto partMap = context.config_.representers().getPartMap<Part>();
     if (not partMap)
         return;
@@ -42,6 +43,7 @@ void framePart(Context const& context, FrameHandler& handler) {
             Representation rep{partName<Part>()};
             addRepresentation(part, rep);
             rep.push_back(name);
+            rep.push_back(r.first);
             r.second->represent(rep, part, context);
             handler.callback(rep);
         }

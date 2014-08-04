@@ -1,8 +1,8 @@
 #pragma once
 
 #include <swirly/leap/Getter.h>
-#include <swirly/property/SwitchArray.h>
-#include <swirly/property/PartRepresenterMap.h>
+#include <swirly/represent/SwitchArray.h>
+#include <swirly/represent/PartRepresenterMap.h>
 #include <swirly/util/Split.h>
 
 namespace swirly {

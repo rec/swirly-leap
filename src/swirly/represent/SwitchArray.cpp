@@ -1,7 +1,7 @@
 #include <strings.h>
 #include <algorithm>
 
-#include <swirly/property/SwitchArray.h>
+#include <swirly/represent/SwitchArray.h>
 #include <swirly/base/Logger.h>
 
 namespace swirly {

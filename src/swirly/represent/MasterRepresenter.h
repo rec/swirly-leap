@@ -1,6 +1,6 @@
 #pragma once
 
-#include <swirly/property/SwitchedPartRepresenterMap.h>
+#include <swirly/represent/SwitchedPartRepresenterMap.h>
 
 namespace swirly {
 namespace leap {

@@ -1,4 +1,4 @@
-#include <swirly/property/MasterRepresenter.h>
+#include <swirly/represent/MasterRepresenter.h>
 #include <swirly/leap/Config.h>
 
 namespace swirly {

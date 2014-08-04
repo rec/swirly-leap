@@ -1,8 +1,8 @@
 #include <leap/Leap.h>
 
-#include <swirly/property/PartRepresenterMap.h>
-#include <swirly/property/GetterRepresenter.h>
-#include <swirly/property/BoxRepresenter.h>
+#include <swirly/represent/PartRepresenterMap.h>
+#include <swirly/represent/GetterRepresenter.h>
+#include <swirly/represent/BoxRepresenter.h>
 
 using namespace Leap;
 

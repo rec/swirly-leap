@@ -1,9 +1,9 @@
 #pragma once
 
 #include <swirly/base/Logger.h>
-#include <swirly/property/Context.h>
-#include <swirly/property/RepresenterMap.h>
-#include <swirly/property/Represent.h>
+#include <swirly/represent/Context.h>
+#include <swirly/represent/RepresenterMap.h>
+#include <swirly/represent/Represent.h>
 
 namespace swirly {
 namespace leap {

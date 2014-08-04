@@ -1,4 +1,4 @@
-#include <swirly/property/SwitchArray.h>
+#include <swirly/represent/SwitchArray.h>
 
 namespace swirly {
 namespace leap {

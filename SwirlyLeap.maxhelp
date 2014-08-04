@@ -8,7 +8,7 @@
 			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 271.0, 44.0, 878.0, 530.0 ],
+		"rect" : [ 811.0, 240.0, 878.0, 530.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -567,8 +567,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 31.0, 54.0, 111.0, 20.0 ],
-					"text" : "SwirlyLeap hand=*"
+					"patching_rect" : [ 31.0, 54.0, 89.0, 20.0 ],
+					"text" : "SwirlyLeap -all"
 				}
 
 			}

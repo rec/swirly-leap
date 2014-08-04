@@ -3,8 +3,8 @@
 #include <swirly/leap/Config.h>
 
 #include <swirly/base/ArraySize.h>
-#include <swirly/property/MasterRepresenter.h>
-#include <swirly/property/PartRepresenterMap.h>
+#include <swirly/represent/MasterRepresenter.h>
+#include <swirly/represent/PartRepresenterMap.h>
 #include <swirly/util/Split.h>
 
 using namespace Leap;

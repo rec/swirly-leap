@@ -1,4 +1,4 @@
-#include <swirly/property/Represent.h>
+#include <swirly/represent/Represent.h>
 
 using namespace Leap;
 
@@ -6,7 +6,11 @@ namespace swirly {
 namespace leap {
 
 string to_string(bool f) {
+#ifdef USE_BOOLEANS
     return f ? "true" : "false";
+#else
+    return f ? "1" : "0";
+#endif
 }
 
 string to_string(Pointable::Zone z) {

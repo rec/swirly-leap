@@ -268,8 +268,8 @@ typedef vector<string> Representation;14,198
 std::unique_ptr<T> make_unique(22,362
 
 swirly/base/Callback.h,53
-struct Callback 9,109
-    virtual ~Callback(11,166
+struct Callback 9,107
+    virtual ~Callback(11,162
 
 swirly/base/Logger.h,74
 struct Logger 6,68
@@ -282,47 +282,41 @@ namespace leap swirly::leap13,261
 Config::Config(swirly::leap::Config::Config15,279
 Config::~Config(19,390
 void Config::addArgument(21,412
-void Config::finishArguments(38,858
-void Config::dump(44,963
-Representation Config::getHand(48,1027
-Representation Config::setHand(55,1201
+void Config::finishArguments(36,801
+void Config::dump(45,959
+Representation Config::getHand(49,1023
+Representation Config::setHand(56,1196
 
 swirly/leap/Config.h,246
 class Config 8,105
     Representation getHand(21,386
-    typedef function<void()> Callback;28,581
-    void addCallback(29,620
-    void setRunning(33,697
-    bool isRunning(40,848
-    bool isVerbose(41,896
-    void updateCallbacks(49,1058
+    typedef function<void()> Callback;28,585
+    void addCallback(29,624
+    void setRunning(33,701
+    bool isRunning(40,852
+    bool isVerbose(41,900
+    void updateCallbacks(48,1038
 
-swirly/leap/FrameHandler.cpp,337
-namespace swirly 15,295
-namespace leap swirly::leap16,314
-string to_string(swirly::leap::to_string20,345
-void addRepresentation(swirly::leap::addRepresentation23,425
-void addRepresentation(27,504
-template <typename Part,32,692
-void onFrame(33,736
-void myCallback(55,1456
-void test(57,1493
-void FrameHandler::onFrame(64,1590
+swirly/leap/FrameHandler.cpp,214
+namespace swirly 14,250
+namespace leap swirly::leap15,269
+void addRepresentation(swirly::leap::addRepresentation20,325
+void addRepresentation(23,392
+void framePart(29,605
+void FrameHandler::onFrame(54,1330
 
-swirly/leap/FrameHandler.h,185
-class FrameHandler 13,150
-    FrameHandler(15,181
-    void setOutlet(16,235
-class MaxFrameHandler 26,461
-    void handleRepresentation(MaxFrameHandler::handleRepresentation29,555
+swirly/leap/FrameHandler.h,79
+class FrameHandler 13,159
+    FrameHandler(15,190
+    void setOutlet(16,244
 
 swirly/leap/Getter.h,50
 using namespace Leap;7,73
 namespace swirly 9,96
 
 swirly/leap/LeapMotion.h,49
-struct LeapMotion 10,156
-    LeapMotion(11,176
+struct LeapMotion 10,158
+    LeapMotion(11,178
 
 swirly/leap/LeapUtil.cpp,147
 namespace swirly 4,67
@@ -358,12 +352,13 @@ swirly/leap/Listener.h,92
 class Listener 11,131
     typedef Leap::Controller Controller;Listener::Controller22,414
 
-swirly/max/Gensym.cpp,189
+swirly/max/Gensym.cpp,210
 namespace swirly 4,57
 namespace leap swirly::leap5,76
 void removeQuotes(swirly::leap::removeQuotes9,107
 unordered_map<string, t_symbol*> SYMBOLS;14,243
 t_symbol* cachedGensym(19,304
+void setAtom(29,543
 
 swirly/max/Gensym.h,37
 inline const char* getSymbol(14,210
@@ -373,6 +368,10 @@ int C74_EXPORT main(4,63
 
 swirly/max/Max.h,26
 inline void print(10,100
+
+swirly/max/MaxFrameHandler.h,82
+class MaxFrameHandler 10,149
+    void callback(MaxFrameHandler::callback14,244
 
 swirly/max/MaxObject.cpp,503
 namespace swirly 9,184
@@ -400,7 +399,7 @@ struct MaxStruct 16,240
 class MaxObject 24,423
     LeapMotion& leap(MaxObject::leap31,614
 
-swirly/property/BoxRepresenter.h,318
+swirly/represent/BoxRepresenter.h,318
 enum class Restrict 8,91
 enum class Restrict { FREE,8,91
 enum class Restrict { FREE, CLAMP 8,91
@@ -412,12 +411,12 @@ static shared_ptr<Representer<Part>> makeBox(28,649
 template <typename Part,32,790
 void addBox(33,832
 
-swirly/property/Context.h,79
+swirly/represent/Context.h,79
 using namespace Leap;7,69
 struct Context 14,144
     explicit Context(15,161
 
-swirly/property/GetterRepresenter.h,236
+swirly/represent/GetterRepresenter.h,236
 class GetterRepresenter 9,133
     GetterRepresenter(11,196
     void represent(13,256
@@ -426,7 +425,7 @@ static shared_ptr<Representer<Part>> makeRepresenter(23,494
 template <typename Part,27,632
 void addGetter(28,674
 
-swirly/property/MasterRepresenter.cpp,249
+swirly/represent/MasterRepresenter.cpp,289
 namespace swirly 4,80
 namespace leap swirly::leap5,99
 void add(swirly::leap::add10,155
@@ -434,57 +433,46 @@ MasterRepresenter::MasterRepresenter(16,327
 void MasterRepresenter::dump(26,684
 void MasterRepresenter::finish(31,811
 void MasterRepresenter::set(36,901
+void MasterRepresenter::setAll(56,1511
 
-swirly/property/MasterRepresenter.h,171
+swirly/represent/MasterRepresenter.h,171
 class MasterRepresenter 9,137
     SwitchedPartRepresenterMap<Part>* getPartMap(14,228
     void dump(21,478
-    typedef map<string, unique_ptr<SwitchArray>> Map;25,580
+    typedef map<string, unique_ptr<SwitchArray>> Map;28,630
 
-swirly/property/PartRepresenterMap.cpp,684
+swirly/represent/PartRepresenterMap.cpp,736
 namespace swirly 9,187
 namespace leap swirly::leap10,206
 bool PartRepresenterMap<Part>::addRepresenter(swirly::leap::addRepresenter13,249
-void PartRepresenterMap<Part>::dump(dump29,692
-void PartRepresenterMap<Part>::represent(represent43,1055
-PartRepresenterMap<Part> newDefault(53,1290
-const PartRepresenterMap<Part>& PartRepresenterMap<Part>::getDefault(getDefault60,1454
-#define PROP(65,1610
-#define BOX(68,1680
-void fillDefault(77,2018
-void fillDefault(92,2420
-void fillDefault(107,2820
-void fillDefault(118,3065
-void fillDefault(136,3511
-void fillDefault(146,3793
-void fillDefault(156,4073
-void fillDefault(165,4343
-#undef BOX173,4583
-#undef PROP174,4594
+void PartRepresenterMap<Part>::dump(dump29,658
+void PartRepresenterMap<Part>::describe(describe43,1021
+void PartRepresenterMap<Part>::setAll(setAll49,1183
+PartRepresenterMap<Part> newDefault(59,1374
+const PartRepresenterMap<Part>& PartRepresenterMap<Part>::getDefault(getDefault66,1538
+#define PROP(71,1694
+#define BOX(74,1764
+void fillDefault(83,2102
+void fillDefault(98,2504
+void fillDefault(113,2904
+void fillDefault(124,3149
+void fillDefault(142,3595
+void fillDefault(152,3877
+void fillDefault(162,4157
+void fillDefault(171,4427
+#undef BOX179,4667
+#undef PROP180,4678
 
-swirly/property/PartRepresenterMap.h,259
+swirly/represent/PartRepresenterMap.h,258
 class PartRepresenterMap 13,303
     typedef shared_ptr<Representer<Part>> RepPtr;15,364
     typedef map<string, RepPtr> Map;16,414
     Map& representers(18,452
     const Map& representers(19,502
     bool addRepresenter(21,565
-    void represent(24,739
+    void describe(24,739
 
-swirly/property/PropertiesToMax.cpp,223
-namespace swirly 5,67
-namespace leap swirly::leap6,86
-void set_atom(swirly::leap::set_atom8,104
-int PropertyRepresenter::represent(23,482
-template <typename Data,33,725
-template <typename Data, int MAX_ATOMS 33,725
-
-swirly/property/PropertiesToMax.h,92
-class PropertyRepresenter 10,166
-    PropertyRepresenter(12,204
-    int represent(13,285
-
-swirly/property/Represent.cpp,201
+swirly/represent/Represent.cpp,201
 namespace swirly 5,63
 namespace leap swirly::leap6,82
 string to_string(swirly::leap::to_string8,100
@@ -493,17 +481,17 @@ string to_string(20,381
 void represent(30,701
 void represent(36,827
 
-swirly/property/Represent.h,135
+swirly/represent/Represent.h,135
 using namespace Leap;7,69
 void represent(22,323
 class Representer 32,530
     virtual ~Representer(Representer::~Representer36,657
 
-swirly/property/RepresenterMap.h,65
+swirly/represent/RepresenterMap.h,65
 class RepresenterMap 10,103
     virtual ~RepresenterMap(13,193
 
-swirly/property/Switch.h,313
+swirly/represent/Switch.h,313
 class Switch 10,191
     Switch(12,216
     operator bool(19,366
@@ -515,7 +503,7 @@ class Switch 10,191
     enum Value { UNSET_SWITCH, OFF_SWITCH,34,758
     enum Value { UNSET_SWITCH, OFF_SWITCH, ON_SWITCH 34,758
 
-swirly/property/SwitchArray.cpp,294
+swirly/represent/SwitchArray.cpp,327
 namespace swirly 7,117
 namespace leap swirly::leap8,136
 SwitchArray::SwitchArray(swirly::leap::SwitchArray::SwitchArray10,154
@@ -523,24 +511,26 @@ void SwitchArray::finish(16,320
 bool SwitchArray::set(31,690
 void SwitchArray::dump(63,1323
 bool SwitchArray::any(70,1525
-void SwitchArray::represent(78,1693
+void SwitchArray::describe(78,1693
+void SwitchArray::setAll(85,1847
 
-swirly/property/SwitchArray.h,200
+swirly/represent/SwitchArray.h,199
 class SwitchArray 10,104
     SwitchArray(12,134
     virtual ~SwitchArray(14,195
     virtual void dump(18,287
     bool any(22,463
     string const& name(25,571
-    virtual void represent(28,725
+    virtual void describe(28,724
 
-swirly/property/SwitchedPartRepresenterMap.h,364
+swirly/represent/SwitchedPartRepresenterMap.h,411
 struct SwitchedPartRepresenterMap 12,229
     bool set(SwitchedPartRepresenterMap::set15,316
-    void dump(SwitchedPartRepresenterMap::dump19,444
-    bool empty(SwitchedPartRepresenterMap::empty26,666
-    void represent(SwitchedPartRepresenterMap::represent30,769
-    PartRepresenterMap<Part>& representers(SwitchedPartRepresenterMap::representers35,908
+    void dump(SwitchedPartRepresenterMap::dump19,439
+    bool empty(SwitchedPartRepresenterMap::empty26,651
+    void describe(SwitchedPartRepresenterMap::describe30,749
+    void setAll(SwitchedPartRepresenterMap::setAll35,880
+    PartRepresenterMap<Part>& partMap(SwitchedPartRepresenterMap::partMap41,975
 
 swirly/util/BoolHandling.h,125
 enum class BoolHandling 7,65

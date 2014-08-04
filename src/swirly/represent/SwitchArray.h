@@ -1,6 +1,6 @@
 #pragma once
 
-#include <swirly/property/Switch.h>
+#include <swirly/represent/Switch.h>
 
 namespace swirly {
 namespace leap {

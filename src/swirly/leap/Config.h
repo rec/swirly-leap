@@ -1,5 +1,9 @@
 #include <swirly/represent/SwitchArray.h>
 
+namespace Leap {
+class Controller;
+}
+
 namespace swirly {
 namespace leap {
 
@@ -7,7 +11,7 @@ class MasterRepresenter;
 
 class Config {
   public:
-    Config(Logger const&);
+    Config(Logger const&, Leap::Controller&);
     ~Config();
 
     static auto const VALUE_SEPARATOR = '+';
@@ -15,7 +19,7 @@ class Config {
     static auto const OPTION_PREFIX = '@';
 
     void addArgument(string const&);
-    void finishArguments();
+    void finish();
     void dump();
 
     Representation getHand() const;

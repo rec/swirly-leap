@@ -32,7 +32,7 @@ MaxObject::MaxObject(MaxStruct *maxStruct, t_symbol *s, long argc, t_atom *argv)
         else
             err("forbidden argument");
     }
-    leap_->config_.finishArguments();
+    leap_->config_.finish();
 }
 
 MaxObject::~MaxObject() {}

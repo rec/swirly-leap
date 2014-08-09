@@ -8,7 +8,7 @@
 			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 811.0, 240.0, 878.0, 530.0 ],
+		"rect" : [ 837.0, 439.0, 878.0, 530.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -77,13 +77,12 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-33",
-					"int" : 1,
 					"maxclass" : "gswitch2",
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 154.0, 50.0, 39.0, 32.0 ]
+					"patching_rect" : [ 134.0, 160.0, 39.0, 32.0 ]
 				}
 
 			}
@@ -120,7 +119,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 210.0, 58.5, 34.0, 20.0 ],
+					"patching_rect" : [ 190.0, 168.5, 34.0, 20.0 ],
 					"text" : "print"
 				}
 
@@ -567,8 +566,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 31.0, 54.0, 89.0, 20.0 ],
-					"text" : "SwirlyLeap -all"
+					"patching_rect" : [ 31.0, 54.0, 276.0, 20.0 ],
+					"text" : "SwirlyLeap swipe=* keytap=* screentap=* circle=*"
 				}
 
 			}
@@ -618,15 +617,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-33", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-1", 0 ]
@@ -693,6 +683,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-2", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-33", 1 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-2", 4 ]
 				}
 
 			}

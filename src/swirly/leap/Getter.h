@@ -19,7 +19,7 @@ inline int           getType(Tool tool)       { return 0; }
 inline Finger::Type  getType(Finger finger)   { return finger.type(); }
 inline Gesture::Type getType(Gesture gesture) { return gesture.type(); }
 
-template <typename P>   const char* partName();
+template <typename Part> const char* partName();
 
 template<> inline const char* partName<Finger>()           { return "finger"; }
 template<> inline const char* partName<Hand>()             { return "hand"; }

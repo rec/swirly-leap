@@ -12,8 +12,9 @@ using namespace Leap;
 namespace swirly {
 namespace leap {
 
-Config::Config(Logger const& logger)
-        : logger_(logger), masterRepresenter_(new MasterRepresenter) {
+Config::Config(Logger const& logger, Controller& controller)
+        : logger_(logger),
+          masterRepresenter_(new MasterRepresenter(logger, controller)) {
 }
 
 Config::~Config() {}
@@ -30,10 +31,10 @@ void Config::addArgument(const string &str) {
         return;
     }
 
-    masterRepresenter_->set(s, logger_);
+    masterRepresenter_->set(s);
 }
 
-void Config::finishArguments() {
+void Config::finish() {
     if (all_)
         masterRepresenter_->setAll();
 
@@ -43,7 +44,7 @@ void Config::finishArguments() {
 }
 
 void Config::dump() {
-    masterRepresenter_->dump(logger_);
+    masterRepresenter_->dump();
 }
 
 Representation Config::getHand() const {

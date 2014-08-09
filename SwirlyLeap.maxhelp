@@ -8,7 +8,7 @@
 			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 837.0, 439.0, 878.0, 530.0 ],
+		"rect" : [ 760.0, 379.0, 878.0, 530.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -77,6 +77,7 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-33",
+					"int" : 1,
 					"maxclass" : "gswitch2",
 					"numinlets" : 2,
 					"numoutlets" : 2,

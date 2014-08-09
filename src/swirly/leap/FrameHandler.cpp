@@ -26,6 +26,31 @@ void addRepresentation(Finger const& finger, Representation& rep) {
 }
 
 template <typename Part, typename Type>
+char const* getName(SwitchArray const& partMap, Type type) {
+    return partMap.isOn(type) ? partMap.name(type).c_str() : nullptr;
+}
+
+template <>
+char const* getName<SwipeGesture>(SwitchArray const&, Gesture::Type type) {
+    return type == Gesture::TYPE_SWIPE ? "" : nullptr;
+}
+
+template <>
+char const* getName<CircleGesture>(SwitchArray const&, Gesture::Type type) {
+    return type == Gesture::TYPE_CIRCLE ? "" : nullptr;
+}
+
+template <>
+char const* getName<KeyTapGesture>(SwitchArray const&, Gesture::Type type) {
+    return type == Gesture::TYPE_KEY_TAP ? "" : nullptr;
+}
+
+template <>
+char const* getName<ScreenTapGesture>(SwitchArray const&, Gesture::Type type) {
+    return type == Gesture::TYPE_SCREEN_TAP ? "" : nullptr;
+}
+
+template <typename Part, typename Type>
 bool accept(SwitchArray const& partMap, Type type) {
     return partMap.isOn(type);
 }
@@ -82,22 +107,20 @@ void framePart(Context const& context,
         return;
 
     auto const& partList = getPartList(context.frame_, Part());
-
     for (auto const& part: partList) {
         doPrint<Part>(context, "here");
         auto type = getType(part);
-        if (not accept<Part>(*partMap, type))
-            continue;
-        doPrint<Part>(context, "YES!");
-
-        auto name = partMap->name(type);
-        for (auto const& r: partMap->partMap().representers()) {
-            Representation rep{partName<Part>()};
-            addRepresentation(part, rep);
-            rep.push_back(name);
-            rep.push_back(r.first);
-            r.second->represent(rep, part, context);
-            handler.callback(rep);
+        if (auto name = getName<Part>(*partMap, type)) {
+            doPrint<Part>(context, "YES!");
+            for (auto const& r: partMap->partMap().representers()) {
+                Representation rep{partName<Part>()};
+                addRepresentation(part, rep);
+                if (name[0])
+                    rep.push_back(name);
+                rep.push_back(r.first);
+                r.second->represent(rep, part, context);
+                handler.callback(rep);
+            }
         }
     }
 }

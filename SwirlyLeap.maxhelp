@@ -208,7 +208,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 642.0, 289.0, 77.0, 18.0 ],
-					"text" : "hovering"
+					"text" : "none"
 				}
 
 			}
@@ -567,8 +567,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 31.0, 54.0, 276.0, 20.0 ],
-					"text" : "SwirlyLeap swipe=* keytap=* screentap=* circle=*"
+					"patching_rect" : [ 31.0, 54.0, 114.0, 20.0 ],
+					"text" : "SwirlyLeap finger=*"
 				}
 
 			}

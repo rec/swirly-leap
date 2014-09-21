@@ -11,9 +11,9 @@ Listener::Listener(
     Config& config,
     FrameHandler& frameHandler,
     Controller& controller)
-        : config_(config),
-          frameHandler_(frameHandler),
-          controller_(controller) {
+        : controller_(controller),
+          config_(config),
+          frameHandler_(frameHandler) {
     config_.addCallback(bind(&Listener::configCallback, this));
 }
 

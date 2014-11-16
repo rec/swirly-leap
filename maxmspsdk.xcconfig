@@ -16,7 +16,7 @@ ARCHS = i386 x86_64
 
 
 // Paths
-DEVELOPMENT_ROOT = $(SRCROOT)/../MaxSDK/
+DEVELOPMENT_ROOT = $(SRCROOT)/max6-sdk/
 C74SUPPORT = $(DEVELOPMENT_ROOT)/c74support
 HEADER_SEARCH_PATHS = "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes"
 FRAMEWORK_SEARCH_PATHS = "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes"

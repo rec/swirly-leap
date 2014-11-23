@@ -3,10 +3,13 @@
 #include <swirly/leap/FrameHandler.h>
 #include <swirly/max/Max.h>
 #include <swirly/max/Gensym.h>
+#include <swirly/max/Message.h>
 
 extern "C" {
 #include "ext_critical.h"
 }
+
+#include <mutex>
 
 namespace swirly {
 namespace leap {
@@ -15,19 +18,40 @@ class MaxFrameHandler : public FrameHandler {
   public:
     using FrameHandler::FrameHandler;
 
-    void callback(Representation const& rep) override {
-        auto atomSize = rep.size() - 1;
-        for (int i = 0; i < atomSize; ++i)
-            setAtom(&atoms_[i], rep[i + 1]);
-        auto sym = cachedGensym(rep[0]);
-        critical_enter(0);
-        outlet_anything(outlet_, sym, atomSize, atoms_);
-        critical_exit(0);
+    function <void()> afterFrameEnd;
+
+    void frameCallback(Representation const& rep) override {
+        messages_.push_back(makeMessage(rep));
+    }
+
+    void frameStart() override {
+        messages_.clear();
+        frameCallback({"framestart"});
+    }
+
+    void frameEnd() override {
+        frameCallback({"framend"});
+        {
+            lock_guard <mutex> lock (mutex_);
+            messages_.swap(nextMessages_);
+        }
+
+        afterFrameEnd();
+    }
+
+    void outputMessages() {
+        Messages messages;
+        {
+            lock_guard <mutex> lock (mutex_);
+            messages.swap(nextMessages_);
+        }
+        for (auto& m: messages)
+            m.send (outlet_);
     }
 
   private:
-    static const int MAXIMUM_OUTPUT_SYMBOLS = 16;
-    t_atom atoms_[MAXIMUM_OUTPUT_SYMBOLS];
+    mutex mutex_;
+    Messages messages_, nextMessages_;
 };
 
 }  // namespace leap

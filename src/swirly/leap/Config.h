@@ -30,6 +30,7 @@ class Config {
     MasterRepresenter const& representers() const { return *masterRepresenter_; }
 
     typedef function<void()> Callback;
+
     void addCallback(Callback cb) {
         callbacks_.push_back(cb);
     }

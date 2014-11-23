@@ -15,6 +15,8 @@ class FrameHandler : public Callback<Representation const&> {
     FrameHandler(Config& config) : config_(config) { }
     void setOutlet(void* outlet) { outlet_ = outlet; }
     void onFrame(Leap::Frame const&);
+    virtual void frameStart() = 0;
+    virtual void frameEnd() = 0;
     virtual void callback(Representation const&) = 0;
 
   protected:

@@ -88,7 +88,7 @@ void FrameHandler::onFrame(Frame const& frame) {
 
     Context context(frame, config_);
 
-    callback({"framestart"});
+    frameStart();
 
     framePart<Finger>(context, *this);
     framePart<Hand>(context, *this);
@@ -99,7 +99,7 @@ void FrameHandler::onFrame(Frame const& frame) {
     framePart<ScreenTapGesture>(context, *this);
     framePart<SwipeGesture>(context, *this);
 
-    callback({"frameend"});
+    frameEnd();
 }
 
 }  // namespace leap

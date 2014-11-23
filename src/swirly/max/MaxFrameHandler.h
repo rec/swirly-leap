@@ -25,6 +25,14 @@ class MaxFrameHandler : public FrameHandler {
         critical_exit(0);
     }
 
+    void frameStart() override {
+        callback({"framestart"});
+    }
+
+    void frameEnd() override {
+        callback({"framend"});
+    }
+
   private:
     static const int MAXIMUM_OUTPUT_SYMBOLS = 16;
     t_atom atoms_[MAXIMUM_OUTPUT_SYMBOLS];

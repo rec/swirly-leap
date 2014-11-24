@@ -9,6 +9,8 @@ extern "C" {
 #include "ext_critical.h"
 }
 
+#include <mutex>
+
 namespace swirly {
 namespace leap {
 
@@ -21,20 +23,36 @@ class MaxFrameHandler : public FrameHandler {
     }
 
     void frameStart() override {
+        messages_.clear();
         frameCallback({"framestart"});
     }
 
     void frameEnd() override {
         frameCallback({"framend"});
-        for (auto& m: messages_) {
+        {
+            lock_guard <mutex> lock (mutex_);
+            messages_.swap(nextMessages_);
+        }
+
+        outputMessages();
+    }
+
+    void outputMessages() {
+        Messages messages;
+        {
+            lock_guard <mutex> lock (mutex_);
+            messages.swap(nextMessages_);
+        }
+        for (auto& m: messages) {
             critical_enter (0);
             m.send (outlet_);
             critical_exit (0);
         }
-        messages_.clear();
     }
 
-    Messages messages_;
+  private:
+    mutex mutex_;
+    Messages messages_, nextMessages_;
 };
 
 }  // namespace leap

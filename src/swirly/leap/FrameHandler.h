@@ -16,7 +16,7 @@ class FrameHandler {
     void onFrame(Leap::Frame const&);
     virtual void frameStart() = 0;
     virtual void frameEnd() = 0;
-    virtual void callback(Representation const&) = 0;
+    virtual void frameCallback(Representation const&) = 0;
 
   protected:
     Config& config_;

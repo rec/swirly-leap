@@ -89,7 +89,7 @@ void FrameHandler::onFrame(Frame const& frame) {
 
     frameStart();
 
-    auto cb = [this] (Representation const& rep) { callback (rep); };
+    auto cb = [this] (Representation const& rep) { frameCallback (rep); };
 
     framePart<Finger>(context, cb);
     framePart<Hand>(context, cb);

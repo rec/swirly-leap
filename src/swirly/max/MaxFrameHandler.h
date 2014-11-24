@@ -16,16 +16,16 @@ class MaxFrameHandler : public FrameHandler {
   public:
     using FrameHandler::FrameHandler;
 
-    void callback(Representation const& rep) override {
+    void frameCallback(Representation const& rep) override {
         makeMessage(rep).send(outlet_);
     }
 
     void frameStart() override {
-        callback({"framestart"});
+        frameCallback({"framestart"});
     }
 
     void frameEnd() override {
-        callback({"framend"});
+        frameCallback({"framend"});
     }
 };
 

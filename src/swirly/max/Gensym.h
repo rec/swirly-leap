@@ -15,7 +15,6 @@ inline const char* getSymbol(t_atom* atom) {
     return atom_getsym(atom)->s_name;
 }
 
-void setAtom(t_atom* atom, string const& name);
 void outletRepresentation(void* outlet, Representation const&);
 
 }  // namespace leap

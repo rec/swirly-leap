@@ -3,6 +3,7 @@
 #include <swirly/leap/FrameHandler.h>
 #include <swirly/max/Max.h>
 #include <swirly/max/Gensym.h>
+#include <swirly/max/Message.h>
 
 extern "C" {
 #include "ext_critical.h"

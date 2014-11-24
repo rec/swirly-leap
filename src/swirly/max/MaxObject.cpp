@@ -57,16 +57,26 @@ void MaxObject::setRunning(bool isRunning) {
     leap_->config_.setRunning(isRunning);
 }
 
+void MaxObject::startClock() {
+    clock_delay(maxStruct_->clock_, 0);
+}
+
 namespace {
 
 void maxDelete(MaxStruct *max) {
     delete max->maxObject_;
 }
 
+void clockCallback(MaxStruct *max) {
+    max->maxObject_->clockCallback();
+}
+
 void* maxNew(t_symbol *s, long argc, t_atom *argv) {
     MaxStruct* max = (MaxStruct*) object_alloc(CLASS_POINTER);
-    if (max)
+    if (max) {
         max->maxObject_ = new MaxObject(max, s, argc, argv);
+        max->clock_ = clock_new(max, (method) clockCallback);
+    }
     return max;
 }
 

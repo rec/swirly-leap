@@ -18,6 +18,7 @@ struct MaxStruct {
     MaxObject *maxObject_;
     t_symbol hands_[MAX_PROPERTIES];
     long numHands_;
+    void* clock_;
 };
 
 // This is the C++ class contained in this structure.
@@ -29,6 +30,8 @@ class MaxObject : public Logger{
     void bang();
     void setRunning(bool isRunning);
     LeapMotion& leap() { return *leap_; }
+    void startClock();
+    function <void()> clockCallback;
 
   private:
     void log(string const& message) const override;

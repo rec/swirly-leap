@@ -1,6 +1,5 @@
 #include <swirly/max/MaxObject.h>
 
-#include <swirly/base/Callback.h>
 #include <leapMotion.h>
 #include <swirly/max/Gensym.h>
 #include <swirly/max/Max.h>

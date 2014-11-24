@@ -55,9 +55,8 @@ char const* getName<ScreenTapGesture>(SwitchArray const&, Gesture::Type type) {
     return type == Gesture::TYPE_SCREEN_TAP ? "" : nullptr;
 }
 
-template <typename Part>
-void framePart(Context const& context,
-               Callback<Representation const&>& handler) {
+template <typename Part, typename Callback>
+void framePart(Context const& context, Callback callback) {
     if (auto partMap = context.config_.representers().getPartMap<Part>()) {
         auto const& partList = getPartList(context.frame_, Part());
         for (auto const& part: partList) {
@@ -70,7 +69,7 @@ void framePart(Context const& context,
                         rep.push_back(name);
                     rep.push_back(r.first);
                     r.second->represent(rep, part, context);
-                    handler.callback(rep);
+                    callback(rep);
                 }
             }
         }
@@ -90,14 +89,16 @@ void FrameHandler::onFrame(Frame const& frame) {
 
     frameStart();
 
-    framePart<Finger>(context, *this);
-    framePart<Hand>(context, *this);
-    framePart<Tool>(context, *this);
+    auto cb = [this] (Representation const& rep) { callback (rep); };
 
-    framePart<CircleGesture>(context, *this);
-    framePart<KeyTapGesture>(context, *this);
-    framePart<ScreenTapGesture>(context, *this);
-    framePart<SwipeGesture>(context, *this);
+    framePart<Finger>(context, cb);
+    framePart<Hand>(context, cb);
+    framePart<Tool>(context, cb);
+
+    framePart<CircleGesture>(context, cb);
+    framePart<KeyTapGesture>(context, cb);
+    framePart<ScreenTapGesture>(context, cb);
+    framePart<SwipeGesture>(context, cb);
 
     frameEnd();
 }

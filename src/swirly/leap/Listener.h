@@ -1,6 +1,5 @@
+#include <swirly/base/Base.h>
 #include <leap/Leap.h>
-
-#include <swirly/base/Callback.h>
 
 namespace swirly {
 namespace leap {

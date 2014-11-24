@@ -13,7 +13,6 @@
 		E2BD5FBE193A3C8500880150 /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2BD5FBB193A3BB500880150 /* libLeap.dylib */; };
 		E2E2B89B1968BC650047C7F8 /* ArraySize.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8721968BC650047C7F8 /* ArraySize.h */; };
 		E2E2B89C1968BC650047C7F8 /* Base.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8731968BC650047C7F8 /* Base.h */; };
-		E2E2B89D1968BC650047C7F8 /* Callback.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8741968BC650047C7F8 /* Callback.h */; };
 		E2E2B89E1968BC650047C7F8 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8751968BC650047C7F8 /* Logger.h */; };
 		E2E2B89F1968BC650047C7F8 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2E2B8771968BC650047C7F8 /* Config.cpp */; };
 		E2E2B8A01968BC650047C7F8 /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8781968BC650047C7F8 /* Config.h */; };
@@ -73,7 +72,6 @@
 		E2BD5FBB193A3BB500880150 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = leap/libLeap.dylib; sourceTree = "<group>"; };
 		E2E2B8721968BC650047C7F8 /* ArraySize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArraySize.h; sourceTree = "<group>"; };
 		E2E2B8731968BC650047C7F8 /* Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
-		E2E2B8741968BC650047C7F8 /* Callback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Callback.h; sourceTree = "<group>"; };
 		E2E2B8751968BC650047C7F8 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		E2E2B8771968BC650047C7F8 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
 		E2E2B8781968BC650047C7F8 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 			children = (
 				E2E2B8721968BC650047C7F8 /* ArraySize.h */,
 				E2E2B8731968BC650047C7F8 /* Base.h */,
-				E2E2B8741968BC650047C7F8 /* Callback.h */,
 				E2E2B8751968BC650047C7F8 /* Logger.h */,
 			);
 			path = base;
@@ -278,7 +275,6 @@
 				E2E2B89E1968BC650047C7F8 /* Logger.h in Headers */,
 				E2FA4B96198EE7F7007CD5DA /* Represent.h in Headers */,
 				E2FA4B97198EE7F7007CD5DA /* RepresenterMap.h in Headers */,
-				E2E2B89D1968BC650047C7F8 /* Callback.h in Headers */,
 				E2E2B8BA1968BC650047C7F8 /* Concat.h in Headers */,
 				E2FA4B98198EE7F7007CD5DA /* Switch.h in Headers */,
 				E2E2B8A91968BC650047C7F8 /* Gensym.h in Headers */,

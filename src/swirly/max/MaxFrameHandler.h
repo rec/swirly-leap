@@ -17,7 +17,7 @@ class MaxFrameHandler : public FrameHandler {
     using FrameHandler::FrameHandler;
 
     void frameCallback(Representation const& rep) override {
-        makeMessage(rep).send(outlet_);
+        messages_.push_back(makeMessage(rep));
     }
 
     void frameStart() override {
@@ -26,7 +26,15 @@ class MaxFrameHandler : public FrameHandler {
 
     void frameEnd() override {
         frameCallback({"framend"});
+        for (auto& m: messages_) {
+            critical_enter (0);
+            m.send (outlet_);
+            critical_exit (0);
+        }
+        messages_.clear();
     }
+
+    Messages messages_;
 };
 
 }  // namespace leap

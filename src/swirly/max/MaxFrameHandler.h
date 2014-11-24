@@ -17,13 +17,7 @@ class MaxFrameHandler : public FrameHandler {
     using FrameHandler::FrameHandler;
 
     void callback(Representation const& rep) override {
-        auto atomSize = rep.size() - 1;
-        for (int i = 0; i < atomSize; ++i)
-            setAtom(&atoms_[i], rep[i + 1]);
-        auto sym = cachedGensym(rep[0]);
-        critical_enter(0);
-        outlet_anything(outlet_, sym, atomSize, atoms_);
-        critical_exit(0);
+        makeMessage(rep).send(outlet_);
     }
 
     void frameStart() override {
@@ -33,10 +27,6 @@ class MaxFrameHandler : public FrameHandler {
     void frameEnd() override {
         callback({"framend"});
     }
-
-  private:
-    static const int MAXIMUM_OUTPUT_SYMBOLS = 16;
-    t_atom atoms_[MAXIMUM_OUTPUT_SYMBOLS];
 };
 
 }  // namespace leap

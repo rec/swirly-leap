@@ -20,7 +20,7 @@ void setAtom(t_atom* atom, string const& name) {
     setSymbol(atom, name);
 }
 
-Message makeMessage(Representation& rep) {
+Message makeMessage(Representation const& rep) {
     auto atomSize = rep.size() - 1;
     Message::Atoms atoms(atomSize);
     for (int i = 0; i < atomSize; ++i)

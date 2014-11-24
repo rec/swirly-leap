@@ -20,7 +20,7 @@ struct Message {
 
 using Messages = vector<Message>;
 
-Message makeMessage(Representation&);
+Message makeMessage(Representation const&);
 
 }  // namespace leap
 }  // namespace swirly

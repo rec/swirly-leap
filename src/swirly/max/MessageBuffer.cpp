@@ -33,5 +33,9 @@ unique_ptr<MessageBuffer> makeListBuffer()
     return make_unique<ListBuffer>();
 }
 
+unique_ptr<MessageBuffer> makeDictionaryBuffer() {
+    return {};
+}
+
 }  // namespace leap
 }  // namespace swirly

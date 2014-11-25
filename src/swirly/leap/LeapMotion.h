@@ -14,7 +14,7 @@ struct LeapMotion {
               frameHandler_(config_),
               listener_(config_, frameHandler_, controller_) {
         frameHandler_.afterFrameEnd = [&] () { maxObject.startClock(); };
-        maxObject.clockCallback = [this] () { frameHandler_.outputMessages(); };
+        maxObject.clockCallback = [this] () { frameHandler_.send(); };
     }
 
     Leap::Controller controller_;

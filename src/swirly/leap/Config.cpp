@@ -24,6 +24,8 @@ void Config::addArgument(const string &str) {
     if (s[0] == FLAG_PREFIX) {
         if (s == "-verbose")
             verbose_ = true;
+        else if (s == "-dict")
+            useDict_ = true;
         else if (s == "-all")
             all_ = true;
         else

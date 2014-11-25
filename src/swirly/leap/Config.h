@@ -44,11 +44,13 @@ class Config {
 
     bool isRunning() const { return running_; }
     bool isVerbose() const { return verbose_; }
+    bool isUsingDict() const { return useDict_; }
 
   private:
     bool all_ = false;
     bool verbose_ = false;
     bool running_ = false;
+    bool useDict_ = false;
 
     void updateCallbacks() {
         for (auto& cb: callbacks_)

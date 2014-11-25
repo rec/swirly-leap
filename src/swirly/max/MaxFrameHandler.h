@@ -4,6 +4,7 @@
 #include <swirly/max/Max.h>
 #include <swirly/max/Gensym.h>
 #include <swirly/max/Message.h>
+#include <swirly/max/MessageBuffer.h>
 
 extern "C" {
 #include "ext_critical.h"
@@ -21,11 +22,11 @@ class MaxFrameHandler : public FrameHandler {
     function <void()> afterFrameEnd;
 
     void frameCallback(Representation const& rep) override {
-        messages_.push_back(makeMessage(rep));
+        messages_->add(rep);
     }
 
     void frameStart() override {
-        messages_.clear();
+        messages_->clear();
         frameCallback({"framestart"});
     }
 
@@ -33,25 +34,26 @@ class MaxFrameHandler : public FrameHandler {
         frameCallback({"framend"});
         {
             lock_guard <mutex> lock (mutex_);
-            messages_.swap(nextMessages_);
+            nextMessages_.swap(messages_);
         }
 
         afterFrameEnd();
     }
 
     void outputMessages() {
-        Messages messages;
         {
             lock_guard <mutex> lock (mutex_);
-            messages.swap(nextMessages_);
+            nextMessages_.swap(outletMessages_);
         }
-        for (auto& m: messages)
-            m.send (outlet_);
+        outletMessages_->send (outlet_);
     }
 
   private:
     mutex mutex_;
-    Messages messages_, nextMessages_;
+
+    unique_ptr<MessageBuffer> messages_ = makeListBuffer();
+    unique_ptr<MessageBuffer> nextMessages_ = makeListBuffer();
+    unique_ptr<MessageBuffer> outletMessages_ = makeListBuffer();
 };
 
 }  // namespace leap

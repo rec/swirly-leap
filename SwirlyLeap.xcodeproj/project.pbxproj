@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E29AF1CE1A23CB6900E4D24D /* Message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E29AF1CC1A23CB6900E4D24D /* Message.cpp */; };
 		E29AF1CF1A23CB6900E4D24D /* Message.h in Headers */ = {isa = PBXBuildFile; fileRef = E29AF1CD1A23CB6900E4D24D /* Message.h */; };
+		E29AF1D21A24296C00E4D24D /* MessageBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = E29AF1D01A24296C00E4D24D /* MessageBuffer.h */; };
+		E29AF1D31A24296C00E4D24D /* MessageBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E29AF1D11A24296C00E4D24D /* MessageBuffer.cpp */; };
 		E2BD5FBC193A3BB500880150 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BD5FBB193A3BB500880150 /* libLeap.dylib */; };
 		E2BD5FBE193A3C8500880150 /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E2BD5FBB193A3BB500880150 /* libLeap.dylib */; };
 		E2E2B89B1968BC650047C7F8 /* ArraySize.h in Headers */ = {isa = PBXBuildFile; fileRef = E2E2B8721968BC650047C7F8 /* ArraySize.h */; };
@@ -69,6 +71,8 @@
 		2FBBEAE508F335360078DB84 /* SwirlyLeap.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwirlyLeap.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29AF1CC1A23CB6900E4D24D /* Message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Message.cpp; sourceTree = "<group>"; };
 		E29AF1CD1A23CB6900E4D24D /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		E29AF1D01A24296C00E4D24D /* MessageBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBuffer.h; sourceTree = "<group>"; };
+		E29AF1D11A24296C00E4D24D /* MessageBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MessageBuffer.cpp; sourceTree = "<group>"; };
 		E2BD5FBB193A3BB500880150 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = leap/libLeap.dylib; sourceTree = "<group>"; };
 		E2E2B8721968BC650047C7F8 /* ArraySize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArraySize.h; sourceTree = "<group>"; };
 		E2E2B8731968BC650047C7F8 /* Base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
@@ -195,10 +199,12 @@
 				E2E2B8821968BC650047C7F8 /* Gensym.h */,
 				E2E2B8831968BC650047C7F8 /* Main.cpp */,
 				E2E2B8841968BC650047C7F8 /* Max.h */,
-				E29AF1CC1A23CB6900E4D24D /* Message.cpp */,
-				E29AF1CD1A23CB6900E4D24D /* Message.h */,
 				E2E2B8851968BC650047C7F8 /* MaxObject.cpp */,
 				E2E2B8861968BC650047C7F8 /* MaxObject.h */,
+				E29AF1CC1A23CB6900E4D24D /* Message.cpp */,
+				E29AF1CD1A23CB6900E4D24D /* Message.h */,
+				E29AF1D01A24296C00E4D24D /* MessageBuffer.h */,
+				E29AF1D11A24296C00E4D24D /* MessageBuffer.cpp */,
 			);
 			path = max;
 			sourceTree = "<group>";
@@ -268,6 +274,7 @@
 				E2E2B89B1968BC650047C7F8 /* ArraySize.h in Headers */,
 				E2FA4B9A198EE7F7007CD5DA /* SwitchArray.h in Headers */,
 				E2E2B8AD1968BC650047C7F8 /* MaxObject.h in Headers */,
+				E29AF1D21A24296C00E4D24D /* MessageBuffer.h in Headers */,
 				E2E2B8BE1968BC650047C7F8 /* LeapMath.h in Headers */,
 				E2E2B8BD1968BC650047C7F8 /* Leap.h in Headers */,
 				E2E2B89C1968BC650047C7F8 /* Base.h in Headers */,
@@ -355,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2E2B8AA1968BC650047C7F8 /* Main.cpp in Sources */,
+				E29AF1D31A24296C00E4D24D /* MessageBuffer.cpp in Sources */,
 				E2E2B8A81968BC650047C7F8 /* Gensym.cpp in Sources */,
 				E2E2B8BB1968BC650047C7F8 /* Split.cpp in Sources */,
 				E29AF1CE1A23CB6900E4D24D /* Message.cpp in Sources */,

@@ -1,3 +1,4 @@
+#pragma once
 #include <swirly/represent/Represent.h>
 
 namespace Leap {
@@ -11,7 +12,7 @@ class Config;
 
 class FrameHandler {
   public:
-    FrameHandler(Config& config) : config_(config) { }
+    FrameHandler(Config& config) : config_(config) {}
     void setOutlet(void* outlet) { outlet_ = outlet; }
     void onFrame(Leap::Frame const&);
     virtual void frameStart() = 0;

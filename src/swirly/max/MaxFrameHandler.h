@@ -18,6 +18,8 @@ class MaxFrameHandler : public FrameHandler {
   public:
     using FrameHandler::FrameHandler;
 
+    function <void()> afterFrameEnd;
+
     void frameCallback(Representation const& rep) override {
         messages_.push_back(makeMessage(rep));
     }
@@ -34,7 +36,7 @@ class MaxFrameHandler : public FrameHandler {
             messages_.swap(nextMessages_);
         }
 
-        outputMessages();
+        afterFrameEnd();
     }
 
     void outputMessages() {
@@ -43,11 +45,8 @@ class MaxFrameHandler : public FrameHandler {
             lock_guard <mutex> lock (mutex_);
             messages.swap(nextMessages_);
         }
-        for (auto& m: messages) {
-            critical_enter (0);
+        for (auto& m: messages)
             m.send (outlet_);
-            critical_exit (0);
-        }
     }
 
   private:

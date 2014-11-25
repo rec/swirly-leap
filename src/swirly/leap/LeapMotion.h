@@ -2,16 +2,19 @@
 
 #include <swirly/leap/Config.h>
 #include <swirly/max/MaxFrameHandler.h>
+#include <swirly/max/MaxObject.h>
 #include <swirly/leap/Listener.h>
 
 namespace swirly {
 namespace leap {
 
 struct LeapMotion {
-    LeapMotion(Logger const& logger)
-            : config_(logger, controller_),
+    LeapMotion(MaxObject& maxObject)
+            : config_(maxObject, controller_),
               frameHandler_(config_),
               listener_(config_, frameHandler_, controller_) {
+        frameHandler_.afterFrameEnd = [&] () { maxObject.startClock(); };
+        maxObject.clockCallback = [this] () { frameHandler_.outputMessages(); };
     }
 
     Leap::Controller controller_;

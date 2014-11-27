@@ -1,32 +1,9 @@
 #include <swirly/max/MessageBuffer.h>
-#include <swirly/max/Message.h>
+#include <swirly/max/DictBuffer.h>
+#include <swirly/max/ListBuffer.h>
 
 namespace swirly {
 namespace leap {
-
-namespace {
-
-struct ListBuffer : public MessageBuffer {
-    void clear() override
-    {
-        messages.clear();
-    }
-
-    void add(Representation const& rep) override
-    {
-        messages.push_back(makeMessage(rep));
-    }
-
-    void send(void* outlet) override
-    {
-        for (auto& m: messages)
-            m.send (outlet);
-    }
-
-    Messages messages;
-};
-
-} // namespace
 
 unique_ptr<MessageBuffer> makeListBuffer()
 {
